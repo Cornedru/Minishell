@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 21:11:13 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/05/22 02:19:38 by ndehmej          ###   ########.fr       */
+/*   Updated: 2024/10/29 05:54:47 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,5 @@ char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_atoi(const char *str);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
-char	*ft_strsub(char const *s, unsigned int start, size_t len);
-void	*ft_realloc(void *ptr, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	**ft_split(char const *s, char c);
-char	*ft_itoa(int n);
-int		ft_strcmp(const char *s1, const char *s2);
-void	ft_free_split(char **split);
 
 #endif

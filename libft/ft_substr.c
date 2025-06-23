@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ndehmej <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 01:37:14 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/05/23 23:30:34 by ndehmej          ###   ########.fr       */
+/*   Updated: 2024/10/29 04:51:06 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,18 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	new_s[j] = '\0';
 	return (new_s);
 }
-// int	main()
-// {
-// 	char str[] = "Bonojur je suis nail";
-// 	char *sub;
+/*
+int	main()
+{
+	char str[] = "Bonojur";
+	char *sub;
 
-// 	sub = ft_substr(str, 8, 7);
-// 	if (sub)
-// 	{
-// 		printf("substr: %s\n", sub);
-// 		free(sub);
-// 	}
-// 	return (0);
-// }
+	sub = ft_substr(str, 0, size);
+	if (sub)
+	{
+		printf("substr: %s\n", sub);
+		free(sub);
+	}
+	return (0);
+}
+*/
