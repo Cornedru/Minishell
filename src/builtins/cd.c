@@ -6,13 +6,13 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/23 22:52:08 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/23 23:01:50 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_home_path(t_shell *shell)
+char	*get_home_path(t_shell *shell)
 {
 	char	*home;
 
@@ -25,7 +25,7 @@ static char	*get_home_path(t_shell *shell)
 	return (home);
 }
 
-static char	*get_oldpwd_path(t_shell *shell)
+char	*get_oldpwd_path(t_shell *shell)
 {
 	char	*oldpwd;
 

@@ -6,13 +6,13 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/23 22:51:44 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/23 23:02:31 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_cd_path(char **argv, t_shell *shell)
+ char	*get_cd_path(char **argv, t_shell *shell)
 {
 	if (!argv[1])
 		return (get_home_path(shell));
