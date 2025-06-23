@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_free_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/23 22:52:18 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/23 22:55:00 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
+#include <stdlib.h>
 
-int	builtin_pwd(void)
+void	ft_free_split(char **split)
 {
-	char	*cwd;
+	int	i;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
 	{
-		perror("pwd");
-		return (1);
+		free(split[i]);
+		i++;
 	}
-	printf("%s\n", cwd);
-	free(cwd);
-	return (0);
+	free(split);
 }

@@ -8,7 +8,6 @@ LIBFTDIR = libft
 SRCDIR   = src
 
 SOURCES = main.c \
-		  $(SRCDIR)/main.c \
 		  $(SRCDIR)/builtins/builtin_handler.c \
 		  $(SRCDIR)/builtins/cd.c \
 		  $(SRCDIR)/builtins/cd_utils.c \

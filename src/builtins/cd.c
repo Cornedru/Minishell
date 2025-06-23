@@ -6,9 +6,11 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/23 22:48:27 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/23 22:52:08 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 static char	*get_home_path(t_shell *shell)
 {

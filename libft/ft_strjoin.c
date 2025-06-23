@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/23 22:52:18 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/23 22:54:22 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
+#include <stdlib.h>
 
-int	builtin_pwd(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*cwd;
+	char	*result;
+	size_t	len1;
+	size_t	len2;
+	size_t	i;
+	size_t	j;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	result = malloc(sizeof(char) * (len1 + len2 + 1));
+	if (!result)
+		return (NULL);
+	i = 0;
+	while (i < len1)
 	{
-		perror("pwd");
-		return (1);
+		result[i] = s1[i];
+		i++;
 	}
-	printf("%s\n", cwd);
-	free(cwd);
-	return (0);
+	j = 0;
+	while (j < len2)
+		result[i++] = s2[j++];
+	result[i] = '\0';
+	return (result);
 }

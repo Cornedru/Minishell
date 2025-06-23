@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 21:11:13 by ndehmej           #+#    #+#             */
-/*   Updated: 2024/10/29 05:54:47 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/23 22:53:49 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,12 @@ char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_atoi(const char *str);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
+
+/* Fonctions supplémentaires nécessaires pour minishell */
+int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	**ft_split(char const *s, char c);
+char	*ft_itoa(int n);
+void	ft_free_split(char **split);
 
 #endif
