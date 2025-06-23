@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
+/*   Updated: 2025/06/23 22:33:21 by ndehmej          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/* ========== INCLUDES ========== */
 # include "libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -16,21 +27,14 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-/* ========== CONSTANTS ========== */
 # define PROMPT "minishell$ "
-
-/* Signal status codes */
 # define SIG_NONE 0
 # define SIG_INTERRUPT 1
 # define SIG_QUIT 2
 # define SIG_EOF 3
 
-/* ========== GLOBAL VARIABLE ========== */
-extern volatile sig_atomic_t	g_signal_status;
+volatile sig_atomic_t	g_signal_status;
 
-/* ========== ENUMS ========== */
-
-/* Token types */
 typedef enum e_token_type
 {
 	TOKEN_WORD,
@@ -42,9 +46,8 @@ typedef enum e_token_type
 	TOKEN_AND,
 	TOKEN_OR,
 	TOKEN_EOF
-}								t_token_type;
+}	t_token_type;
 
-/* AST node types */
 typedef enum e_ast_type
 {
 	AST_COMMAND,
@@ -52,71 +55,51 @@ typedef enum e_ast_type
 	AST_AND,
 	AST_OR,
 	AST_SUBSHELL
-}								t_ast_type;
+}	t_ast_type;
 
-/* ========== STRUCTURES ========== */
-
-/* Token structure */
 typedef struct s_token
 {
-	t_token_type				type;
-	char						*value;
-	struct s_token				*next;
-}								t_token;
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+}	t_token;
 
-/* AST node structure */
 typedef struct s_ast
 {
-	t_ast_type					type;
-	char						**argv;
-	struct s_ast				*left;
-	struct s_ast				*right;
-}								t_ast;
+	t_ast_type		type;
+	char			**argv;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}	t_ast;
 
-/* Environment variable structure */
 typedef struct s_env
 {
-	char						*key;
-	char						*value;
-	int							exported;
-	struct s_env				*next;
-}								t_env;
+	char			*key;
+	char			*value;
+	int				exported;
+	struct s_env	*next;
+}	t_env;
 
-/* Main shell structure */
 typedef struct s_shell
 {
-	t_env						*env;
-	int							last_status;
-	int							interactive;
-	char						*cwd;
-}								t_shell;
+	t_env			*env;
+	int				last_status;
+	int				interactive;
+	char			*cwd;
+}	t_shell;
 
-/* ========== FUNCTION PROTOTYPES ========== */
-
-/* Parser functions */
-t_token							*lexer(char *input);
-t_ast							*parse(t_token **tokens);
-void							free_tokens(t_token *tokens);
-void							free_ast(t_ast *ast);
-void							expand_tokens(t_token *tokens, t_shell *shell);
-int								check_quotes(char *line);
-
-/* Executor functions */
-int								execute_command(t_ast *ast, t_shell *shell);
-int								execute_pipeline(t_ast *ast, t_shell *shell);
-
-/* Signal functions */
-int								check_signal_status(void);
-
-/* Builtin functions */
-int								is_builtin(char *cmd);
-
-/* Environment functions */
-char							*get_env_value(char *key, t_shell *shell);
-void							set_env_value(char *key, char *value,
-									t_shell *shell);
-
-/* Utils */
-void							cleanup_shell(t_shell *shell);
+t_token		*lexer(char *input);
+t_ast		*parse(t_token **tokens);
+void		free_tokens(t_token *tokens);
+void		free_ast(t_ast *ast);
+void		expand_tokens(t_token *tokens, t_shell *shell);
+int			check_quotes(char *line);
+int			execute_command(t_ast *ast, t_shell *shell);
+int			execute_pipeline(t_ast *ast, t_shell *shell);
+int			check_signal_status(void);
+int			is_builtin(char *cmd);
+char		*get_env_value(char *key, t_shell *shell);
+void		set_env_value(char *key, char *value, t_shell *shell);
+void		cleanup_shell(t_shell *shell);
 
 #endif

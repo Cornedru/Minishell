@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
+/*   Updated: 2025/06/23 22:35:30 by ndehmej          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	is_operator(char c)
@@ -23,12 +35,13 @@ static int	handle_quotes(char *input, int i, char quote)
 	return (i);
 }
 
-static char	*extract_word(char *input, int start, int end)
+static char	*extract_word_content(char *input, int start, int end)
 {
 	char	*word;
 	char	quote;
+	int		i;
+	int		j;
 
-	int i, j;
 	word = malloc(end - start + 1);
 	if (!word)
 		return (NULL);
@@ -50,81 +63,4 @@ static char	*extract_word(char *input, int start, int end)
 	}
 	word[j] = '\0';
 	return (word);
-}
-
-static t_token_type	get_operator_type(char *input, int i)
-{
-	if (input[i] == '|')
-	{
-		if (input[i + 1] == '|')
-			return (TOKEN_OR);
-		return (TOKEN_PIPE);
-	}
-	else if (input[i] == '<')
-	{
-		if (input[i + 1] == '<')
-			return (TOKEN_HEREDOC);
-		return (TOKEN_REDIR_IN);
-	}
-	else if (input[i] == '>')
-	{
-		if (input[i + 1] == '>')
-			return (TOKEN_REDIR_APPEND);
-		return (TOKEN_REDIR_OUT);
-	}
-	else if (input[i] == '&' && input[i + 1] == '&')
-		return (TOKEN_AND);
-	else if (input[i] == '(')
-		return (TOKEN_LPAREN);
-	else if (input[i] == ')')
-		return (TOKEN_RPAREN);
-	return (TOKEN_WORD);
-}
-
-t_token	*lexer(char *input)
-{
-	t_token *tokens = NULL;
-	int i = 0;
-	int start;
-
-	while (input[i])
-	{
-		i = skip_whitespace(input, i);
-		if (!input[i])
-			break ;
-
-		if (is_operator(input[i]))
-		{
-			t_token_type type = get_operator_type(input, i);
-			char *value = NULL;
-
-			if (type == TOKEN_HEREDOC || type == TOKEN_REDIR_APPEND
-				|| type == TOKEN_AND || type == TOKEN_OR)
-			{
-				value = ft_substr(input, i, 2);
-				i += 2;
-			}
-			else
-			{
-				value = ft_substr(input, i, 1);
-				i++;
-			}
-			add_token(&tokens, create_token(type, value));
-		}
-		else
-		{
-			start = i;
-			while (input[i] && !is_operator(input[i]) && input[i] != ' '
-				&& input[i] != '\t')
-			{
-				if (input[i] == '\'' || input[i] == '"')
-					i = handle_quotes(input, i, input[i]);
-				else
-					i++;
-			}
-			char *word = extract_word(input, start, i);
-			add_token(&tokens, create_token(TOKEN_WORD, word));
-		}
-	}
-	return (tokens);
 }

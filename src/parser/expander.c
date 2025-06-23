@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
+/*   Updated: 2025/06/23 22:35:16 by ndehmej          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	*get_env_value(char *key, t_shell *shell)
@@ -14,15 +26,11 @@ static char	*get_env_value(char *key, t_shell *shell)
 	return (NULL);
 }
 
-static char	*expand_variable(char *str, int *i, t_shell *shell)
+static char	*expand_special_var(char *str, int *i, t_shell *shell)
 {
-	int		end;
-	char	*key;
-	char	*value;
+	int	start;
 
-	int start = *i + 1; /* Skip '$' */
-	end = start;
-	/* Handle special cases */
+	start = *i + 1;
 	if (str[start] == '?')
 	{
 		*i = start + 1;
@@ -33,10 +41,21 @@ static char	*expand_variable(char *str, int *i, t_shell *shell)
 		*i = start + 1;
 		return (ft_itoa(getpid()));
 	}
-	/* Regular variable name */
+	return (NULL);
+}
+
+static char	*expand_regular_var(char *str, int *i, t_shell *shell)
+{
+	int		start;
+	int		end;
+	char	*key;
+	char	*value;
+
+	start = *i + 1;
+	end = start;
 	while (str[end] && (ft_isalnum(str[end]) || str[end] == '_'))
 		end++;
-	if (end == start) /* No variable name after $ */
+	if (end == start)
 	{
 		*i = start;
 		return (ft_strdup("$"));
@@ -47,72 +66,17 @@ static char	*expand_variable(char *str, int *i, t_shell *shell)
 	value = get_env_value(key, shell);
 	*i = end;
 	free(key);
-	return (value ? ft_strdup(value) : ft_strdup(""));
+	if (value)
+		return (ft_strdup(value));
+	return (ft_strdup(""));
 }
 
-static char	*expand_string(char *str, t_shell *shell)
+static char	*expand_variable(char *str, int *i, t_shell *shell)
 {
 	char	*result;
-	char	*temp;
-	char	*expanded;
-	int		i;
-	int		in_single_quotes;
-	int		in_double_quotes;
-			char c[2] = {str[i], '\0'};
 
-	result = ft_strdup("");
-	i = 0;
-	in_single_quotes = 0;
-	in_double_quotes = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'' && !in_double_quotes)
-		{
-			in_single_quotes = !in_single_quotes;
-			i++;
-		}
-		else if (str[i] == '"' && !in_single_quotes)
-		{
-			in_double_quotes = !in_double_quotes;
-			i++;
-		}
-		else if (str[i] == '$' && !in_single_quotes)
-		{
-			expanded = expand_variable(str, &i, shell);
-			if (expanded)
-			{
-				temp = ft_strjoin(result, expanded);
-				free(result);
-				free(expanded);
-				result = temp;
-			}
-		}
-		else
-		{
-			temp = ft_strjoin(result, c);
-			free(result);
-			result = temp;
-			i++;
-		}
-	}
-	return (result);
-}
-
-void	expand_tokens(t_token *tokens, t_shell *shell)
-{
-	char *expanded;
-
-	while (tokens)
-	{
-		if (tokens->type == TOKEN_WORD)
-		{
-			expanded = expand_string(tokens->value, shell);
-			if (expanded)
-			{
-				free(tokens->value);
-				tokens->value = expanded;
-			}
-		}
-		tokens = tokens->next;
-	}
+	result = expand_special_var(str, i, shell);
+	if (result)
+		return (result);
+	return (expand_regular_var(str, i, shell));
 }
