@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/23 22:34:46 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/23 22:48:36 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,12 @@ static int	handle_export_no_value(char *arg, t_shell *shell)
 	return (0);
 }
 
-int	builtin_export(char **argv, t_shell *shell)
+static int	process_export_args(char **argv, t_shell *shell)
 {
 	int		i;
 	char	*equals;
 
 	i = 1;
-	if (!argv[1])
-	{
-		print_exported_vars(shell);
-		return (0);
-	}
 	while (argv[i])
 	{
 		equals = ft_strchr(argv[i], '=');
@@ -70,4 +65,14 @@ int	builtin_export(char **argv, t_shell *shell)
 		i++;
 	}
 	return (0);
+}
+
+int	builtin_export(char **argv, t_shell *shell)
+{
+	if (!argv[1])
+	{
+		print_exported_vars(shell);
+		return (0);
+	}
+	return (process_export_args(argv, shell));
 }

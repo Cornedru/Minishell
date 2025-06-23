@@ -1,52 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/23 22:49:31 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/23 22:49:25 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t	g_signal_status = SIG_NONE;
-
-void	signal_handler(int sig)
+static t_token_type	get_operator_type(char *input, int i)
 {
-	if (sig == SIGINT)
+	if (input[i] == '|')
 	{
-		g_signal_status = SIG_INTERRUPT;
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		if (input[i + 1] == '|')
+			return (TOKEN_OR);
+		return (TOKEN_PIPE);
 	}
-	else if (sig == SIGQUIT)
+	else if (input[i] == '<')
 	{
-		g_signal_status = SIG_QUIT;
+		if (input[i + 1] == '<')
+			return (TOKEN_HEREDOC);
+		return (TOKEN_REDIR_IN);
 	}
+	else if (input[i] == '>')
+	{
+		if (input[i + 1] == '>')
+			return (TOKEN_REDIR_APPEND);
+		return (TOKEN_REDIR_OUT);
+	}
+	else if (input[i] == '&' && input[i + 1] == '&')
+		return (TOKEN_AND);
+	return (TOKEN_WORD);
 }
 
-void	setup_signals(void)
+t_token	*lexer(char *input)
 {
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
+	t_token	*tokens;
+	int		i;
 
-void	setup_child_signals(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-}
-
-int	check_signal_status(void)
-{
-	int	status;
-
-	status = g_signal_status;
-	g_signal_status = SIG_NONE;
-	return (status);
+	tokens = NULL;
+	i = 0;
+	return (process_input(input, &tokens, i));
 }

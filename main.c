@@ -6,14 +6,14 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/23 22:40:04 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/23 22:44:51 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern volatile sig_atomic_t	g_signal_status;
-extern t_shell					g_shell;
+volatile sig_atomic_t	g_signal_status = SIG_NONE;
+t_shell					g_shell = {0};
 
 static void	signal_handler(int sig)
 {
@@ -43,7 +43,7 @@ static void	init_shell(t_shell *shell)
 
 static void	process_line(char *line, t_shell *shell)
 {
-	(void) *shell;
+	(void)shell;
 	if (*line == '\0')
 	{
 		free(line);
@@ -59,12 +59,10 @@ static void	process_line(char *line, t_shell *shell)
 	free(line);
 }
 
-int	main(void)
+static void	shell_loop(void)
 {
 	char	*line;
 
-	setup_signals();
-	init_shell(&g_shell);
 	while (1)
 	{
 		if (check_signal_status() == SIG_INTERRUPT)
@@ -80,6 +78,13 @@ int	main(void)
 		}
 		process_line(line, &g_shell);
 	}
+}
+
+int	main(void)
+{
+	setup_signals();
+	init_shell(&g_shell);
+	shell_loop();
 	cleanup_shell(&g_shell);
 	return (0);
 }
