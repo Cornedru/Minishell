@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 04:24:33 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/24 05:08:28 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ static int	skip_whitespace(char *input, int i)
 	return (i);
 }
 
-static int	handle_quotes(char *input, int i, char quote)
-{
-	i++;
-	while (input[i] && input[i] != quote)
-		i++;
-	if (input[i] == quote)
-		i++;
-	return (i);
-}
+// static int	handle_quotes(char *input, int i, char quote)
+// {
+// 	i++;
+// 	while (input[i] && input[i] != quote)
+// 		i++;
+// 	if (input[i] == quote)
+// 		i++;
+// 	return (i);
+// }
 
 static t_token_type	get_operator_type(char *input, int i)
 {
@@ -102,21 +102,34 @@ static void	add_token(t_token **tokens, t_token *new_token)
 	current->next = new_token;
 }
 
-static int	extract_word(char *input, int i, char **word)
+static int	extract_word_with_quotes(char *input, int i, char **word)
 {
 	int	start;
 	int	end;
 
 	start = i;
 	end = i;
+	
+	// Continue until we hit whitespace or operator
 	while (input[end] && !is_operator(input[end]) && 
 		   input[end] != ' ' && input[end] != '\t')
 	{
 		if (input[end] == '\'' || input[end] == '"')
-			end = handle_quotes(input, end, input[end]);
-		else
+		{
+			// Handle quoted sections
+			char quote = input[end];
 			end++;
+			while (input[end] && input[end] != quote)
+				end++;
+			if (input[end] == quote)
+				end++;
+		}
+		else
+		{
+			end++;
+		}
 	}
+	
 	*word = ft_substr(input, start, end - start);
 	return (end);
 }
@@ -139,11 +152,13 @@ t_token	*lexer(char *input)
 
 	tokens = NULL;
 	i = 0;
+	
 	while (input[i])
 	{
 		i = skip_whitespace(input, i);
 		if (!input[i])
 			break;
+			
 		if (is_operator(input[i]))
 		{
 			i = extract_operator(input, i, &value);
@@ -151,17 +166,20 @@ t_token	*lexer(char *input)
 		}
 		else
 		{
-			i = extract_word(input, i, &value);
+			i = extract_word_with_quotes(input, i, &value);
 			new_token = create_token(TOKEN_WORD, value);
 		}
+		
 		if (!new_token)
 		{
 			free(value);
 			free_tokens(tokens);
 			return (NULL);
 		}
+		
 		add_token(&tokens, new_token);
 		free(value);
 	}
+	
 	return (tokens);
 }

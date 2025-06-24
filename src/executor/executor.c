@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 04:24:10 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/24 05:00:00 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,34 @@ static char	*find_command_in_paths(char **paths, char *cmd)
 
 char	*find_command_path(char *cmd, t_shell *shell)
 {
-	char	*path_env;
-	char	**paths;
-	char	*result;
+	char		*path_env;
+	char		**paths;
+	char		*result;
+	struct stat	st;
 
 	if (ft_strchr(cmd, '/'))
 	{
-		if (access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
+		if (stat(cmd, &st) == 0)
+		{
+			if (S_ISDIR(st.st_mode))
+			{
+				printf("bash: %s: Is a directory\n", cmd);
+				return (NULL);
+			}
+			if (access(cmd, X_OK) == 0)
+				return (ft_strdup(cmd));
+			printf("bash: %s: Permission denied\n", cmd);
+			return (NULL);
+		}
+		printf("bash: %s: No such file or directory\n", cmd);
 		return (NULL);
 	}
 	path_env = get_env_value("PATH", shell);
 	if (!path_env)
+	{
+		printf("bash: %s: No such file or directory\n", cmd);
 		return (NULL);
+	}
 	paths = ft_split(path_env, ':');
 	if (!paths)
 		return (NULL);
@@ -94,10 +109,14 @@ static int	setup_redirections(t_redir *redirs)
 			fd = open(current->file, O_RDONLY);
 			if (fd == -1)
 			{
-				perror(current->file);
+				printf("bash: %s: %s\n", current->file, strerror(errno));
 				return (-1);
 			}
-			dup2(fd, STDIN_FILENO);
+			if (dup2(fd, STDIN_FILENO) == -1)
+			{
+				close(fd);
+				return (-1);
+			}
 			close(fd);
 		}
 		else if (current->type == TOKEN_REDIR_OUT)
@@ -105,10 +124,14 @@ static int	setup_redirections(t_redir *redirs)
 			fd = open(current->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd == -1)
 			{
-				perror(current->file);
+				printf("bash: %s: %s\n", current->file, strerror(errno));
 				return (-1);
 			}
-			dup2(fd, STDOUT_FILENO);
+			if (dup2(fd, STDOUT_FILENO) == -1)
+			{
+				close(fd);
+				return (-1);
+			}
 			close(fd);
 		}
 		else if (current->type == TOKEN_REDIR_APPEND)
@@ -116,10 +139,14 @@ static int	setup_redirections(t_redir *redirs)
 			fd = open(current->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd == -1)
 			{
-				perror(current->file);
+				printf("bash: %s: %s\n", current->file, strerror(errno));
 				return (-1);
 			}
-			dup2(fd, STDOUT_FILENO);
+			if (dup2(fd, STDOUT_FILENO) == -1)
+			{
+				close(fd);
+				return (-1);
+			}
 			close(fd);
 		}
 		else if (current->type == TOKEN_HEREDOC)
@@ -132,6 +159,34 @@ static int	setup_redirections(t_redir *redirs)
 	return (0);
 }
 
+static int	execute_builtin_with_redirections(t_ast *ast, t_shell *shell)
+{
+	int	stdin_backup;
+	int	stdout_backup;
+	int	status;
+
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
+	
+	if (setup_redirections(ast->redirs) == -1)
+	{
+		dup2(stdin_backup, STDIN_FILENO);
+		dup2(stdout_backup, STDOUT_FILENO);
+		close(stdin_backup);
+		close(stdout_backup);
+		return (1);
+	}
+	
+	status = execute_builtin(ast, shell);
+	
+	dup2(stdin_backup, STDIN_FILENO);
+	dup2(stdout_backup, STDOUT_FILENO);
+	close(stdin_backup);
+	close(stdout_backup);
+	
+	return (status);
+}
+
 int	execute_command(t_ast *ast, t_shell *shell)
 {
 	char	*cmd_path;
@@ -141,14 +196,22 @@ int	execute_command(t_ast *ast, t_shell *shell)
 
 	if (!ast || !ast->argv || !ast->argv[0])
 		return (1);
+		
+	// Handle empty command (just redirections)
+	if (ast->argv[0][0] == '\0')
+	{
+		if (setup_redirections(ast->redirs) == -1)
+			return (1);
+		return (0);
+	}
+	
 	if (is_builtin(ast->argv[0]))
-		return (execute_builtin(ast, shell));
+		return (execute_builtin_with_redirections(ast, shell));
+	
 	cmd_path = find_command_path(ast->argv[0], shell);
 	if (!cmd_path)
-	{
-		printf("%s: command not found\n", ast->argv[0]);
 		return (127);
-	}
+	
 	envp = env_to_array(shell->env);
 	pid = fork();
 	if (pid == 0)
@@ -157,16 +220,35 @@ int	execute_command(t_ast *ast, t_shell *shell)
 		if (setup_redirections(ast->redirs) == -1)
 			exit(1);
 		execve(cmd_path, ast->argv, envp);
-		exit(127);
+		printf("bash: %s: %s\n", cmd_path, strerror(errno));
+		exit(126);
 	}
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
 		free(cmd_path);
 		ft_free_split(envp);
+		if (WIFSIGNALED(status))
+		{
+			int sig = WTERMSIG(status);
+			if (sig == SIGINT)
+				return (130);
+			else if (sig == SIGQUIT)
+			{
+				printf("Quit (core dumped)\n");
+				return (131);
+			}
+			return (128 + sig);
+		}
 		return (WEXITSTATUS(status));
 	}
-	return (1);
+	else
+	{
+		perror("fork");
+		free(cmd_path);
+		ft_free_split(envp);
+		return (1);
+	}
 }
 
 static int	count_commands_in_pipeline(t_ast *node)
@@ -203,11 +285,11 @@ static void	execute_pipeline_recursive(t_ast *node, int **pipes,
 			if (is_builtin(node->argv[0]))
 				exit(execute_builtin(node, shell));
 			char *cmd_path = find_command_path(node->argv[0], shell);
-			char **envp = env_to_array(shell->env);
 			if (!cmd_path)
 				exit(127);
+			char **envp = env_to_array(shell->env);
 			execve(cmd_path, node->argv, envp);
-			exit(127);
+			exit(126);
 		}
 	}
 	else if (node->type == AST_PIPELINE)
@@ -225,13 +307,16 @@ int	execute_pipeline(t_ast *ast, t_shell *shell)
 	int		**pipes;
 	int		i;
 	int		status;
+	int		last_status;
 
 	total_cmds = count_commands_in_pipeline(ast);
 	if (total_cmds == 1)
 		return (execute_command(ast, shell));
+	
 	pipes = malloc(sizeof(int *) * (total_cmds - 1));
 	if (!pipes)
 		return (1);
+		
 	for (i = 0; i < total_cmds - 1; i++)
 	{
 		pipes[i] = malloc(sizeof(int) * 2);
@@ -241,7 +326,9 @@ int	execute_pipeline(t_ast *ast, t_shell *shell)
 			return (1);
 		}
 	}
+	
 	execute_pipeline_recursive(ast, pipes, 0, total_cmds, shell);
+	
 	for (i = 0; i < total_cmds - 1; i++)
 	{
 		close(pipes[i][0]);
@@ -249,15 +336,30 @@ int	execute_pipeline(t_ast *ast, t_shell *shell)
 		free(pipes[i]);
 	}
 	free(pipes);
+	
+	last_status = 0;
 	for (i = 0; i < total_cmds; i++)
+	{
 		wait(&status);
-	return (WEXITSTATUS(status));
+		if (i == total_cmds - 1)  // Last command determines exit status
+		{
+			if (WIFSIGNALED(status))
+			{
+				int sig = WTERMSIG(status);
+				last_status = 128 + sig;
+			}
+			else
+				last_status = WEXITSTATUS(status);
+		}
+	}
+	return (last_status);
 }
 
 int	execute_ast(t_ast *ast, t_shell *shell)
 {
 	if (!ast)
 		return (0);
+		
 	if (ast->type == AST_COMMAND)
 		return (execute_command(ast, shell));
 	else if (ast->type == AST_PIPELINE)
