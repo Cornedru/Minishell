@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 00:41:14 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/24 01:00:28 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	close_all_pipes(int **pipes, int total_cmds)
 	}
 }
 
-static void	execute_pipeline_child(t_ast *node, int **pipes,
+void	execute_pipeline_child(t_ast *node, int **pipes,
 				int cmd_index, int total_cmds)
 {
 	char	*cmd_path;

@@ -12,9 +12,13 @@ SOURCES = main.c \
 		  $(SRCDIR)/builtins/cd.c \
 		  $(SRCDIR)/builtins/cd_utils.c \
 		  $(SRCDIR)/builtins/echo.c \
+		  $(SRCDIR)/builtins/env.c \
 		  $(SRCDIR)/builtins/exit.c \
 		  $(SRCDIR)/builtins/export.c \
 		  $(SRCDIR)/builtins/pwd.c \
+		  $(SRCDIR)/builtins/unset.c \
+		  $(SRCDIR)/env/env_manager.c \
+		  $(SRCDIR)/env/env_utils.c \
 		  $(SRCDIR)/executor/executor.c \
 		  $(SRCDIR)/executor/pipes.c \
 		  $(SRCDIR)/parser/expander.c \
@@ -23,7 +27,8 @@ SOURCES = main.c \
 		  $(SRCDIR)/parser/lexer_utils.c \
 		  $(SRCDIR)/parser/parser.c \
 		  $(SRCDIR)/parser/quotes.c \
-		  $(SRCDIR)/signals/signal_handler.c
+		  $(SRCDIR)/signals/signal_handler.c \
+		  $(SRCDIR)/utils/utils.c
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SOURCES))
 LIBFT = $(LIBFTDIR)/libft.a
@@ -35,9 +40,11 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)
 	mkdir -p $(OBJDIR)/$(SRCDIR)
 	mkdir -p $(OBJDIR)/$(SRCDIR)/builtins
+	mkdir -p $(OBJDIR)/$(SRCDIR)/env
 	mkdir -p $(OBJDIR)/$(SRCDIR)/executor
 	mkdir -p $(OBJDIR)/$(SRCDIR)/parser
 	mkdir -p $(OBJDIR)/$(SRCDIR)/signals
+	mkdir -p $(OBJDIR)/$(SRCDIR)/utils
 
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBS) -o $(NAME)
