@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 00:57:02 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/24 04:32:21 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,25 @@ int	is_numeric(char *str)
 	return (1);
 }
 
-void	free_env(t_env *env)
-{
-	t_env	*tmp;
+// void	free_env(t_env *env)
+// {
+// 	t_env	*tmp;
 
-	while (env)
-	{
-		tmp = env->next;
-		free(env->key);
-		free(env->value);
-		free(env);
-		env = tmp;
-	}
-}
+// 	while (env)
+// 	{
+// 		tmp = env->next;
+// 		free(env->key);
+// 		free(env->value);
+// 		free(env);
+// 		env = tmp;
+// 	}
+// }
 
-void	cleanup_shell(t_shell *shell)
-{
-	free_env(shell->env);
-	free(shell->cwd);
-}
+// void	cleanup_shell(t_shell *shell)
+// {
+// 	free_env(shell->env);
+// 	free(shell->cwd);
+// }
 
 char	*ft_strjoin_free(char *s1, char *s2)
 {

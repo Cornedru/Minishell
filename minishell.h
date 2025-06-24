@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 01:02:31 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/24 04:33:23 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define SIG_QUIT 2
 # define SIG_EOF 3
 
-volatile sig_atomic_t	g_signal_status;
+extern volatile sig_atomic_t	g_signal_status;
 
 typedef enum e_token_type
 {
@@ -64,10 +64,18 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_redir
+{
+	t_token_type	type;
+	char			*file;
+	struct s_redir	*next;
+}	t_redir;
+
 typedef struct s_ast
 {
 	t_ast_type		type;
 	char			**argv;
+	t_redir			*redirs;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;
@@ -88,6 +96,7 @@ typedef struct s_shell
 	char			*cwd;
 }	t_shell;
 
+/* Parser functions */
 t_token		*lexer(char *input);
 t_ast		*parse(t_token **tokens);
 void		free_tokens(t_token *tokens);
@@ -96,17 +105,20 @@ void		expand_tokens(t_token *tokens, t_shell *shell);
 int			check_quotes(char *line);
 char		*remove_quotes(char *str);
 
+/* Executor functions */
+int			execute_ast(t_ast *ast, t_shell *shell);
 int			execute_command(t_ast *ast, t_shell *shell);
 int			execute_pipeline(t_ast *ast, t_shell *shell);
 int			execute_builtin(t_ast *node, t_shell *shell);
 char		*find_command_path(char *cmd, t_shell *shell);
-void		execute_pipeline_child(t_ast *node, int **pipes,
-				int cmd_index, int total_cmds);
+int			handle_heredoc(t_redir *redir);
 
+/* Signal functions */
 int			check_signal_status(void);
 void		setup_signals(void);
 void		setup_child_signals(void);
 
+/* Builtin functions */
 int			is_builtin(char *cmd);
 int			builtin_echo(char **argv);
 int			builtin_cd(char **argv, t_shell *shell);
@@ -118,11 +130,13 @@ int			builtin_exit(char **argv, t_shell *shell);
 char		*get_home_path(t_shell *shell);
 char		*get_oldpwd_path(t_shell *shell);
 
+/* Environment functions */
 void		init_env(t_shell *shell);
 char		*get_env_value(char *key, t_shell *shell);
 void		set_env_value(char *key, char *value, t_shell *shell);
 char		**env_to_array(t_env *env);
 
+/* Utils */
 void		cleanup_shell(t_shell *shell);
 int			is_numeric(char *str);
 void		print_exported_vars(t_shell *shell);
@@ -130,5 +144,6 @@ void		mark_as_exported(char *key, t_shell *shell);
 int			is_valid_identifier(char *str);
 char		*ft_strjoin_free(char *s1, char *s2);
 void		free_env(t_env *env);
+void		free_redirs(t_redir *redirs);
 
 #endif

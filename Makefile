@@ -28,7 +28,9 @@ SOURCES = main.c \
 		  $(SRCDIR)/parser/parser.c \
 		  $(SRCDIR)/parser/quotes.c \
 		  $(SRCDIR)/signals/signal_handler.c \
-		  $(SRCDIR)/utils/utils.c
+		  $(SRCDIR)/utils/utils.c \
+		  $(SRCDIR)/utils/memory.c \
+		  $(SRCDIR)/utils/memory_utils.c
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SOURCES))
 LIBFT = $(LIBFTDIR)/libft.a

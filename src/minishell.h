@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 00:37:34 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/24 04:32:58 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define SIG_QUIT 2
 # define SIG_EOF 3
 
-volatile sig_atomic_t	g_signal_status;
+// volatile sig_atomic_t	g_signal_status;
 
 typedef enum e_token_type
 {

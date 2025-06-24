@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/23 22:49:07 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/24 04:24:33 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static int	is_operator(char c)
 {
-	return (c == '|' || c == '<' || c == '>' || c == '&' || c == '('
-		|| c == ')');
+	return (c == '|' || c == '<' || c == '>' || c == '&');
 }
 
 static int	skip_whitespace(char *input, int i)
@@ -35,32 +34,134 @@ static int	handle_quotes(char *input, int i, char quote)
 	return (i);
 }
 
-static char	*extract_word_content(char *input, int start, int end)
+static t_token_type	get_operator_type(char *input, int i)
 {
-	char	*word;
-	char	quote;
-	int		i;
-	int		j;
-
-	word = malloc(end - start + 1);
-	if (!word)
-		return (NULL);
-	i = start;
-	j = 0;
-	while (i < end)
+	if (input[i] == '|')
 	{
-		if (input[i] == '\'' || input[i] == '"')
+		if (input[i + 1] == '|')
+			return (TOKEN_OR);
+		return (TOKEN_PIPE);
+	}
+	else if (input[i] == '<')
+	{
+		if (input[i + 1] == '<')
+			return (TOKEN_HEREDOC);
+		return (TOKEN_REDIR_IN);
+	}
+	else if (input[i] == '>')
+	{
+		if (input[i + 1] == '>')
+			return (TOKEN_REDIR_APPEND);
+		return (TOKEN_REDIR_OUT);
+	}
+	else if (input[i] == '&' && input[i + 1] == '&')
+		return (TOKEN_AND);
+	return (TOKEN_WORD);
+}
+
+static int	get_operator_len(char *input, int i)
+{
+	if ((input[i] == '|' && input[i + 1] == '|') ||
+		(input[i] == '<' && input[i + 1] == '<') ||
+		(input[i] == '>' && input[i + 1] == '>') ||
+		(input[i] == '&' && input[i + 1] == '&'))
+		return (2);
+	return (1);
+}
+
+static t_token	*create_token(t_token_type type, char *value)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->type = type;
+	token->value = ft_strdup(value);
+	token->next = NULL;
+	if (!token->value)
+	{
+		free(token);
+		return (NULL);
+	}
+	return (token);
+}
+
+static void	add_token(t_token **tokens, t_token *new_token)
+{
+	t_token	*current;
+
+	if (!*tokens)
+	{
+		*tokens = new_token;
+		return;
+	}
+	current = *tokens;
+	while (current->next)
+		current = current->next;
+	current->next = new_token;
+}
+
+static int	extract_word(char *input, int i, char **word)
+{
+	int	start;
+	int	end;
+
+	start = i;
+	end = i;
+	while (input[end] && !is_operator(input[end]) && 
+		   input[end] != ' ' && input[end] != '\t')
+	{
+		if (input[end] == '\'' || input[end] == '"')
+			end = handle_quotes(input, end, input[end]);
+		else
+			end++;
+	}
+	*word = ft_substr(input, start, end - start);
+	return (end);
+}
+
+static int	extract_operator(char *input, int i, char **op)
+{
+	int	len;
+
+	len = get_operator_len(input, i);
+	*op = ft_substr(input, i, len);
+	return (i + len);
+}
+
+t_token	*lexer(char *input)
+{
+	t_token	*tokens;
+	t_token	*new_token;
+	char	*value;
+	int		i;
+
+	tokens = NULL;
+	i = 0;
+	while (input[i])
+	{
+		i = skip_whitespace(input, i);
+		if (!input[i])
+			break;
+		if (is_operator(input[i]))
 		{
-			quote = input[i];
-			i++;
-			while (i < end && input[i] != quote)
-				word[j++] = input[i++];
-			if (i < end)
-				i++;
+			i = extract_operator(input, i, &value);
+			new_token = create_token(get_operator_type(value, 0), value);
 		}
 		else
-			word[j++] = input[i++];
+		{
+			i = extract_word(input, i, &value);
+			new_token = create_token(TOKEN_WORD, value);
+		}
+		if (!new_token)
+		{
+			free(value);
+			free_tokens(tokens);
+			return (NULL);
+		}
+		add_token(&tokens, new_token);
+		free(value);
 	}
-	word[j] = '\0';
-	return (word);
+	return (tokens);
 }
