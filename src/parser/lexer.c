@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 05:08:28 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/27 17:04:15 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,11 @@ static int	extract_word_with_quotes(char *input, int i, char **word)
 	start = i;
 	end = i;
 	
-	// Continue until we hit whitespace or operator
 	while (input[end] && !is_operator(input[end]) && 
 		   input[end] != ' ' && input[end] != '\t')
 	{
 		if (input[end] == '\'' || input[end] == '"')
 		{
-			// Handle quoted sections
 			char quote = input[end];
 			end++;
 			while (input[end] && input[end] != quote)
@@ -176,10 +174,11 @@ t_token	*lexer(char *input)
 			free_tokens(tokens);
 			return (NULL);
 		}
-		
+		// remove_quotes(input);
 		add_token(&tokens, new_token);
 		free(value);
 	}
 	
 	return (tokens);
 }
+

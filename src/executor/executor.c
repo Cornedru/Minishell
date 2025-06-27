@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 05:00:00 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/25 01:12:52 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,7 +338,8 @@ int	execute_pipeline(t_ast *ast, t_shell *shell)
 	free(pipes);
 	
 	last_status = 0;
-	for (i = 0; i < total_cmds; i++)
+	i = 0;
+	while ( i < total_cmds)
 	{
 		wait(&status);
 		if (i == total_cmds - 1)  // Last command determines exit status
@@ -351,6 +352,7 @@ int	execute_pipeline(t_ast *ast, t_shell *shell)
 			else
 				last_status = WEXITSTATUS(status);
 		}
+		i++;
 	}
 	return (last_status);
 }

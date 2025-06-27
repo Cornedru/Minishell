@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 04:24:21 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/27 17:24:17 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,6 @@ static t_ast	*parse_simple_command(t_token **tokens)
 	return (node);
 }
 
-static t_ast	*parse_pipeline(t_token **tokens);
-
 static t_ast	*parse_command(t_token **tokens)
 {
 	if (!*tokens)
@@ -223,10 +221,20 @@ static t_ast	*parse_and_or(t_token **tokens)
 	node->right = right;
 	return (node);
 }
+void	ft_clear(void)
+{
+	write(1, "\033[H\033[2J", 7);
+}
 
 t_ast	*parse(t_token **tokens)
 {
 	if (!tokens || !*tokens)
 		return (NULL);
+	if (ft_strcmp((*tokens)->value, "clear") == 0)
+	{
+		ft_clear();
+		free((*tokens)->value);
+	}
 	return (parse_and_or(tokens));
 }
+

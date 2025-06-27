@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 04:59:22 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/27 16:55:12 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ static void	process_line(char *line, t_shell *shell)
 			free(line);
 		return ;
 	}
-	
-	// Check for unclosed quotes
 	if (check_quotes(line))
 	{
 		printf("bash: syntax error: unclosed quotes\n");
@@ -124,7 +122,6 @@ static void	process_line(char *line, t_shell *shell)
 		free(line);
 		return ;
 	}
-	
 	add_history(line);
 	tokens = lexer(line);
 	if (!tokens)
@@ -132,8 +129,6 @@ static void	process_line(char *line, t_shell *shell)
 		free(line);
 		return ;
 	}
-	
-	// Check for syntax errors
 	if (handle_syntax_errors(tokens))
 	{
 		shell->last_status = 2;
@@ -141,11 +136,9 @@ static void	process_line(char *line, t_shell *shell)
 		free(line);
 		return ;
 	}
-	
 	expand_tokens(tokens, shell);
 	ast = parse(&tokens);
 	free_tokens(tokens);
-	
 	if (!ast)
 	{
 		printf("bash: parse error\n");
@@ -153,7 +146,6 @@ static void	process_line(char *line, t_shell *shell)
 		free(line);
 		return ;
 	}
-	
 	status = execute_ast(ast, shell);
 	shell->last_status = status;
 	free_ast(ast);

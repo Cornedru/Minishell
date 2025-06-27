@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 05:08:03 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/25 01:02:35 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,6 @@ static t_token	*split_expanded_token(char *expanded, t_token_type type)
 			ft_free_split(split_values);
 		return (NULL);
 	}
-	
 	new_tokens = NULL;
 	i = 0;
 	while (split_values[i])
