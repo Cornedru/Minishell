@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/25 01:02:35 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/29 04:55:45 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static char	*expand_special_var(char *str, int *i, t_shell *shell)
 		*i = start + 1;
 		return (ft_itoa(getpid()));
 	}
-	if (str[start] == '\0' || str[start] == ' ' || str[start] == '\t' || 
-		str[start] == '"' || str[start] == '\'')
+	if (str[start] == '\0' || str[start] == ' ' || str[start] == '\t'
+		|| str[start] == '"' || str[start] == '\'')
 	{
 		*i = start;
 		return (ft_strdup("$"));
@@ -42,27 +42,40 @@ static char	*expand_regular_var(char *str, int *i, t_shell *shell)
 	int		end;
 	char	*key;
 	char	*value;
+	char	c[2] = {str[*i], '\0'};
+	char	*tmp;
 
 	start = *i + 1;
 	end = start;
-	
-	if (!ft_isalpha(str[start]) && str[start] != '_')
+	if (!str[start] || (!ft_isalpha(str[start]) && str[start] != '_'
+			&& !ft_isdigit(str[start])))
 	{
 		*i = start;
 		return (ft_strdup("$"));
 	}
-	
+	if (ft_isdigit(str[start]))
+	{
+		*i = start + 1;
+		key = ft_substr(str, start, 1);
+		value = ft_strjoin("$", key);
+		free(key);
+		while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+		{
+			tmp = value;
+			value = ft_strjoin(tmp, c);
+			free(tmp);
+			(*i)++;
+		}
+		return (value);
+	}
 	while (str[end] && (ft_isalnum(str[end]) || str[end] == '_'))
 		end++;
-	
 	key = ft_substr(str, start, end - start);
 	if (!key)
 		return (ft_strdup(""));
-		
 	value = get_env_value(key, shell);
 	*i = end;
 	free(key);
-	
 	if (value)
 		return (ft_strdup(value));
 	return (ft_strdup(""));
@@ -92,7 +105,8 @@ static char	*join_and_free(char *s1, char *s2)
 	return (result);
 }
 
-static char	*expand_in_double_quotes(char *str, int start, int end, t_shell *shell)
+static char	*expand_in_double_quotes(char *str, int start, int end,
+		t_shell *shell)
 {
 	char	*result;
 	char	*temp;
@@ -102,7 +116,6 @@ static char	*expand_in_double_quotes(char *str, int start, int end, t_shell *she
 
 	result = ft_strdup("");
 	i = start;
-	
 	while (i < end)
 	{
 		seg_start = i;
@@ -122,7 +135,8 @@ static char	*expand_in_double_quotes(char *str, int start, int end, t_shell *she
 	return (result);
 }
 
-static char	*expand_outside_quotes(char *str, int start, int end, t_shell *shell)
+static char	*expand_outside_quotes(char *str, int start, int end,
+		t_shell *shell)
 {
 	char	*result;
 	char	*temp;
@@ -132,7 +146,6 @@ static char	*expand_outside_quotes(char *str, int start, int end, t_shell *shell
 
 	result = ft_strdup("");
 	i = start;
-	
 	while (i < end)
 	{
 		seg_start = i;
@@ -162,7 +175,6 @@ static char	*expand_token_segments(char *str, t_shell *shell)
 
 	result = ft_strdup("");
 	i = 0;
-	
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '"')
@@ -170,47 +182,37 @@ static char	*expand_token_segments(char *str, t_shell *shell)
 			quote = str[i];
 			start = i + 1;
 			i++;
-			
-			// Find closing quote
 			while (str[i] && str[i] != quote)
 				i++;
-			
 			if (str[i] == quote)
 			{
-				// Process quoted segment
 				if (quote == '\'')
 				{
-					// Single quotes - no expansion
 					segment_result = ft_substr(str, start, i - start);
 				}
 				else
 				{
-					// Double quotes - expand variables
-					segment_result = expand_in_double_quotes(str, start, i, shell);
+					segment_result = expand_in_double_quotes(str, start, i,
+							shell);
 				}
 				result = join_and_free(result, segment_result);
-				i++; // Skip closing quote
+				i++;
 			}
 			else
 			{
-				// Unclosed quote - should be handled by quote checker
-				// But process as literal for now
 				segment_result = ft_substr(str, start - 1, i - start + 1);
 				result = join_and_free(result, segment_result);
 			}
 		}
 		else
 		{
-			// Unquoted segment
 			start = i;
 			while (str[i] && str[i] != '\'' && str[i] != '"')
 				i++;
-			
 			segment_result = expand_outside_quotes(str, start, i, shell);
 			result = join_and_free(result, segment_result);
 		}
 	}
-	
 	return (result);
 }
 
@@ -218,7 +220,6 @@ static int	should_split_token(char *original, char *expanded)
 {
 	int	i;
 
-	// Don't split if the original token had any quotes
 	i = 0;
 	while (original[i])
 	{
@@ -226,8 +227,6 @@ static int	should_split_token(char *original, char *expanded)
 			return (0);
 		i++;
 	}
-	
-	// Check if expanded value contains whitespace
 	i = 0;
 	while (expanded[i])
 	{
@@ -240,13 +239,22 @@ static int	should_split_token(char *original, char *expanded)
 
 static t_token	*split_expanded_token(char *expanded, t_token_type type)
 {
-	char		**split_values;
-	t_token		*new_tokens;
-	t_token		*current;
-	t_token		*tmp;
-	int			i;
+	char	**split_values;
+	t_token	*new_tokens;
+	t_token	*current;
+	t_token	*tmp;
+	int		i;
+	char	*clean;
 
-	split_values = ft_split(expanded, ' ');
+	clean = expanded;
+	i = 0;
+	while (clean[i])
+	{
+		if (clean[i] == '\t' || clean[i] == '\n')
+			clean[i] = ' ';
+		i++;
+	}
+	split_values = ft_split(clean, ' ');
 	if (!split_values || !split_values[0])
 	{
 		if (split_values)
@@ -257,13 +265,17 @@ static t_token	*split_expanded_token(char *expanded, t_token_type type)
 	i = 0;
 	while (split_values[i])
 	{
+		if (ft_strlen(split_values[i]) == 0)
+		{
+			i++;
+			continue ;
+		}
 		tmp = malloc(sizeof(t_token));
 		if (!tmp)
-			break;
+			break ;
 		tmp->type = type;
 		tmp->value = ft_strdup(split_values[i]);
 		tmp->next = NULL;
-		
 		if (!new_tokens)
 			new_tokens = tmp;
 		else
@@ -275,17 +287,16 @@ static t_token	*split_expanded_token(char *expanded, t_token_type type)
 		}
 		i++;
 	}
-	
 	ft_free_split(split_values);
 	return (new_tokens);
 }
 
 void	expand_tokens(t_token *tokens, t_shell *shell)
 {
-	t_token	*current;
-	t_token	*next;
-	char	*expanded;
-	t_token	*split_tokens;
+	t_token *current;
+	t_token *next;
+	char *expanded;
+	t_token *split_tokens;
 
 	current = tokens;
 	while (current)
@@ -298,21 +309,17 @@ void	expand_tokens(t_token *tokens, t_shell *shell)
 			{
 				if (should_split_token(current->value, expanded))
 				{
-					split_tokens = split_expanded_token(expanded, current->type);
+					split_tokens = split_expanded_token(expanded,
+							current->type);
 					if (split_tokens)
 					{
-						// Replace current token with split tokens
 						t_token *last_split = split_tokens;
 						while (last_split->next)
 							last_split = last_split->next;
 						last_split->next = current->next;
-						
-						// Copy first split token data to current
 						free(current->value);
 						current->value = ft_strdup(split_tokens->value);
 						current->next = split_tokens->next;
-						
-						// Free first split token (we copied its data)
 						free(split_tokens->value);
 						free(split_tokens);
 					}
@@ -321,6 +328,7 @@ void	expand_tokens(t_token *tokens, t_shell *shell)
 						free(current->value);
 						current->value = expanded;
 					}
+					free(expanded);
 				}
 				else
 				{

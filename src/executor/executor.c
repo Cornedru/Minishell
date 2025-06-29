@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/25 01:12:52 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/28 23:47:13 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,31 @@ char	*find_command_path(char *cmd, t_shell *shell)
 		{
 			if (S_ISDIR(st.st_mode))
 			{
-				printf("bash: %s: Is a directory\n", cmd);
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(cmd, 2);
+				ft_putstr_fd(": Is a directory\n", 2);
+				shell->last_status = 126;
 				return (NULL);
 			}
 			if (access(cmd, X_OK) == 0)
 				return (ft_strdup(cmd));
-			printf("bash: %s: Permission denied\n", cmd);
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd(": Permission denied\n", 2);
+			shell->last_status = 126;
 			return (NULL);
 		}
-		printf("bash: %s: No such file or directory\n", cmd);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		shell->last_status = 127;
 		return (NULL);
 	}
 	path_env = get_env_value("PATH", shell);
 	if (!path_env)
-	{
-		printf("bash: %s: No such file or directory\n", cmd);
 		return (NULL);
-	}
 	paths = ft_split(path_env, ':');
-	if (!paths)
+	if (!paths || !*paths)
 		return (NULL);
 	result = find_command_in_paths(paths, cmd);
 	ft_free_split(paths);
@@ -109,7 +115,11 @@ static int	setup_redirections(t_redir *redirs)
 			fd = open(current->file, O_RDONLY);
 			if (fd == -1)
 			{
-				printf("bash: %s: %s\n", current->file, strerror(errno));
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(current->file, 2);
+				ft_putstr_fd(": ", 2);
+				ft_putstr_fd(strerror(errno), 2);
+				ft_putstr_fd("\n", 2);
 				return (-1);
 			}
 			if (dup2(fd, STDIN_FILENO) == -1)
@@ -124,7 +134,11 @@ static int	setup_redirections(t_redir *redirs)
 			fd = open(current->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd == -1)
 			{
-				printf("bash: %s: %s\n", current->file, strerror(errno));
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(current->file, 2);
+				ft_putstr_fd(": ", 2);
+				ft_putstr_fd(strerror(errno), 2);
+				ft_putstr_fd("\n", 2);
 				return (-1);
 			}
 			if (dup2(fd, STDOUT_FILENO) == -1)
@@ -139,7 +153,11 @@ static int	setup_redirections(t_redir *redirs)
 			fd = open(current->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd == -1)
 			{
-				printf("bash: %s: %s\n", current->file, strerror(errno));
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(current->file, 2);
+				ft_putstr_fd(": ", 2);
+				ft_putstr_fd(strerror(errno), 2);
+				ft_putstr_fd("\n", 2);
 				return (-1);
 			}
 			if (dup2(fd, STDOUT_FILENO) == -1)
@@ -210,7 +228,12 @@ int	execute_command(t_ast *ast, t_shell *shell)
 	
 	cmd_path = find_command_path(ast->argv[0], shell);
 	if (!cmd_path)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(ast->argv[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 		return (127);
+	}
 	
 	envp = env_to_array(shell->env);
 	pid = fork();
@@ -220,7 +243,11 @@ int	execute_command(t_ast *ast, t_shell *shell)
 		if (setup_redirections(ast->redirs) == -1)
 			exit(1);
 		execve(cmd_path, ast->argv, envp);
-		printf("bash: %s: %s\n", cmd_path, strerror(errno));
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd_path, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
 		exit(126);
 	}
 	else if (pid > 0)
@@ -235,7 +262,7 @@ int	execute_command(t_ast *ast, t_shell *shell)
 				return (130);
 			else if (sig == SIGQUIT)
 			{
-				printf("Quit (core dumped)\n");
+				ft_putstr_fd("Quit (core dumped)\n", 2);
 				return (131);
 			}
 			return (128 + sig);
@@ -253,6 +280,8 @@ int	execute_command(t_ast *ast, t_shell *shell)
 
 static int	count_commands_in_pipeline(t_ast *node)
 {
+	if (!node)
+		return (0);
 	if (node->type != AST_PIPELINE)
 		return (1);
 	return (count_commands_in_pipeline(node->left) + 
@@ -265,31 +294,62 @@ static void	execute_pipeline_recursive(t_ast *node, int **pipes,
 {
 	pid_t	pid;
 
+	if (!node)
+		return;
+
 	if (node->type == AST_COMMAND)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
 			setup_child_signals();
+			
+			// Setup pipes
 			if (cmd_index > 0)
-				dup2(pipes[cmd_index - 1][0], STDIN_FILENO);
+			{
+				if (dup2(pipes[cmd_index - 1][0], STDIN_FILENO) == -1)
+					exit(1);
+			}
 			if (cmd_index < total_cmds - 1)
-				dup2(pipes[cmd_index][1], STDOUT_FILENO);
+			{
+				if (dup2(pipes[cmd_index][1], STDOUT_FILENO) == -1)
+					exit(1);
+			}
+			
+			// Close all pipes
 			for (int i = 0; i < total_cmds - 1; i++)
 			{
 				close(pipes[i][0]);
 				close(pipes[i][1]);
 			}
+			
 			if (setup_redirections(node->redirs) == -1)
 				exit(1);
-			if (is_builtin(node->argv[0]))
-				exit(execute_builtin(node, shell));
-			char *cmd_path = find_command_path(node->argv[0], shell);
-			if (!cmd_path)
-				exit(127);
-			char **envp = env_to_array(shell->env);
-			execve(cmd_path, node->argv, envp);
-			exit(126);
+				
+			if (node->argv && node->argv[0])
+			{
+				if (is_builtin(node->argv[0]))
+					exit(execute_builtin(node, shell));
+					
+				char *cmd_path = find_command_path(node->argv[0], shell);
+				if (!cmd_path)
+				{
+					ft_putstr_fd("minishell: ", 2);
+					ft_putstr_fd(node->argv[0], 2);
+					ft_putstr_fd(": command not found\n", 2);
+					exit(127);
+				}
+				
+				char **envp = env_to_array(shell->env);
+				execve(cmd_path, node->argv, envp);
+				perror("execve");
+				exit(126);
+			}
+			exit(0);
+		}
+		else if (pid < 0)
+		{
+			perror("fork");
 		}
 	}
 	else if (node->type == AST_PIPELINE)
@@ -339,7 +399,7 @@ int	execute_pipeline(t_ast *ast, t_shell *shell)
 	
 	last_status = 0;
 	i = 0;
-	while ( i < total_cmds)
+	while (i < total_cmds)
 	{
 		wait(&status);
 		if (i == total_cmds - 1)  // Last command determines exit status
@@ -347,7 +407,12 @@ int	execute_pipeline(t_ast *ast, t_shell *shell)
 			if (WIFSIGNALED(status))
 			{
 				int sig = WTERMSIG(status);
-				last_status = 128 + sig;
+				if (sig == SIGINT)
+					last_status = 130;
+				else if (sig == SIGQUIT)
+					last_status = 131;
+				else
+					last_status = 128 + sig;
 			}
 			else
 				last_status = WEXITSTATUS(status);

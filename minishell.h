@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 05:00:59 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/27 23:51:29 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,5 +145,7 @@ int			is_valid_identifier(char *str);
 char		*ft_strjoin_free(char *s1, char *s2);
 void		free_env(t_env *env);
 void		free_redirs(t_redir *redirs);
+char 		*ft_re(char *s, int old, int new);
+
 
 #endif

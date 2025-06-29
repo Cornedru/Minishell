@@ -85,4 +85,3 @@ int	handle_heredoc(t_redir *redir)
 	}
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/27 16:55:12 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/29 04:57:12 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,29 +171,22 @@ static void	shell_loop(void)
 
 	while (1)
 	{
-		// Handle signal interruption
 		if (check_signal_status() == SIG_INTERRUPT)
 		{
 			g_shell.last_status = 130;
 			continue ;
 		}
-		
 		line = get_prompt();
-		
-		// Handle EOF (Ctrl+D)
 		if (!line)
 		{
 			handle_eof();
 			break ;
 		}
-		
-		// Skip empty lines
 		if (*line == '\0')
 		{
 			free(line);
 			continue ;
 		}
-		
 		process_line(line, &g_shell);
 	}
 }
@@ -207,7 +200,6 @@ int	main(int argc, char **argv, char **envp)
 	setup_signals();
 	init_shell(&g_shell);
 	
-	// Set SHLVL
 	char *shlvl = get_env_value("SHLVL", &g_shell);
 	if (shlvl)
 	{
@@ -220,7 +212,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		set_env_value("SHLVL", "1", &g_shell);
 	}
-	
 	shell_loop();
 	cleanup_shell(&g_shell);
 	return (g_shell.last_status);

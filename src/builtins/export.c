@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 05:00:14 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/28 00:08:19 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ static int	handle_export_with_value(char *arg, t_shell *shell)
 	value = equals + 1;
 	if (!is_valid_identifier(key))
 	{
-		printf("export: `%s': not a valid identifier\n", key);
+		ft_putstr_fd("bash: export: `", 2);
+		ft_putstr_fd(key, 2);
+		ft_putstr_fd("=", 2);
+		ft_putstr_fd(value, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
 		*equals = '=';
 		return (1);
 	}
@@ -38,7 +42,9 @@ static int	handle_export_no_value(char *arg, t_shell *shell)
 {
 	if (!is_valid_identifier(arg))
 	{
-		printf("export: `%s': not a valid identifier\n", arg);
+		ft_putstr_fd("bash: export: `", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
 		return (1);
 	}
 	
@@ -93,7 +99,6 @@ static void	print_exported_vars_sorted(t_shell *shell)
 	int		i;
 	char	*equals;
 	
-	// Count exported variables
 	count = 0;
 	env = shell->env;
 	while (env)
@@ -105,12 +110,9 @@ static void	print_exported_vars_sorted(t_shell *shell)
 	
 	if (count == 0)
 		return;
-		
 	env_array = malloc(sizeof(char *) * count);
 	if (!env_array)
 		return;
-		
-	// Fill array with variable declarations
 	i = 0;
 	env = shell->env;
 	while (env && i < count)
@@ -118,18 +120,18 @@ static void	print_exported_vars_sorted(t_shell *shell)
 		if (env->exported)
 		{
 			if (env->value)
-				env_array[i] = ft_strjoin(env->key, ft_strjoin("=", env->value));
+			{
+				char *temp = ft_strjoin(env->key, "=");
+				env_array[i] = ft_strjoin(temp, env->value);
+				free(temp);
+			}
 			else
 				env_array[i] = ft_strdup(env->key);
 			i++;
 		}
 		env = env->next;
 	}
-	
-	// Sort the array
 	sort_env_array(env_array, count);
-	
-	// Print sorted variables
 	i = 0;
 	while (i < count)
 	{

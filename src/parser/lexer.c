@@ -61,10 +61,9 @@ static t_token_type	get_operator_type(char *input, int i)
 
 static int	get_operator_len(char *input, int i)
 {
-	if ((input[i] == '|' && input[i + 1] == '|') ||
-		(input[i] == '<' && input[i + 1] == '<') ||
-		(input[i] == '>' && input[i + 1] == '>') ||
-		(input[i] == '&' && input[i + 1] == '&'))
+	if ((input[i] == '|' && input[i + 1] == '|') || (input[i] == '<' && input[i
+			+ 1] == '<') || (input[i] == '>' && input[i + 1] == '>')
+		|| (input[i] == '&' && input[i + 1] == '&'))
 		return (2);
 	return (1);
 }
@@ -94,7 +93,7 @@ static void	add_token(t_token **tokens, t_token *new_token)
 	if (!*tokens)
 	{
 		*tokens = new_token;
-		return;
+		return ;
 	}
 	current = *tokens;
 	while (current->next)
@@ -104,18 +103,18 @@ static void	add_token(t_token **tokens, t_token *new_token)
 
 static int	extract_word_with_quotes(char *input, int i, char **word)
 {
-	int	start;
-	int	end;
+	int		start;
+	int		end;
+	char	quote;
 
 	start = i;
 	end = i;
-	
-	while (input[end] && !is_operator(input[end]) && 
-		   input[end] != ' ' && input[end] != '\t')
+	while (input[end] && !is_operator(input[end]) && input[end] != ' '
+		&& input[end] != '\t')
 	{
 		if (input[end] == '\'' || input[end] == '"')
 		{
-			char quote = input[end];
+			quote = input[end];
 			end++;
 			while (input[end] && input[end] != quote)
 				end++;
@@ -127,7 +126,6 @@ static int	extract_word_with_quotes(char *input, int i, char **word)
 			end++;
 		}
 	}
-	
 	*word = ft_substr(input, start, end - start);
 	return (end);
 }
@@ -150,13 +148,11 @@ t_token	*lexer(char *input)
 
 	tokens = NULL;
 	i = 0;
-	
 	while (input[i])
 	{
 		i = skip_whitespace(input, i);
 		if (!input[i])
-			break;
-			
+			break ;
 		if (is_operator(input[i]))
 		{
 			i = extract_operator(input, i, &value);
@@ -167,7 +163,6 @@ t_token	*lexer(char *input)
 			i = extract_word_with_quotes(input, i, &value);
 			new_token = create_token(TOKEN_WORD, value);
 		}
-		
 		if (!new_token)
 		{
 			free(value);
@@ -178,7 +173,5 @@ t_token	*lexer(char *input)
 		add_token(&tokens, new_token);
 		free(value);
 	}
-	
 	return (tokens);
 }
-

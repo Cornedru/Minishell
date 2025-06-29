@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 05:03:09 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/28 00:14:33 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,9 @@ static int	is_overflow(char *str)
 	i = 0;
 	sign = 1;
 	
-	// Skip whitespace
 	while (str[i] && (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)))
 		i++;
 	
-	// Check sign
 	if (str[i] == '+')
 		i++;
 	else if (str[i] == '-')
@@ -90,37 +88,26 @@ static int	is_overflow(char *str)
 		i++;
 	}
 	
-	// Skip leading zeros
 	while (str[i] == '0')
 		i++;
 	
-	// Count remaining digits
 	len = 0;
 	while (str[i + len] && ft_isdigit(str[i + len]))
 		len++;
-	
-	// More than 19 digits is definitely overflow
 	if (len > 19)
 		return (1);
-	
-	// Less than 19 digits is definitely OK
 	if (len < 19)
 		return (0);
-	
-	// Exactly 19 digits - check against limits
 	if (sign == 1)
 	{
-		// Compare with "9223372036854775807"
 		if (ft_strncmp(&str[i], "9223372036854775807", 19) > 0)
 			return (1);
 	}
 	else
 	{
-		// Compare with "9223372036854775808" (absolute value of LLONG_MIN)
 		if (ft_strncmp(&str[i], "9223372036854775808", 19) > 0)
 			return (1);
 	}
-	
 	return (0);
 }
 
@@ -131,6 +118,25 @@ static int	check_numeric_overflow(char *str)
 	
 	return (is_overflow(str));
 }
+
+// char *realloc(char *s, int new, int old)
+// {
+// 	int i = 0;
+// 	char *res;
+	
+// 	if (!s)
+// 		return (NULL);
+// 	res = malloc(sizeof(char) * new);
+// 	if (!res)
+// 		return (NULL);
+// 	while (i >= old && s[i])
+// 	{
+// 		res[i] = s[i];
+// 		i++;
+// 	}
+// 	free(s);
+// 	return (res);
+// }
 
 int	builtin_exit(char **argv, t_shell *shell)
 {
@@ -144,7 +150,8 @@ int	builtin_exit(char **argv, t_shell *shell)
 		argc++;
 
 	if (shell->interactive)
-		printf("exit\n");
+		ft_putstr_fd("exit\n", 1);
+	
 	if (argc == 1)
 	{
 		cleanup_shell(shell);
@@ -154,7 +161,9 @@ int	builtin_exit(char **argv, t_shell *shell)
 	{
 		if (check_numeric_overflow(argv[1]) || !is_valid_number(argv[1]))
 		{
-			printf("bash: exit: %s: numeric argument required\n", argv[1]);
+			ft_putstr_fd("minishell: exit: ", 2);
+			ft_putstr_fd(argv[1], 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
 			cleanup_shell(shell);
 			exit(2);
 		}
@@ -162,12 +171,15 @@ int	builtin_exit(char **argv, t_shell *shell)
 		cleanup_shell(shell);
 		exit(exit_code);
 	}
+	// argc > 2
 	if (check_numeric_overflow(argv[1]) || !is_valid_number(argv[1]))
 	{
-		printf("bash: exit: %s: numeric argument required\n", argv[1]);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(argv[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
 		cleanup_shell(shell);
 		exit(2);
 	}
-	printf("bash: exit: too many arguments\n");
+	ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 	return (1);
 }

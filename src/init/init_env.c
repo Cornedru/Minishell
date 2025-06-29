@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 00:55:39 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/27 23:50:56 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,21 @@ void	init_env_from_system(t_shell *shell)
 		i++;
 	}
 }
+
+char *ft_re(char *s, int old, int new)
+{
+	int i = 0;
+	char *res;
+	if (!s)
+		return (NULL);
+	res = gc_malloc(sizeof(char) * new);
+	if (!res) return (NULL);
+	while (i >= old && s[i])
+	{
+		res = s[i];
+		i++;
+	}
+	free(s);
+	return (res);
+}
+

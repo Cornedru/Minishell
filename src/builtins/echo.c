@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 05:00:51 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/28 00:09:00 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,11 @@ int	builtin_echo(char **argv)
 	newline = 1;
 	first_word = 1;
 	
-	// Parse all -n flags (bash behavior: multiple -n flags are allowed)
 	while (argv[i] && is_valid_n_flag(argv[i]))
 	{
 		newline = 0;
 		i++;
 	}
-	
-	// Print arguments
 	while (argv[i])
 	{
 		if (!first_word)
@@ -54,9 +51,7 @@ int	builtin_echo(char **argv)
 		first_word = 0;
 		i++;
 	}
-	
 	if (newline)
 		printf("\n");
-	
 	return (0);
 }
