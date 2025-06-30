@@ -22,10 +22,13 @@ SOURCES = main.c \
 		  $(SRCDIR)/executor/executor.c \
 		  $(SRCDIR)/executor/pipes.c \
 		  $(SRCDIR)/parser/expander.c \
+		  $(SRCDIR)/parser/expander_utils.c \
 		  $(SRCDIR)/parser/heredoc.c \
 		  $(SRCDIR)/parser/lexer.c \
 		  $(SRCDIR)/parser/lexer_utils.c \
 		  $(SRCDIR)/parser/parser.c \
+		  $(SRCDIR)/parser/clear_utils.c \
+		  $(SRCDIR)/parser/parser_utils.c \
 		  $(SRCDIR)/parser/quotes.c \
 		  $(SRCDIR)/signals/signal_handler.c \
 		  $(SRCDIR)/utils/utils.c \

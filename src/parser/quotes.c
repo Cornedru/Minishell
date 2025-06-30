@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/27 19:42:42 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/30 02:51:57 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,21 @@ int	check_quotes(char *line)
 
 char	*remove_quotes(char *str)
 {
-	char *result;
-	int i;
-	int j;
-	char quote;
-	int in_quote;
+	char	*result;
+	int		i;
+	int		j;
+	char	quote;
+	int		in_quote;
 
 	if (!str)
 		return (NULL);
-
 	result = malloc(ft_strlen(str) + 1);
 	if (!result)
 		return (NULL);
-
 	i = 0;
 	j = 0;
 	in_quote = 0;
 	quote = 0;
-
 	while (str[i])
 	{
 		if (!in_quote && (str[i] == '\'' || str[i] == '"'))

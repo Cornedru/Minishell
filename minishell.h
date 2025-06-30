@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/27 23:51:29 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/30 02:47:36 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,55 +97,84 @@ typedef struct s_shell
 }	t_shell;
 
 /* Parser functions */
-t_token		*lexer(char *input);
-t_ast		*parse(t_token **tokens);
-void		free_tokens(t_token *tokens);
-void		free_ast(t_ast *ast);
-void		expand_tokens(t_token *tokens, t_shell *shell);
-int			check_quotes(char *line);
-char		*remove_quotes(char *str);
+t_token			*lexer(char *input);
+t_ast			*parse(t_token **tokens);
+void			free_tokens(t_token *tokens);
+void			free_ast(t_ast *ast);
+void			expand_tokens(t_token *tokens, t_shell *shell);
+int				check_quotes(char *line);
+char			*remove_quotes(char *str);
 
 /* Executor functions */
-int			execute_ast(t_ast *ast, t_shell *shell);
-int			execute_command(t_ast *ast, t_shell *shell);
-int			execute_pipeline(t_ast *ast, t_shell *shell);
-int			execute_builtin(t_ast *node, t_shell *shell);
-char		*find_command_path(char *cmd, t_shell *shell);
-int			handle_heredoc(t_redir *redir);
+int				execute_ast(t_ast *ast, t_shell *shell);
+int				execute_command(t_ast *ast, t_shell *shell);
+int				execute_pipeline(t_ast *ast, t_shell *shell);
+int				execute_builtin(t_ast *node, t_shell *shell);
+char			*find_command_path(char *cmd, t_shell *shell);
+int				handle_heredoc(t_redir *redir);
 
 /* Signal functions */
-int			check_signal_status(void);
-void		setup_signals(void);
-void		setup_child_signals(void);
+int				check_signal_status(void);
+void			setup_signals(void);
+void			setup_child_signals(void);
 
 /* Builtin functions */
-int			is_builtin(char *cmd);
-int			builtin_echo(char **argv);
-int			builtin_cd(char **argv, t_shell *shell);
-int			builtin_pwd(void);
-int			builtin_export(char **argv, t_shell *shell);
-int			builtin_unset(char **argv, t_shell *shell);
-int			builtin_env(t_shell *shell);
-int			builtin_exit(char **argv, t_shell *shell);
-char		*get_home_path(t_shell *shell);
-char		*get_oldpwd_path(t_shell *shell);
+int				is_builtin(char *cmd);
+int				builtin_echo(char **argv);
+int				builtin_cd(char **argv, t_shell *shell);
+int				builtin_pwd(void);
+int				builtin_export(char **argv, t_shell *shell);
+int				builtin_unset(char **argv, t_shell *shell);
+int				builtin_env(t_shell *shell);
+int				builtin_exit(char **argv, t_shell *shell);
+char			*get_home_path(t_shell *shell);
+char			*get_oldpwd_path(t_shell *shell);
 
 /* Environment functions */
-void		init_env(t_shell *shell);
-char		*get_env_value(char *key, t_shell *shell);
-void		set_env_value(char *key, char *value, t_shell *shell);
-char		**env_to_array(t_env *env);
+void			init_env(t_shell *shell);
+char			*get_env_value(char *key, t_shell *shell);
+void			set_env_value(char *key, char *value, t_shell *shell);
+char			**env_to_array(t_env *env);
 
 /* Utils */
-void		cleanup_shell(t_shell *shell);
-int			is_numeric(char *str);
-void		print_exported_vars(t_shell *shell);
-void		mark_as_exported(char *key, t_shell *shell);
-int			is_valid_identifier(char *str);
-char		*ft_strjoin_free(char *s1, char *s2);
-void		free_env(t_env *env);
-void		free_redirs(t_redir *redirs);
-char 		*ft_re(char *s, int old, int new);
+void			cleanup_shell(t_shell *shell);
+int				is_numeric(char *str);
+void			print_exported_vars(t_shell *shell);
+void			mark_as_exported(char *key, t_shell *shell);
+int				is_valid_identifier(char *str);
+char			*ft_strjoin_free(char *s1, char *s2);
+void			free_env(t_env *env);
+void			free_redirs(t_redir *redirs);
+char 			*ft_re(char *s, int old, int new);
+int				is_operator(char c);
+int				skip_whitespace(char *input, int i);
+t_token_type	get_operator_type(char *input, int i);
+int				get_operator_len(char *input, int i);
+t_token			*create_token(t_token_type type, char *value);
+void			add_token(t_token **tokens, t_token *new_token);
+int				extract_word_with_quotes(char *input, int i, char **word);
+int				extract_operator(char *input, int i, char **op);
+char			*expand_variable(char *str, int *i, t_shell *shell);
+char			*process_regular_var(char *str, int *i, int start, t_shell *shell);
+char			*handle_numeric_var(char *str, int *i, int start);
+char			*build_numeric_var_value(char *str, int *i, char *value);
+char			*expand_special_var(char *str, int *i, t_shell *shell);
+t_ast			*new_ast_node(t_ast_type type);
+t_token			*advance_token(t_token **tokens);
+t_redir			*parse_redir(t_token **tokens);
+void			add_redir(t_redir **redirs, t_redir *new_redir);
+char			**gather_all_words(t_token **tokens);
+void			ft_clear(void);
+int				should_split_token(char *original, char *expanded);
+t_token			*split_expanded_token(char *expanded, t_token_type type);
+char			*expand_token_segments(char *str, t_shell *shell);
+char			*expand_outside_quotes(char *str, int start, int end,
+		t_shell *shell);
+char 			*expand_in_double_quotes(char *str, int start, int end, t_shell *shell);
+char 			*join_and_free(char *s1, char *s2);
+
+
+
 
 
 #endif
