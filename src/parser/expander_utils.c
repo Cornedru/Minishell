@@ -133,6 +133,7 @@ char	*expand_outside_quotes(char *str, int start, int end, t_shell *shell)
 	}
 	return (result);
 }
+
 char	*expand_variable(char *str, int *i, t_shell *shell)
 {
 	char	*result;

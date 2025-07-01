@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/30 02:47:36 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/30 02:56:47 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,9 +172,5 @@ char			*expand_outside_quotes(char *str, int start, int end,
 		t_shell *shell);
 char 			*expand_in_double_quotes(char *str, int start, int end, t_shell *shell);
 char 			*join_and_free(char *s1, char *s2);
-
-
-
-
 
 #endif
