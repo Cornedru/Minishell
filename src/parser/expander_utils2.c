@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 22:58:19 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:57:16 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,20 @@ char	*expand_variable(char *str, int *i, t_shell *shell)
 	if (ft_isdigit(str[start]))
 		return (handle_numeric_var(str, i, start));
 	return (process_regular_var(str, i, start, shell));
+}
+
+char	*normalize_whitespace(char *expanded)
+{
+	char	*clean;
+	int		i;
+
+	clean = expanded;
+	i = 0;
+	while (clean[i])
+	{
+		if (clean[i] == '\t' || clean[i] == '\n')
+			clean[i] = ' ';
+		i++;
+	}
+	return (clean);
 }

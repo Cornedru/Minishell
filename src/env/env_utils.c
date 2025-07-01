@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 00:57:13 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:43:43 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,42 @@ void	print_exported_vars(t_shell *shell)
 	}
 }
 
+// char	**env_to_array(t_env *env)
+// {
+// 	char	**envp;
+// 	t_env	*current;
+// 	int		count;
+// 	int		i;
+// 	char	*temp;
+
+// 	count = 0;
+// 	current = env;
+// 	while (current)
+// 	{
+// 		if (current->value)
+// 			count++;
+// 		current = current->next;
+// 	}
+// 	envp = malloc(sizeof(char *) * (count + 1));
+// 	if (!envp)
+// 		return (NULL);
+// 	i = 0;
+// 	current = env;
+// 	while (current && i < count)
+// 	{
+// 		if (current->value)
+// 		{
+// 			temp = ft_strjoin(current->key, "=");
+// 			envp[i] = ft_strjoin(temp, current->value);
+// 			free(temp);
+// 			i++;
+// 		}
+// 		current = current->next;
+// 	}
+// 	envp[i] = NULL;
+// 	return (envp);
+// }
+
 char	**env_to_array(t_env *env)
 {
 	char	**envp;
@@ -76,24 +112,44 @@ char	**env_to_array(t_env *env)
 
 	count = 0;
 	current = env;
+	// Count only exported variables with values
 	while (current)
 	{
-		if (current->value)
+		if (current->value && current->exported)
 			count++;
 		current = current->next;
 	}
+	
+	// Always allocate at least 1 slot for NULL terminator
 	envp = malloc(sizeof(char *) * (count + 1));
 	if (!envp)
 		return (NULL);
+		
 	i = 0;
 	current = env;
 	while (current && i < count)
 	{
-		if (current->value)
+		if (current->value && current->exported)
 		{
 			temp = ft_strjoin(current->key, "=");
+			if (!temp)
+			{
+				// Clean up on allocation failure
+				while (--i >= 0)
+					free(envp[i]);
+				free(envp);
+				return (NULL);
+			}
 			envp[i] = ft_strjoin(temp, current->value);
 			free(temp);
+			if (!envp[i])
+			{
+				// Clean up on allocation failure
+				while (--i >= 0)
+					free(envp[i]);
+				free(envp);
+				return (NULL);
+			}
 			i++;
 		}
 		current = current->next;

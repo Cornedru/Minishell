@@ -6,32 +6,43 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 22:56:55 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:56:40 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*normalize_whitespace(char *expanded)
+t_token	*alloc_token_node(char *value, t_token_type type)
 {
-	char	*clean;
-	int		i;
+	t_token	*tmp;
 
-	clean = expanded;
-	i = 0;
-	while (clean[i])
-	{
-		if (clean[i] == '\t' || clean[i] == '\n')
-			clean[i] = ' ';
-		i++;
-	}
-	return (clean);
+	tmp = malloc(sizeof(t_token));
+	if (!tmp)
+		return (NULL);
+	tmp->type = type;
+	tmp->value = ft_strdup(value);
+	tmp->next = NULL;
+	return (tmp);
 }
 
-static t_token	*create_token_list(char **split_values, t_token_type type)
+void	append_token(t_token **head, t_token *new_token)
+{
+	t_token	*current;
+
+	if (!*head)
+		*head = new_token;
+	else
+	{
+		current = *head;
+		while (current->next)
+			current = current->next;
+		current->next = new_token;
+	}
+}
+
+t_token	*create_token_list(char **split_values, t_token_type type)
 {
 	t_token	*new_tokens;
-	t_token	*current;
 	t_token	*tmp;
 	int		i;
 
@@ -44,21 +55,10 @@ static t_token	*create_token_list(char **split_values, t_token_type type)
 			i++;
 			continue ;
 		}
-		tmp = malloc(sizeof(t_token));
+		tmp = alloc_token_node(split_values[i], type);
 		if (!tmp)
 			break ;
-		tmp->type = type;
-		tmp->value = ft_strdup(split_values[i]);
-		tmp->next = NULL;
-		if (!new_tokens)
-			new_tokens = tmp;
-		else
-		{
-			current = new_tokens;
-			while (current->next)
-				current = current->next;
-			current->next = tmp;
-		}
+		append_token(&new_tokens, tmp);
 		i++;
 	}
 	return (new_tokens);
@@ -83,47 +83,17 @@ t_token	*split_expanded_token(char *expanded, t_token_type type)
 	return (new_tokens);
 }
 
-void	handle_quoted_segment(char *str, int *i, t_shell *shell, char **result)
+void	process_quote(char *str, int *i, char **result, char quote)
 {
-	char	quote;
 	int		start;
 	char	*segment_result;
 
-	quote = str[*i];
 	start = *i + 1;
 	(*i)++;
 	while (str[*i] && str[*i] != quote)
 		(*i)++;
+	segment_result = ft_substr(str, start, *i - start);
+	*result = join_and_free(*result, segment_result);
 	if (str[*i] == quote)
-	{
-		if (quote == '\'')
-		{
-			segment_result = ft_substr(str, start, *i - start);
-		}
-		else
-		{
-			segment_result = expand_in_double_quotes(str, start, *i, shell);
-		}
-		*result = join_and_free(*result, segment_result);
 		(*i)++;
-	}
-	else
-	{
-		segment_result = ft_substr(str, start - 1, *i - start + 1);
-		*result = join_and_free(*result, segment_result);
-	}
-}
-
-char	*join_and_free(char *s1, char *s2)
-{
-	char	*result;
-
-	if (!s1)
-		return (s2);
-	if (!s2)
-		return (s1);
-	result = ft_strjoin(s1, s2);
-	free(s1);
-	free(s2);
-	return (result);
 }

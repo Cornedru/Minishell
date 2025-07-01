@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 18:29:10 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:46:18 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,70 @@ char	*find_command_path(char *cmd, t_shell *shell)
 	return (result);
 }
 
+// static int	setup_single_redirection(t_redir *current)
+// {
+// 	int	fd;
+
+// 	if (current->type == TOKEN_REDIR_IN)
+// 	{
+// 		fd = open(current->file, O_RDONLY);
+// 		if (fd == -1)
+// 		{
+// 			perror(current->file);
+// 			return (-1);
+// 		}
+// 		if (dup2(fd, STDIN_FILENO) == -1)
+// 		{
+// 			close(fd);
+// 			return (-1);
+// 		}
+// 		close(fd);
+// 	}
+// 	else if (current->type == TOKEN_REDIR_OUT)
+// 	{
+// 		fd = open(current->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+// 		if (fd == -1)
+// 		{
+// 			perror(current->file);
+// 			return (-1);
+// 		}
+// 		if (dup2(fd, STDOUT_FILENO) == -1)
+// 		{
+// 			close(fd);
+// 			return (-1);
+// 		}
+// 		close(fd);
+// 	}
+// 	else if (current->type == TOKEN_REDIR_APPEND)
+// 	{
+// 		fd = open(current->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+// 		if (fd == -1)
+// 		{
+// 			perror(current->file);
+// 			return (-1);
+// 		}
+// 		if (dup2(fd, STDOUT_FILENO) == -1)
+// 		{
+// 			close(fd);
+// 			return (-1);
+// 		}
+// 		close(fd);
+// 	}
+// 	else if (current->type == TOKEN_HEREDOC)
+// 	{
+// 		if (handle_heredoc(current) == -1)
+// 			return (-1);
+// 	}
+// 	return (0);
+// }
+
 static int	setup_single_redirection(t_redir *current)
 {
 	int	fd;
 
+	if (!current || !current->file)
+		return (-1);
+		
 	if (current->type == TOKEN_REDIR_IN)
 	{
 		fd = open(current->file, O_RDONLY);
@@ -115,9 +175,9 @@ static int	setup_single_redirection(t_redir *current)
 			return (-1);
 		}
 		close(fd);
-	}
-	else if (current->type == TOKEN_REDIR_OUT)
-	{
+		}
+		else if (current->type == TOKEN_REDIR_OUT)
+		{
 		fd = open(current->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
 		{
@@ -196,6 +256,19 @@ static int	execute_builtin_with_redirections(t_ast *ast, t_shell *shell)
 	return (status);
 }
 
+// static void	execute_external_command(char *cmd_path, t_ast *ast, t_shell *shell)
+// {
+// 	char	**envp;
+
+// 	setup_child_signals();
+// 	if (setup_redirections(ast->redirs) == -1)
+// 		exit(1);
+// 	envp = env_to_array(shell->env);
+// 	execve(cmd_path, ast->argv, envp);
+// 	perror("execve");
+// 	exit(126);
+// }
+
 static void	execute_external_command(char *cmd_path, t_ast *ast, t_shell *shell)
 {
 	char	**envp;
@@ -203,9 +276,22 @@ static void	execute_external_command(char *cmd_path, t_ast *ast, t_shell *shell)
 	setup_child_signals();
 	if (setup_redirections(ast->redirs) == -1)
 		exit(1);
+	
+	// Add NULL check for env
 	envp = env_to_array(shell->env);
+	if (!envp)
+	{
+		// Create minimal environment if env_to_array fails
+		envp = malloc(sizeof(char *) * 1);
+		if (envp)
+			envp[0] = NULL;
+	}
+	
 	execve(cmd_path, ast->argv, envp);
 	perror("execve");
+	// Free envp on failure
+	if (envp)
+		ft_free_split(envp);
 	exit(126);
 }
 

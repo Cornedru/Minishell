@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/25 04:03:03 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:59:29 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,37 @@ static int	heredoc_parent_process(int *pipe_fd, pid_t pid)
 	return (0);
 }
 
+// int	handle_heredoc(t_redir *redir)
+// {
+// 	int		pipe_fd[2];
+// 	char	*delimiter;
+// 	pid_t	pid;
+
+// 	delimiter = redir->file;
+// 	if (pipe(pipe_fd) == -1)
+// 		return (-1);
+// 	pid = fork();
+// 	if (pid == 0)
+// 		heredoc_child_process(pipe_fd, delimiter);
+// 	else if (pid > 0)
+// 		return (heredoc_parent_process(pipe_fd, pid));
+// 	else
+// 	{
+// 		close(pipe_fd[0]);
+// 		close(pipe_fd[1]);
+// 		return (-1);
+// 	}
+// 	return (0);
+// }
+
 int	handle_heredoc(t_redir *redir)
 {
 	int		pipe_fd[2];
 	char	*delimiter;
 	pid_t	pid;
 
+	if (!redir || !redir->file)
+		return (-1);
 	delimiter = redir->file;
 	if (pipe(pipe_fd) == -1)
 		return (-1);
@@ -84,4 +109,19 @@ int	handle_heredoc(t_redir *redir)
 		return (-1);
 	}
 	return (0);
+}
+
+char	**gather_all_words(t_token **tokens)
+{
+	t_token	*start;
+	int		count;
+	char	**argv;
+
+	start = *tokens;
+	count = count_word_tokens(start);
+	argv = allocate_argv(count);
+	if (!argv)
+		return (NULL);
+	fill_argv(tokens, argv);
+	return (argv);
 }

@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 22:49:56 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 00:02:14 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,22 @@ void			handle_quoted_segment(char *str, int *i, t_shell *shell,
 int				count_word_tokens(t_token *start);
 char			**allocate_argv(int count);
 void			fill_argv(t_token **tokens, char **argv);
+char			*expand_segment(char *str, int start, int end, t_shell *shell);
+char			*handle_digit_var(char *str, int *i, char *key, char *value);
+char			*extract_var_key(char *str, int start, int *end);
+char			*get_var_value(char *key, t_shell *shell, int *i, int end);
+char			*normalize_whitespace(char *expanded);
+t_token			*alloc_token_node(char *value, t_token_type type);
+void			append_token(t_token **head, t_token *new_token);
+t_token			*create_token_list(char **split_values, t_token_type type);
+void			process_quote(char *str, int *i, char **result, char quote);
+void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
+int				has_whitespace(char *str);
+int				has_quotes(char *str);
+int				get_unquoted_length(char *str);
+int				count_quoted_chars(char *str, int *i);
+void			copy_quoted_content(char *str, int *i, int *j, char *result);
+void			replace_token_value(t_token *current, t_token *split_tokens);
 
 
 #endif

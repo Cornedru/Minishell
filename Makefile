@@ -30,9 +30,11 @@ SOURCES = main.c \
 		  $(SRCDIR)/parser/parser.c \
 		  $(SRCDIR)/parser/parser2.c \
 		  $(SRCDIR)/parser/clear_utils.c \
+		  $(SRCDIR)/parser/clear_utils2.c \
 		  $(SRCDIR)/parser/parser_utils.c \
 		  $(SRCDIR)/parser/parser_utils2.c \
 		  $(SRCDIR)/parser/quotes.c \
+		  $(SRCDIR)/parser/utils2.c \
 		  $(SRCDIR)/signals/signal_handler.c \
 		  $(SRCDIR)/utils/utils.c \
 		  $(SRCDIR)/utils/memory.c \

@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 22:58:55 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:56:21 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_clear(void)
 	write(1, "\033[H\033[2J", 7);
 }
 
-static char	*expand_segment(char *str, int start, int end, t_shell *shell)
+char	*expand_segment(char *str, int start, int end, t_shell *shell)
 {
 	char	*result;
 	char	*temp;
@@ -51,57 +51,47 @@ char	*expand_in_double_quotes(char *str, int start, int end, t_shell *shell)
 	return (expand_segment(str, start, end, shell));
 }
 
-static char	*handle_digit_var(char *str, int *i, char *key, char *value)
+void	handle_quoted_segment(char *str, int *i, t_shell *shell, char **result)
 {
-	char	c[2];
-	char	*tmp;
-
-	(void)*key;
-	c[1] = '\0';
-	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
-	{
-		c[0] = str[*i];
-		tmp = value;
-		value = ft_strjoin(tmp, c);
-		free(tmp);
-		(*i)++;
-	}
-	return (value);
-}
-
-char	*expand_regular_var(char *str, int *i, t_shell *shell)
-{
+	char	quote;
 	int		start;
-	int		end;
-	char	*key;
-	char	*value;
+	char	*segment_result;
 
-	start = *i + 1;
-	end = start;
-	if (!str[start] || (!ft_isalpha(str[start]) && str[start] != '_'
-			&& !ft_isdigit(str[start])))
+	quote = str[*i];
+	if (quote == '\'')
 	{
-		*i = start;
-		return (ft_strdup("$"));
+		process_quote(str, i, result, quote);
 	}
-	if (ft_isdigit(str[start]))
+	else
 	{
-		*i = start + 1;
-		key = ft_substr(str, start, 1);
-		value = ft_strjoin("$", key);
-		free(key);
-		return (handle_digit_var(str, i, key, value));
+		start = *i + 1;
+		(*i)++;
+		while (str[*i] && str[*i] != quote)
+			(*i)++;
+		if (str[*i] == quote)
+		{
+			segment_result = expand_in_double_quotes(str, start, *i, shell);
+			*result = join_and_free(*result, segment_result);
+			(*i)++;
+		}
+		else
+		{
+			segment_result = ft_substr(str, start - 1, *i - start + 1);
+			*result = join_and_free(*result, segment_result);
+		}
 	}
-	while (str[end] && (ft_isalnum(str[end]) || str[end] == '_'))
-		end++;
-	key = ft_substr(str, start, end - start);
-	if (!key)
-		return (ft_strdup(""));
-	value = get_env_value(key, shell);
-	*i = end;
-	free(key);
-	if (value)
-		return (ft_strdup(value));
-	return (ft_strdup(""));
 }
 
+char	*join_and_free(char *s1, char *s2)
+{
+	char	*result;
+
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
+	result = ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+	return (result);
+}

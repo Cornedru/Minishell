@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 18:47:22 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 23:53:47 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,13 @@ char	*process_regular_var(char *str, int *i, int start, t_shell *shell)
 static void	handle_token_expansion(t_token *current, char *expanded)
 {
 	t_token	*split_tokens;
-	t_token	*last_split;
 
 	if (should_split_token(current->value, expanded))
 	{
 		split_tokens = split_expanded_token(expanded, current->type);
 		if (split_tokens)
 		{
-			last_split = split_tokens;
-			while (last_split->next)
-				last_split = last_split->next;
-			last_split->next = current->next;
-			free(current->value);
-			current->value = ft_strdup(split_tokens->value);
-			current->next = split_tokens->next;
-			free(split_tokens->value);
-			free(split_tokens);
+			replace_token_value(current, split_tokens);
 		}
 		else
 		{
