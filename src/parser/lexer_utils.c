@@ -6,88 +6,50 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 18:09:40 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 22:57:42 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*create_token(t_token_type type, char *value)
+t_ast	*create_and_or_node(t_ast *left, t_ast *right, t_ast_type type)
 {
-	t_token	*token;
+	t_ast	*node;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->type = type;
-	token->value = ft_strdup(value);
-	token->next = NULL;
-	if (!token->value)
+	node = new_ast_node(type);
+	if (!node)
 	{
-		free(token);
+		free_ast(left);
+		free_ast(right);
 		return (NULL);
 	}
-	return (token);
+	node->left = left;
+	node->right = right;
+	return (node);
 }
 
-void	add_token(t_token **tokens, t_token *new_token)
+t_ast	*parse_and_or(t_token **tokens)
 {
-	t_token	*current;
+	t_ast		*left;
+	t_ast		*right;
+	t_ast_type	type;
 
-	if (!*tokens)
+	left = parse_pipeline(tokens);
+	if (!left)
+		return (NULL);
+	if (!*tokens || ((*tokens)->type != TOKEN_AND
+			&& (*tokens)->type != TOKEN_OR))
+		return (left);
+	if ((*tokens)->type == TOKEN_AND)
+		type = AST_AND;
+	else
+		type = AST_OR;
+	advance_token(tokens);
+	right = parse_and_or(tokens);
+	if (!right)
 	{
-		*tokens = new_token;
-		return ;
+		free_ast(left);
+		return (NULL);
 	}
-	current = *tokens;
-	while (current->next)
-		current = current->next;
-	current->next = new_token;
-}
-
-int	extract_word_with_quotes(char *input, int i, char **word)
-{
-	int		start;
-	int		end;
-	char	quote;
-
-	start = i;
-	end = i;
-	while (input[end] && !is_operator(input[end]) && input[end] != ' '
-		&& input[end] != '\t')
-	{
-		if (input[end] == '\'' || input[end] == '"')
-		{
-			quote = input[end];
-			end++;
-			while (input[end] && input[end] != quote)
-				end++;
-			if (input[end] == quote)
-				end++;
-		}
-		else
-		{
-			end++;
-		}
-	}
-	*word = ft_substr(input, start, end - start);
-	return (end);
-}
-
-int	extract_operator(char *input, int i, char **op)
-{
-	int	len;
-
-	len = get_operator_len(input, i);
-	*op = ft_substr(input, i, len);
-	return (i + len);
-}
-
-int	get_operator_len(char *input, int i)
-{
-	if ((input[i] == '|' && input[i + 1] == '|') || (input[i] == '<' && input[i
-				+ 1] == '<') || (input[i] == '>' && input[i + 1] == '>')
-		|| (input[i] == '&' && input[i + 1] == '&'))
-		return (2);
-	return (1);
+	return (create_and_or_node(left, right, type));
 }

@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 18:10:08 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 22:49:56 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,19 @@ void			free_ast(t_ast *ast);
 void			expand_tokens(t_token *tokens, t_shell *shell);
 int				check_quotes(char *line);
 char			*remove_quotes(char *str);
+void			parse_redirections(t_token **tokens, t_ast *node);
+
+
+/* Parser helper functions */
+t_ast			*parse_pipeline(t_token **tokens);
+t_ast			*parse_and_or(t_token **tokens);
+t_ast			*create_pipeline_node(t_ast *left, t_ast *right);
+t_ast			*create_and_or_node(t_ast *left, t_ast *right, t_ast_type type);
+t_ast			*parse_command(t_token **tokens);
+t_ast			*parse_simple_command(t_token **tokens);
+
+
+
 
 /* Executor functions */
 int				execute_ast(t_ast *ast, t_shell *shell);
@@ -169,11 +182,17 @@ void			ft_clear(void);
 int				should_split_token(char *original, char *expanded);
 t_token			*split_expanded_token(char *expanded, t_token_type type);
 char			*expand_token_segments(char *str, t_shell *shell);
-char			*expand_outside_quotes(char *str, int start, int end,
-					t_shell *shell);
 char			*expand_in_double_quotes(char *str, int start, int end,
 					t_shell *shell);
-char			*join_and_free(char *s1, char *s2);
+char			*expand_outside_quotes(char *str, int start, int end,
+					t_shell *shell);
 char			*expand_regular_var(char *str, int *i, t_shell *shell);
+char			*join_and_free(char *s1, char *s2);
+void			handle_quoted_segment(char *str, int *i, t_shell *shell,
+					char **result);
+int				count_word_tokens(t_token *start);
+char			**allocate_argv(int count);
+void			fill_argv(t_token **tokens, char **argv);
+
 
 #endif

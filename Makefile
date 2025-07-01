@@ -23,12 +23,15 @@ SOURCES = main.c \
 		  $(SRCDIR)/executor/pipes.c \
 		  $(SRCDIR)/parser/expander.c \
 		  $(SRCDIR)/parser/expander_utils.c \
+		  $(SRCDIR)/parser/expander_utils2.c \
 		  $(SRCDIR)/parser/heredoc.c \
 		  $(SRCDIR)/parser/lexer.c \
 		  $(SRCDIR)/parser/lexer_utils.c \
 		  $(SRCDIR)/parser/parser.c \
+		  $(SRCDIR)/parser/parser2.c \
 		  $(SRCDIR)/parser/clear_utils.c \
 		  $(SRCDIR)/parser/parser_utils.c \
+		  $(SRCDIR)/parser/parser_utils2.c \
 		  $(SRCDIR)/parser/quotes.c \
 		  $(SRCDIR)/signals/signal_handler.c \
 		  $(SRCDIR)/utils/utils.c \
@@ -71,29 +74,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
-# # gc ************************************************************************* #
-# GC = $(GC_DIR)/gc.a
-
-# # Compilation **************************************************************** #
-# CC = cc
-# CFLAGS = -Wall -Wextra -Werror -g3 -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes -I$(GC_DIR)/includes
-
-
-
-# # Build libft.a ************************************************************** #
-# $(LIBFT):
-# 	@echo "Making libft..."
-# 	@$(MAKE) -s -C $(LIBFT_DIR)
-# 	@echo "libft done."
-
-# # Build gc.a ***************************************************************** #
-# $(GC): $(LIBFT)
-# 	@echo "Making gc..."
-# 	@$(MAKE) -s -C $(GC_DIR) LIBFT_PATH="../libft"
-# 	@echo "gc done."
-
-# # Compile .c files to .o files *********************************************** #
-# $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-# 	@mkdir -p $(OBJS_DIR)
-# 	@$(CC) $(CFLAGS) -c $< -o $@

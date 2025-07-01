@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 18:11:55 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 22:59:06 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,6 @@ int	check_quotes(char *line)
 	return (single_quote || double_quote);
 }
 
-// static void	skip_quotes(char *str, int *i, char quote)
-// {
-// 	(*i)++;
-// 	while (str[*i] && str[*i] != quote)
-// 		(*i)++;
-// 	if (str[*i] == quote)
-// 		(*i)++;
-// }
-
 static void	copy_quoted_content(char *str, int *i, int *j, char *result)
 {
 	char	quote;
@@ -56,6 +47,37 @@ static void	copy_quoted_content(char *str, int *i, int *j, char *result)
 		(*i)++;
 }
 
+static int	get_unquoted_length(char *str)
+{
+	int		i;
+	int		len;
+	char	quote;
+
+	i = 0;
+	len = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			quote = str[i];
+			i++;
+			while (str[i] && str[i] != quote)
+			{
+				len++;
+				i++;
+			}
+			if (str[i] == quote)
+				i++;
+		}
+		else
+		{
+			len++;
+			i++;
+		}
+	}
+	return (len);
+}
+
 char	*remove_quotes(char *str)
 {
 	char	*result;
@@ -64,7 +86,7 @@ char	*remove_quotes(char *str)
 
 	if (!str)
 		return (NULL);
-	result = malloc(ft_strlen(str) + 1);
+	result = malloc(get_unquoted_length(str) + 1);
 	if (!result)
 		return (NULL);
 	i = 0;
@@ -78,4 +100,25 @@ char	*remove_quotes(char *str)
 	}
 	result[j] = '\0';
 	return (result);
+}
+
+int	should_split_token(char *original, char *expanded)
+{
+	int	i;
+
+	i = 0;
+	while (original[i])
+	{
+		if (original[i] == '\'' || original[i] == '"')
+			return (0);
+		i++;
+	}
+	i = 0;
+	while (expanded[i])
+	{
+		if (expanded[i] == ' ' || expanded[i] == '\t' || expanded[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 18:09:19 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:47:22 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,6 @@ char	*build_numeric_var_value(char *str, int *i, char *value)
 		(*i)++;
 	}
 	return (value);
-}
-
-char	*handle_numeric_var(char *str, int *i, int start)
-{
-	char	*key;
-	char	*value;
-
-	*i = start + 1;
-	key = ft_substr(str, start, 1);
-	value = ft_strjoin("$", key);
-	free(key);
-	return (build_numeric_var_value(str, i, value));
 }
 
 char	*process_regular_var(char *str, int *i, int start, t_shell *shell)
