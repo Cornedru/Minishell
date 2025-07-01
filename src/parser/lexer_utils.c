@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/30 02:03:53 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:09:40 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	extract_operator(char *input, int i, char **op)
 int	get_operator_len(char *input, int i)
 {
 	if ((input[i] == '|' && input[i + 1] == '|') || (input[i] == '<' && input[i
-			+ 1] == '<') || (input[i] == '>' && input[i + 1] == '>')
+				+ 1] == '<') || (input[i] == '>' && input[i + 1] == '>')
 		|| (input[i] == '&' && input[i + 1] == '&'))
 		return (2);
 	return (1);

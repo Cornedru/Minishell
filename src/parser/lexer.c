@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/30 02:03:49 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:09:34 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ int	skip_whitespace(char *input, int i)
 		i++;
 	return (i);
 }
-
-//  int	handle_quotes(char *input, int i, char quote)
-// {
-// 	i++;
-// 	while (input[i] && input[i] != quote)
-// 		i++;
-// 	if (input[i] == quote)
-// 		i++;
-// 	return (i);
-// }
 
 t_token_type	get_operator_type(char *input, int i)
 {
@@ -59,12 +49,38 @@ t_token_type	get_operator_type(char *input, int i)
 	return (TOKEN_WORD);
 }
 
+static int	process_token(char *input, int i, t_token **tokens)
+{
+	t_token	*new_token;
+	char	*value;
+
+	if (is_operator(input[i]))
+	{
+		i = extract_operator(input, i, &value);
+		new_token = create_token(get_operator_type(value, 0), value);
+	}
+	else
+	{
+		i = extract_word_with_quotes(input, i, &value);
+		new_token = create_token(TOKEN_WORD, value);
+	}
+	if (!new_token)
+	{
+		free(value);
+		free_tokens(*tokens);
+		*tokens = NULL;
+		return (-1);
+	}
+	add_token(tokens, new_token);
+	free(value);
+	return (i);
+}
+
 t_token	*lexer(char *input)
 {
 	t_token	*tokens;
-	t_token	*new_token;
-	char	*value;
 	int		i;
+	int		result;
 
 	tokens = NULL;
 	i = 0;
@@ -73,24 +89,10 @@ t_token	*lexer(char *input)
 		i = skip_whitespace(input, i);
 		if (!input[i])
 			break ;
-		if (is_operator(input[i]))
-		{
-			i = extract_operator(input, i, &value);
-			new_token = create_token(get_operator_type(value, 0), value);
-		}
-		else
-		{
-			i = extract_word_with_quotes(input, i, &value);
-			new_token = create_token(TOKEN_WORD, value);
-		}
-		if (!new_token)
-		{
-			free(value);
-			free_tokens(tokens);
+		result = process_token(input, i, &tokens);
+		if (result == -1)
 			return (NULL);
-		}
-		add_token(&tokens, new_token);
-		free(value);
+		i = result;
 	}
 	return (tokens);
 }

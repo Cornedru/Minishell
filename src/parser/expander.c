@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/30 02:55:07 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:09:19 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,45 @@ char	*process_regular_var(char *str, int *i, int start, t_shell *shell)
 	return (ft_strdup(""));
 }
 
+static void	handle_token_expansion(t_token *current, char *expanded)
+{
+	t_token	*split_tokens;
+	t_token	*last_split;
+
+	if (should_split_token(current->value, expanded))
+	{
+		split_tokens = split_expanded_token(expanded, current->type);
+		if (split_tokens)
+		{
+			last_split = split_tokens;
+			while (last_split->next)
+				last_split = last_split->next;
+			last_split->next = current->next;
+			free(current->value);
+			current->value = ft_strdup(split_tokens->value);
+			current->next = split_tokens->next;
+			free(split_tokens->value);
+			free(split_tokens);
+		}
+		else
+		{
+			free(current->value);
+			current->value = expanded;
+		}
+		free(expanded);
+	}
+	else
+	{
+		free(current->value);
+		current->value = expanded;
+	}
+}
+
 void	expand_tokens(t_token *tokens, t_shell *shell)
 {
 	t_token	*current;
 	t_token	*next;
 	char	*expanded;
-	t_token	*split_tokens;
-	t_token	*last_split;
 
 	current = tokens;
 	while (current)
@@ -101,36 +133,7 @@ void	expand_tokens(t_token *tokens, t_shell *shell)
 		{
 			expanded = expand_token_segments(current->value, shell);
 			if (expanded)
-			{
-				if (should_split_token(current->value, expanded))
-				{
-					split_tokens = split_expanded_token(expanded,
-							current->type);
-					if (split_tokens)
-					{
-						*last_split = *split_tokens;
-						while (last_split->next)
-							last_split = last_split->next;
-						last_split->next = current->next;
-						free(current->value);
-						current->value = ft_strdup(split_tokens->value);
-						current->next = split_tokens->next;
-						free(split_tokens->value);
-						free(split_tokens);
-					}
-					else
-					{
-						free(current->value);
-						current->value = expanded;
-					}
-					free(expanded);
-				}
-				else
-				{
-					free(current->value);
-					current->value = expanded;
-				}
-			}
+				handle_token_expansion(current, expanded);
 		}
 		current = next;
 	}

@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/30 02:56:47 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:10:08 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int				is_valid_identifier(char *str);
 char			*ft_strjoin_free(char *s1, char *s2);
 void			free_env(t_env *env);
 void			free_redirs(t_redir *redirs);
-char 			*ft_re(char *s, int old, int new);
+char			*ft_re(char *s, int old, int new);
 int				is_operator(char c);
 int				skip_whitespace(char *input, int i);
 t_token_type	get_operator_type(char *input, int i);
@@ -155,7 +155,8 @@ void			add_token(t_token **tokens, t_token *new_token);
 int				extract_word_with_quotes(char *input, int i, char **word);
 int				extract_operator(char *input, int i, char **op);
 char			*expand_variable(char *str, int *i, t_shell *shell);
-char			*process_regular_var(char *str, int *i, int start, t_shell *shell);
+char			*process_regular_var(char *str, int *i, int start,
+					t_shell *shell);
 char			*handle_numeric_var(char *str, int *i, int start);
 char			*build_numeric_var_value(char *str, int *i, char *value);
 char			*expand_special_var(char *str, int *i, t_shell *shell);
@@ -169,8 +170,10 @@ int				should_split_token(char *original, char *expanded);
 t_token			*split_expanded_token(char *expanded, t_token_type type);
 char			*expand_token_segments(char *str, t_shell *shell);
 char			*expand_outside_quotes(char *str, int start, int end,
-		t_shell *shell);
-char 			*expand_in_double_quotes(char *str, int start, int end, t_shell *shell);
-char 			*join_and_free(char *s1, char *s2);
+					t_shell *shell);
+char			*expand_in_double_quotes(char *str, int start, int end,
+					t_shell *shell);
+char			*join_and_free(char *s1, char *s2);
+char			*expand_regular_var(char *str, int *i, t_shell *shell);
 
 #endif

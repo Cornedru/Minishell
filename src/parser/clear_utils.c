@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clear_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
+/*   Updated: 2025/07/01 18:11:37 by ndehmej          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_clear(void)
@@ -5,7 +17,7 @@ void	ft_clear(void)
 	write(1, "\033[H\033[2J", 7);
 }
 
-char	*expand_in_double_quotes(char *str, int start, int end, t_shell *shell)
+static char	*expand_segment(char *str, int start, int end, t_shell *shell)
 {
 	char	*result;
 	char	*temp;
@@ -34,14 +46,35 @@ char	*expand_in_double_quotes(char *str, int start, int end, t_shell *shell)
 	return (result);
 }
 
+char	*expand_in_double_quotes(char *str, int start, int end, t_shell *shell)
+{
+	return (expand_segment(str, start, end, shell));
+}
+
+static char	*handle_digit_var(char *str, int *i, char *key, char *value)
+{
+	char	c[2];
+	char	*tmp;
+	(void) *key;
+
+	c[1] = '\0';
+	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+	{
+		c[0] = str[*i];
+		tmp = value;
+		value = ft_strjoin(tmp, c);
+		free(tmp);
+		(*i)++;
+	}
+	return (value);
+}
+
 char	*expand_regular_var(char *str, int *i, t_shell *shell)
 {
 	int		start;
 	int		end;
 	char	*key;
 	char	*value;
-	char	c[2] = {str[*i], '\0'};
-	char	*tmp;
 
 	start = *i + 1;
 	end = start;
@@ -57,14 +90,7 @@ char	*expand_regular_var(char *str, int *i, t_shell *shell)
 		key = ft_substr(str, start, 1);
 		value = ft_strjoin("$", key);
 		free(key);
-		while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
-		{
-			tmp = value;
-			value = ft_strjoin(tmp, c);
-			free(tmp);
-			(*i)++;
-		}
-		return (value);
+		return (handle_digit_var(str, i, key, value));
 	}
 	while (str[end] && (ft_isalnum(str[end]) || str[end] == '_'))
 		end++;

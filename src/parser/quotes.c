@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/30 02:51:57 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:11:55 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,35 @@ int	check_quotes(char *line)
 	return (single_quote || double_quote);
 }
 
+// static void	skip_quotes(char *str, int *i, char quote)
+// {
+// 	(*i)++;
+// 	while (str[*i] && str[*i] != quote)
+// 		(*i)++;
+// 	if (str[*i] == quote)
+// 		(*i)++;
+// }
+
+static void	copy_quoted_content(char *str, int *i, int *j, char *result)
+{
+	char	quote;
+
+	quote = str[*i];
+	(*i)++;
+	while (str[*i] && str[*i] != quote)
+	{
+		result[(*j)++] = str[*i];
+		(*i)++;
+	}
+	if (str[*i] == quote)
+		(*i)++;
+}
+
 char	*remove_quotes(char *str)
 {
 	char	*result;
 	int		i;
 	int		j;
-	char	quote;
-	int		in_quote;
 
 	if (!str)
 		return (NULL);
@@ -47,25 +69,12 @@ char	*remove_quotes(char *str)
 		return (NULL);
 	i = 0;
 	j = 0;
-	in_quote = 0;
-	quote = 0;
 	while (str[i])
 	{
-		if (!in_quote && (str[i] == '\'' || str[i] == '"'))
-		{
-			in_quote = 1;
-			quote = str[i];
-		}
-		else if (in_quote && str[i] == quote)
-		{
-			in_quote = 0;
-			quote = 0;
-		}
+		if (str[i] == '\'' || str[i] == '"')
+			copy_quoted_content(str, &i, &j, result);
 		else
-		{
-			result[j++] = str[i];
-		}
-		i++;
+			result[j++] = str[i++];
 	}
 	result[j] = '\0';
 	return (result);

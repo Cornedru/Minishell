@@ -6,101 +6,16 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/30 02:10:55 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/01 18:09:47 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//
-
-// int	count_word_tokens(t_token *tokens)
-// {
-// 	int		count;
-// 	t_token	*tmp;
-
-// 	count = 0;
-// 	tmp = tokens;
-// 	while (tmp && tmp->type == TOKEN_WORD)
-// 	{
-// 		count++;
-// 		tmp = tmp->next;
-// 	}
-// 	return (count);
-// }
-
-//
-
-// char	**tokens_to_argv(t_token **tokens)
-// {
-// 	int		count;
-// 	char	**argv;
-// 	int		i;
-// 	char	*clean_str;
-
-// 	count = count_word_tokens(*tokens);
-// 	if (count == 0)
-// 		return (NULL);
-// 	argv = malloc(sizeof(char *) * (count + 1));
-// 	if (!argv)
-// 		return (NULL);
-// 	i = 0;
-// 	while (i < count && (*tokens) && (*tokens)->type == TOKEN_WORD)
-// 	{
-// 		// Remove quotes from the token value
-// 		clean_str = remove_quotes((*tokens)->value);
-// 		if (!clean_str)
-// 			clean_str = ft_strdup((*tokens)->value);
-// 		argv[i] = clean_str;
-// 		if (!argv[i])
-// 		{
-// 			ft_free_split(argv);
-// 			return (NULL);
-// 		}
-// 		advance_token(tokens);
-// 		i++;
-// 	}
-// 	argv[i] = NULL;
-// 	return (argv);
-// }
-
-// int count_word(t_token	*tokens)
-// {
-// 	int count;
-// 	t_token *tmp;
-
-// 	count = 0;
-// 	tmp = tokens;
-// 	while(tmp && tmp->type == TOKEN_WORD)
-// 	{
-// 		count++;
-// 		tmp = tmp->next;
-// 	}
-// 	return (count);
-// }
-
-// char **tokens_to_av(t_token **tokens)
-// {
-// 	int count;
-
-// 	count = count_word(*tokens);
-// 	if (count = 0)
-// 		return (NULL);
-
-// }
-
-static t_ast	*parse_simple_command(t_token **tokens)
+static void	parse_redirections(t_token **tokens, t_ast *node)
 {
-	t_ast	*node;
 	t_redir	*redir;
-	t_token	*start;
 
-	node = new_ast_node(AST_COMMAND);
-	if (!node)
-		return (NULL);
-	node->redirs = NULL;
-	node->argv = NULL;
-	start = *tokens;
 	while (*tokens && (*tokens)->type != TOKEN_PIPE
 		&& (*tokens)->type != TOKEN_AND && (*tokens)->type != TOKEN_OR)
 	{
@@ -115,12 +30,26 @@ static t_ast	*parse_simple_command(t_token **tokens)
 			else
 			{
 				free_ast(node);
-				return (NULL);
+				return ;
 			}
 		}
 		else
 			advance_token(tokens);
 	}
+}
+
+static t_ast	*parse_simple_command(t_token **tokens)
+{
+	t_ast	*node;
+	t_token	*start;
+
+	node = new_ast_node(AST_COMMAND);
+	if (!node)
+		return (NULL);
+	node->redirs = NULL;
+	node->argv = NULL;
+	start = *tokens;
+	parse_redirections(tokens, node);
 	*tokens = start;
 	node->argv = gather_all_words(tokens);
 	if (!node->argv && node->redirs)
@@ -147,11 +76,26 @@ static t_ast	*parse_command(t_token **tokens)
 	return (parse_simple_command(tokens));
 }
 
+static t_ast	*create_pipeline_node(t_ast *left, t_ast *right)
+{
+	t_ast	*pipeline;
+
+	pipeline = new_ast_node(AST_PIPELINE);
+	if (!pipeline)
+	{
+		free_ast(left);
+		free_ast(right);
+		return (NULL);
+	}
+	pipeline->left = left;
+	pipeline->right = right;
+	return (pipeline);
+}
+
 static t_ast	*parse_pipeline(t_token **tokens)
 {
 	t_ast	*left;
 	t_ast	*right;
-	t_ast	*pipeline;
 
 	left = parse_command(tokens);
 	if (!left)
@@ -165,23 +109,29 @@ static t_ast	*parse_pipeline(t_token **tokens)
 		free_ast(left);
 		return (NULL);
 	}
-	pipeline = new_ast_node(AST_PIPELINE);
-	if (!pipeline)
+	return (create_pipeline_node(left, right));
+}
+
+static t_ast	*create_and_or_node(t_ast *left, t_ast *right, t_ast_type type)
+{
+	t_ast	*node;
+
+	node = new_ast_node(type);
+	if (!node)
 	{
 		free_ast(left);
 		free_ast(right);
 		return (NULL);
 	}
-	pipeline->left = left;
-	pipeline->right = right;
-	return (pipeline);
+	node->left = left;
+	node->right = right;
+	return (node);
 }
 
 static t_ast	*parse_and_or(t_token **tokens)
 {
 	t_ast		*left;
 	t_ast		*right;
-	t_ast		*node;
 	t_ast_type	type;
 
 	left = parse_pipeline(tokens);
@@ -201,16 +151,7 @@ static t_ast	*parse_and_or(t_token **tokens)
 		free_ast(left);
 		return (NULL);
 	}
-	node = new_ast_node(type);
-	if (!node)
-	{
-		free_ast(left);
-		free_ast(right);
-		return (NULL);
-	}
-	node->left = left;
-	node->right = right;
-	return (node);
+	return (create_and_or_node(left, right, type));
 }
 
 t_ast	*parse(t_token **tokens)

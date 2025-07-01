@@ -1,13 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
+/*   Updated: 2025/07/01 18:09:28 by ndehmej          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_token	*split_expanded_token(char *expanded, t_token_type type)
+static char	*normalize_whitespace(char *expanded)
 {
-	char	**split_values;
-	t_token	*new_tokens;
-	t_token	*current;
-	t_token	*tmp;
-	int		i;
 	char	*clean;
+	int		i;
 
 	clean = expanded;
 	i = 0;
@@ -17,13 +25,16 @@ t_token	*split_expanded_token(char *expanded, t_token_type type)
 			clean[i] = ' ';
 		i++;
 	}
-	split_values = ft_split(clean, ' ');
-	if (!split_values || !split_values[0])
-	{
-		if (split_values)
-			ft_free_split(split_values);
-		return (NULL);
-	}
+	return (clean);
+}
+
+static t_token	*create_token_list(char **split_values, t_token_type type)
+{
+	t_token	*new_tokens;
+	t_token	*current;
+	t_token	*tmp;
+	int		i;
+
 	new_tokens = NULL;
 	i = 0;
 	while (split_values[i])
@@ -50,8 +61,58 @@ t_token	*split_expanded_token(char *expanded, t_token_type type)
 		}
 		i++;
 	}
+	return (new_tokens);
+}
+
+t_token	*split_expanded_token(char *expanded, t_token_type type)
+{
+	char	**split_values;
+	t_token	*new_tokens;
+	char	*clean;
+
+	clean = normalize_whitespace(expanded);
+	split_values = ft_split(clean, ' ');
+	if (!split_values || !split_values[0])
+	{
+		if (split_values)
+			ft_free_split(split_values);
+		return (NULL);
+	}
+	new_tokens = create_token_list(split_values, type);
 	ft_free_split(split_values);
 	return (new_tokens);
+}
+
+static void	handle_quoted_segment(char *str, int *i, t_shell *shell,
+								char **result)
+{
+	char	quote;
+	int		start;
+	char	*segment_result;
+
+	quote = str[*i];
+	start = *i + 1;
+	(*i)++;
+	while (str[*i] && str[*i] != quote)
+		(*i)++;
+	if (str[*i] == quote)
+	{
+		if (quote == '\'')
+		{
+			segment_result = ft_substr(str, start, *i - start);
+		}
+		else
+		{
+			segment_result = expand_in_double_quotes(str, start, *i, shell);
+		}
+		*result = join_and_free(*result, segment_result);
+		(*i)++;
+	}
+	else
+	{
+		segment_result = ft_substr(str, start - 1, *i - start + 1);
+		*result = join_and_free(*result, segment_result);
+	}
 }
 
 char	*expand_token_segments(char *str, t_shell *shell)
@@ -60,7 +121,6 @@ char	*expand_token_segments(char *str, t_shell *shell)
 	char	*segment_result;
 	int		i;
 	int		start;
-	char	quote;
 
 	result = ft_strdup("");
 	i = 0;
@@ -68,30 +128,7 @@ char	*expand_token_segments(char *str, t_shell *shell)
 	{
 		if (str[i] == '\'' || str[i] == '"')
 		{
-			quote = str[i];
-			start = i + 1;
-			i++;
-			while (str[i] && str[i] != quote)
-				i++;
-			if (str[i] == quote)
-			{
-				if (quote == '\'')
-				{
-					segment_result = ft_substr(str, start, i - start);
-				}
-				else
-				{
-					segment_result = expand_in_double_quotes(str, start, i,
-							shell);
-				}
-				result = join_and_free(result, segment_result);
-				i++;
-			}
-			else
-			{
-				segment_result = ft_substr(str, start - 1, i - start + 1);
-				result = join_and_free(result, segment_result);
-			}
+			handle_quoted_segment(str, &i, shell, &result);
 		}
 		else
 		{
