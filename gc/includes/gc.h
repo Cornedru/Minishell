@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 01:16:39 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 21:57:29 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/06/29 02:29:18 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* includes ***************************************************************** */
 
 # include <stdlib.h>
-# include "../../libft/libft.h"
+# include "../../libft/includes/libft.h"
 
 /* typedef ****************************************************************** */
 
@@ -43,8 +43,6 @@ char	**gc_split(char const *s, char c);
 char	*gc_substr(char const *s, unsigned int start, size_t len);
 void	gc_lstdelone(t_list *lst, void (*del)(void *));
 void	gc_lstclear(t_list **lst, void (*del)(void *));
-void	ft_free_strarr(void ***ptr);
-void	ft_free(void **ptr);
 // void	gc_bzero(void *s, size_t n);
 
 #endif

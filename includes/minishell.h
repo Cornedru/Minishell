@@ -3,29 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 22:06:59 by ndehmej          ###   ########.fr       */
+/*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
+/*   Updated: 2025/07/02 22:39:46 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"
+/* includes ***************************************************************** */
+
 # include <errno.h>
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "../libft/includes/libft.h"
+# include "../gc/includes/gc.h"
 
 # define PROMPT "minishell$ "
 # define SIG_NONE 0
@@ -33,30 +35,31 @@
 # define SIG_QUIT 2
 # define SIG_EOF 3
 
-extern volatile sig_atomic_t	g_signal_status;
+/* typedef ****************************************************************** */
+
+// TOKEN ------------------------------
 
 typedef enum e_token_type
 {
 	TOKEN_WORD,
-	TOKEN_PIPE,
-	TOKEN_REDIR_IN,
-	TOKEN_REDIR_OUT,
-	TOKEN_REDIR_APPEND,
-	TOKEN_HEREDOC,
-	TOKEN_AND,
-	TOKEN_OR,
-	TOKEN_EOF
-}	t_token_type;
+	TOKEN_PIPE,			// |
+	TOKEN_REDIR_IN,		// <
+	TOKEN_REDIR_OUT,	// >
+	TOKEN_REDIR_APPEND,	// >>
+	TOKEN_HEREDOC,		// <<
+	TOKEN_AND,			// &&
+	TOKEN_OR,			// ||
+	TOKEN_EOF			// EOF
+}								t_token_type;
 
-// typedef enum e_ast_type
-// {
-// 	AST_COMMAND,
-// 	AST_PIPELINE,
-// 	AST_AND,
-// 	AST_OR,
-// 	AST_SUBSHELL
-// }	t_ast_type;
+typedef struct s_token
+{
+	t_token_type				type;
+	char						*value;
+	struct s_token				*next;
+}								t_token;
 
+// AST --------------------------------
 
 typedef enum e_ast_type
 {
@@ -70,36 +73,16 @@ typedef enum e_ast_type
 	AST_OR				// ||
 }								t_ast_type;
 
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*value;
-	struct s_token	*next;
-}	t_token;
-
-// typedef struct s_redir
-// {
-// 	t_token_type	type;
-// 	char			*file;
-// 	struct s_redir	*next;
-// }	t_redir;
-
 typedef struct s_ast
 {
-	t_ast_type		type;
-	char			**argv;
-	// t_redir			*redirs;
-	struct s_ast	*left;
-	struct s_ast	*right;
-}	t_ast;
+	t_ast_type					type;
+	char						**args;			// Arguments for commands
+	char						*filename;		// Filename for redirections
+	struct s_ast				*left;
+	struct s_ast				*right;
+}								t_ast;
 
-// typedef struct s_env
-// {
-// 	char			*key;
-// 	char			*value;
-// 	int				exported;
-// 	struct s_env	*next;
-// }	t_env;
+// SYS --------------------------------
 
 typedef struct s_env
 {
@@ -107,25 +90,112 @@ typedef struct s_env
 	char						*content;
 	struct s_env				*next;
 	struct s_env				*prev;
-}	t_env;
+}								t_env;
 
 typedef struct s_sys
 {
 	t_token						*token;
 	t_ast						*ast;
-	t_env						*envp;
-	// char						**envp;
+	t_env						*env_lst;
+	char						**envp;
 	int							exit_status;
 	int							exit;
-}	t_sys;
+}								t_sys;
 
-// typedef struct s_shell
-// {
-// 	// t_env			*env;
-// 	int				last_status;
-// 	int				interactive;
-// 	char			*cwd;
-// }	t_shell;
+/* global ******************************************************************* */
+
+extern volatile sig_atomic_t	g_signal;
+
+
+
+/* prototypes *************************************************************** */
+
+int		execute(t_ast *node, t_sys *sys);
+t_sys	*init_sys(char **envp);
+
+// pipe.c
+
+void	left_child(t_ast *node, t_sys *sys, int *pipe_fd);
+void	right_child(t_ast *node, t_sys *sys, int *pipe_fd);
+int	handle_pipe(t_ast *node, t_sys *sys);
+
+// exec_builtin.c
+
+int	execute_external(t_ast *node, t_sys *sys);
+int	execute_builtin(t_ast *node, t_sys *sys);
+int	is_builtin(char *cmd);
+
+// exec_cmd.c
+
+int	execute_forked_cmd(t_ast *node, t_sys *sys);
+int	execute_cmd(t_ast *node, t_sys *sys);
+int	execute(t_ast *node, t_sys *sys);
+
+int	read_line(t_sys *sys);
+
+
+
+// test.c ---------------------
+
+t_ast	*mock_ls_command(void);
+t_ast	*mock_redir_command(void);
+t_ast	*mock_pipe_command(void);
+
+
+
+
+// env.c ----------------------
+
+char	**env_getarray(t_env *envp);
+char	*get_env_var(char *var_name, t_env *envp);
+// char	*get_env_var(char *var_name, char **envp);
+int		set_env_var(t_env **envp, char *var_name, char *content);
+t_env	*pull_env(char **envp);
+
+
+
+
+// path.c ---------------------
+
+char	*pull_path(char **env_paths, char *cmd);
+char	*find_cmd_path(t_sys *sys, char *cmd);
+
+
+
+
+// redir.c --------------------
+
+int		handle_redirection(t_ast *node, t_sys *sys);
+
+
+
+
+// built-ins ------------------
+
+void	builtin_echo(t_ast *node);
+int		builtin_pwd(void);
+int		builtin_cd(t_ast *node, t_sys *sys);
+
+
+
+
+// utils ----------------------
+// 	env_utils.c	---------------
+
+char	**dup_array(char **array);
+int		ft_envsize(t_env *envp);
+t_env	*gc_envnew(char *var, char *content);
+void	ft_envadd_back(t_env **lst, t_env *new);
+
+
+
+
+
+/* ************************************************************************** */
+/* ************************************************************************** */
+/*                          NEED ADJUSTMENTS                                  */
+/* ************************************************************************** */
+/* ************************************************************************** */
 
 /* Parser functions */
 t_token			*lexer(char *input);
@@ -148,37 +218,6 @@ t_ast			*parse_simple_command(t_token **tokens);
 
 
 
-
-/* Executor functions */
-int				execute_ast(t_ast *ast, t_shell *shell);
-int				execute_command(t_ast *ast, t_shell *shell);
-int				execute_pipeline(t_ast *ast, t_shell *shell);
-int				execute_builtin(t_ast *node, t_shell *shell);
-char			*find_command_path(char *cmd, t_shell *shell);
-int				handle_heredoc(t_redir *redir);
-
-/* Signal functions */
-int				check_signal_status(void);
-void			setup_signals(void);
-void			setup_child_signals(void);
-
-/* Builtin functions */
-int				is_builtin(char *cmd);
-int				builtin_echo(char **argv);
-int				builtin_cd(char **argv, t_shell *shell);
-int				builtin_pwd(void);
-int				builtin_export(char **argv, t_shell *shell);
-int				builtin_unset(char **argv, t_shell *shell);
-int				builtin_env(t_shell *shell);
-int				builtin_exit(char **argv, t_shell *shell);
-char			*get_home_path(t_shell *shell);
-char			*get_oldpwd_path(t_shell *shell);
-
-/* Environment functions */
-void			init_env(t_shell *shell);
-char			*get_env_value(char *key, t_shell *shell);
-void			set_env_value(char *key, char *value, t_shell *shell);
-char			**env_to_array(t_env *env);
 
 /* Utils */
 void			cleanup_shell(t_shell *shell);

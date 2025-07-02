@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gc_split.c                                         :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 23:31:47 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/26 23:34:44 by oligrien         ###   ########.fr       */
+/*   Created: 2024/09/18 18:26:32 by oligrien          #+#    #+#             */
+/*   Updated: 2025/04/30 00:32:26 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/gc.h"
+#include "../includes/libft.h"
 
 static int	wordcnt(char const *s, char c)
 {
@@ -45,7 +45,7 @@ static size_t	wordlen(char const *s, char c)
 	return (len);
 }
 
-char	**gc_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**split;
 	int		wcnt;
@@ -54,7 +54,7 @@ char	**gc_split(char const *s, char c)
 	wcnt = wordcnt(s, c);
 	if (!wcnt)
 		return (NULL);
-	split = (char **)gc_malloc(sizeof(char *) * (wcnt + 1));
+	split = (char **)ft_calloc(wcnt + 1, sizeof(char *));
 	if (!split)
 		return (NULL);
 	i = -1;

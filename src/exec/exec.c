@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 21:34:42 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 22:41:40 by oligrien         ###   ########.fr       */
+/*   Created: 2025/05/28 21:41:49 by oligrien          #+#    #+#             */
+/*   Updated: 2025/07/02 22:07:48 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_sys	*init_sys(char **envp)
 {
@@ -58,20 +58,3 @@ int	read_line(t_sys *sys)
 	}
 	return (1);
 }
-
-int main(int argc, char const **argv, char **envp)
-{
-	t_sys	*sys;
-
-	(void)argc;
-	(void)argv;
-
-	sys = init_sys(envp);
-
-	read_line(sys);
-
-	gc_free_array((void **)sys->envp);
-	gc_destroy();
-	return (0);
-}
-
