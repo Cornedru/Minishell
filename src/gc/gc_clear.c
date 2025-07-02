@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gc_clear.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pespana <pespana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 04:00:22 by pespana           #+#    #+#             */
-/*   Updated: 2025/06/26 22:09:49 by pespana          ###   ########.fr       */
+/*   Updated: 2025/07/02 18:10:17 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+#include "gc.h"
 void	gc_delone(t_gc_leaf *gc)
 {
 	if (!gc)

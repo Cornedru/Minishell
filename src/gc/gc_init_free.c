@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gc_init_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pespana <pespana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 04:58:24 by pespana           #+#    #+#             */
-/*   Updated: 2025/06/27 03:02:57 by pespana          ###   ########.fr       */
+/*   Updated: 2025/07/02 18:10:19 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+#include "gc.h"
 void	free_branch(t_gc *gc, int id)
 {
 	t_gc	*tmp;

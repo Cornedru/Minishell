@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gc_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pespana <pespana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 03:45:49 by pespana           #+#    #+#             */
-/*   Updated: 2025/06/27 03:02:54 by pespana          ###   ########.fr       */
+/*   Updated: 2025/07/02 18:10:24 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "gc.h"
 
 static t_gc_leaf	*gc_lstnew(void *data)
 {
