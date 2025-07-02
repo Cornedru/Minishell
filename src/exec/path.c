@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:54:16 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 21:45:39 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/02 23:16:23 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*find_cmd_path(t_sys *sys, char *cmd)
 			return (gc_strdup(cmd));
 		return (NULL);
 	}
-	tmp = get_env_var("PATH", sys->envp);
+	tmp = get_env_var("PATH", sys->env_lst);
 	if (!tmp)
 		return (NULL);
 	env_paths = gc_split(tmp, ':');

@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 00:38:16 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 21:45:12 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/02 23:17:56 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*get_env_var(char *var_name, t_env *envp)
 	return (NULL);
 } */
 
-static char	*get_envp_var_name(char *env)
+/* static char	*get_envp_var_name(char *env)
 {
 	int	i;
 
@@ -106,7 +106,7 @@ static char	*get_envp_var_name(char *env)
 	while (env[i] != '=')
 		i++;
 	return (gc_substr(env, 0, i));
-}
+} */
 
 t_env	*pull_env(char **envp)
 {

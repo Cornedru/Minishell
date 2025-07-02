@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 22:39:46 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/02 23:21:34 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,21 +111,29 @@ extern volatile sig_atomic_t	g_signal;
 /* prototypes *************************************************************** */
 
 int		execute(t_ast *node, t_sys *sys);
+
+
+
+// init.c -----------------------------
+
 t_sys	*init_sys(char **envp);
 
-// pipe.c
+
+// pipe.c -----------------------------
 
 void	left_child(t_ast *node, t_sys *sys, int *pipe_fd);
 void	right_child(t_ast *node, t_sys *sys, int *pipe_fd);
 int	handle_pipe(t_ast *node, t_sys *sys);
 
-// exec_builtin.c
+
+// exec_builtin.c ---------------------
 
 int	execute_external(t_ast *node, t_sys *sys);
 int	execute_builtin(t_ast *node, t_sys *sys);
 int	is_builtin(char *cmd);
 
-// exec_cmd.c
+
+// exec_cmd.c -------------------------
 
 int	execute_forked_cmd(t_ast *node, t_sys *sys);
 int	execute_cmd(t_ast *node, t_sys *sys);
@@ -135,7 +143,7 @@ int	read_line(t_sys *sys);
 
 
 
-// test.c ---------------------
+// test.c -----------------------------
 
 t_ast	*mock_ls_command(void);
 t_ast	*mock_redir_command(void);
@@ -144,7 +152,7 @@ t_ast	*mock_pipe_command(void);
 
 
 
-// env.c ----------------------
+// env.c ------------------------------
 
 char	**env_getarray(t_env *envp);
 char	*get_env_var(char *var_name, t_env *envp);
@@ -155,7 +163,7 @@ t_env	*pull_env(char **envp);
 
 
 
-// path.c ---------------------
+// path.c -----------------------------
 
 char	*pull_path(char **env_paths, char *cmd);
 char	*find_cmd_path(t_sys *sys, char *cmd);
@@ -163,30 +171,29 @@ char	*find_cmd_path(t_sys *sys, char *cmd);
 
 
 
-// redir.c --------------------
+// redir.c ----------------------------
 
 int		handle_redirection(t_ast *node, t_sys *sys);
 
 
 
 
-// built-ins ------------------
+// built-ins --------------------------
 
-void	builtin_echo(t_ast *node);
+int		builtin_echo(t_ast *node);
 int		builtin_pwd(void);
 int		builtin_cd(t_ast *node, t_sys *sys);
 
 
 
 
-// utils ----------------------
-// 	env_utils.c	---------------
+// utils ------------------------------
+// 	env_utils.c	-----------------------
 
 char	**dup_array(char **array);
 int		ft_envsize(t_env *envp);
 t_env	*gc_envnew(char *var, char *content);
 void	ft_envadd_back(t_env **lst, t_env *new);
-
 
 
 
@@ -197,92 +204,89 @@ void	ft_envadd_back(t_env **lst, t_env *new);
 /* ************************************************************************** */
 /* ************************************************************************** */
 
-/* Parser functions */
-t_token			*lexer(char *input);
-t_ast			*parse(t_token **tokens);
-void			free_tokens(t_token *tokens);
-void			free_ast(t_ast *ast);
-void			expand_tokens(t_token *tokens, t_shell *shell);
-int				check_quotes(char *line);
-char			*remove_quotes(char *str);
-void			parse_redirections(t_token **tokens, t_ast *node);
+// /* Parser functions */
+// t_token			*lexer(char *input);
+// t_ast			*parse(t_token **tokens);
+// void			free_tokens(t_token *tokens);
+// void			free_ast(t_ast *ast);
+// void			expand_tokens(t_token *tokens, t_shell *shell);
+// int				check_quotes(char *line);
+// char			*remove_quotes(char *str);
+// void			parse_redirections(t_token **tokens, t_ast *node);
 
 
-/* Parser helper functions */
-t_ast			*parse_pipeline(t_token **tokens);
-t_ast			*parse_and_or(t_token **tokens);
-t_ast			*create_pipeline_node(t_ast *left, t_ast *right);
-t_ast			*create_and_or_node(t_ast *left, t_ast *right, t_ast_type type);
-t_ast			*parse_command(t_token **tokens);
-t_ast			*parse_simple_command(t_token **tokens);
+// /* Parser helper functions */
+// t_ast			*parse_pipeline(t_token **tokens);
+// t_ast			*parse_and_or(t_token **tokens);
+// t_ast			*create_pipeline_node(t_ast *left, t_ast *right);
+// t_ast			*create_and_or_node(t_ast *left, t_ast *right, t_ast_type type);
+// t_ast			*parse_command(t_token **tokens);
+// t_ast			*parse_simple_command(t_token **tokens);
 
 
-
-
-/* Utils */
-void			cleanup_shell(t_shell *shell);
-int				is_numeric(char *str);
-void			print_exported_vars(t_shell *shell);
-void			mark_as_exported(char *key, t_shell *shell);
-int				is_valid_identifier(char *str);
-char			*ft_strjoin_free(char *s1, char *s2);
-void			free_env(t_env *env);
-void			free_redirs(t_redir *redirs);
-char			*ft_re(char *s, int old, int new);
-int				is_operator(char c);
-int				skip_whitespace(char *input, int i);
-t_token_type	get_operator_type(char *input, int i);
-int				get_operator_len(char *input, int i);
-t_token			*create_token(t_token_type type, char *value);
-void			add_token(t_token **tokens, t_token *new_token);
-int				extract_word_with_quotes(char *input, int i, char **word);
-int				extract_operator(char *input, int i, char **op);
-char			*expand_variable(char *str, int *i, t_shell *shell);
-char			*process_regular_var(char *str, int *i, int start,
-					t_shell *shell);
-char			*handle_numeric_var(char *str, int *i, int start);
-char			*build_numeric_var_value(char *str, int *i, char *value);
-char			*expand_special_var(char *str, int *i, t_shell *shell);
-t_ast			*new_ast_node(t_ast_type type);
-t_token			*advance_token(t_token **tokens);
-t_redir			*parse_redir(t_token **tokens);
-void			add_redir(t_redir **redirs, t_redir *new_redir);
-char			**gather_all_words(t_token **tokens);
-void			ft_clear(void);
-int				should_split_token(char *original, char *expanded);
-t_token			*split_expanded_token(char *expanded, t_token_type type);
-char			*expand_token_segments(char *str, t_shell *shell);
-char			*expand_in_double_quotes(char *str, int start, int end,
-					t_shell *shell);
-char			*expand_outside_quotes(char *str, int start, int end,
-					t_shell *shell);
-char			*expand_regular_var(char *str, int *i, t_shell *shell);
-char			*join_and_free(char *s1, char *s2);
-void			handle_quoted_segment(char *str, int *i, t_shell *shell,
-					char **result);
-int				count_word_tokens(t_token *start);
-char			**allocate_argv(int count);
-void			fill_argv(t_token **tokens, char **argv);
-char			*expand_segment(char *str, int start, int end, t_shell *shell);
-char			*handle_digit_var(char *str, int *i, char *key, char *value);
-char			*extract_var_key(char *str, int start, int *end);
-char			*get_var_value(char *key, t_shell *shell, int *i, int end);
-char			*normalize_whitespace(char *expanded);
-t_token			*alloc_token_node(char *value, t_token_type type);
-void			append_token(t_token **head, t_token *new_token);
-t_token			*create_token_list(char **split_values, t_token_type type);
-void			process_quote(char *str, int *i, char **result, char quote);
-void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
-int				has_whitespace(char *str);
-int				has_quotes(char *str);
-int				get_unquoted_length(char *str);
-int				count_quoted_chars(char *str, int *i);
-void			copy_quoted_content(char *str, int *i, int *j, char *result);
-void			replace_token_value(t_token *current, t_token *split_tokens);
-void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
-void			handle_single_quote(char *str, int *i, char **result);
-void			handle_double_quote(char *str, int *i, t_shell *shell,
-					char **result);
-
+// /* Utils */
+// void			cleanup_shell(t_shell *shell);
+// int				is_numeric(char *str);
+// void			print_exported_vars(t_shell *shell);
+// void			mark_as_exported(char *key, t_shell *shell);
+// int				is_valid_identifier(char *str);
+// char			*ft_strjoin_free(char *s1, char *s2);
+// void			free_env(t_env *env);
+// void			free_redirs(t_redir *redirs);
+// char			*ft_re(char *s, int old, int new);
+// int				is_operator(char c);
+// int				skip_whitespace(char *input, int i);
+// t_token_type	get_operator_type(char *input, int i);
+// int				get_operator_len(char *input, int i);
+// t_token			*create_token(t_token_type type, char *value);
+// void			add_token(t_token **tokens, t_token *new_token);
+// int				extract_word_with_quotes(char *input, int i, char **word);
+// int				extract_operator(char *input, int i, char **op);
+// char			*expand_variable(char *str, int *i, t_shell *shell);
+// char			*process_regular_var(char *str, int *i, int start,
+// 					t_shell *shell);
+// char			*handle_numeric_var(char *str, int *i, int start);
+// char			*build_numeric_var_value(char *str, int *i, char *value);
+// char			*expand_special_var(char *str, int *i, t_shell *shell);
+// t_ast			*new_ast_node(t_ast_type type);
+// t_token			*advance_token(t_token **tokens);
+// t_redir			*parse_redir(t_token **tokens);
+// void			add_redir(t_redir **redirs, t_redir *new_redir);
+// char			**gather_all_words(t_token **tokens);
+// void			ft_clear(void);
+// int				should_split_token(char *original, char *expanded);
+// t_token			*split_expanded_token(char *expanded, t_token_type type);
+// char			*expand_token_segments(char *str, t_shell *shell);
+// char			*expand_in_double_quotes(char *str, int start, int end,
+// 					t_shell *shell);
+// char			*expand_outside_quotes(char *str, int start, int end,
+// 					t_shell *shell);
+// char			*expand_regular_var(char *str, int *i, t_shell *shell);
+// char			*join_and_free(char *s1, char *s2);
+// void			handle_quoted_segment(char *str, int *i, t_shell *shell,
+// 					char **result);
+// int				count_word_tokens(t_token *start);
+// char			**allocate_argv(int count);
+// void			fill_argv(t_token **tokens, char **argv);
+// char			*expand_segment(char *str, int start, int end, t_shell *shell);
+// char			*handle_digit_var(char *str, int *i, char *key, char *value);
+// char			*extract_var_key(char *str, int start, int *end);
+// char			*get_var_value(char *key, t_shell *shell, int *i, int end);
+// char			*normalize_whitespace(char *expanded);
+// t_token			*alloc_token_node(char *value, t_token_type type);
+// void			append_token(t_token **head, t_token *new_token);
+// t_token			*create_token_list(char **split_values, t_token_type type);
+// void			process_quote(char *str, int *i, char **result, char quote);
+// void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
+// int				has_whitespace(char *str);
+// int				has_quotes(char *str);
+// int				get_unquoted_length(char *str);
+// int				count_quoted_chars(char *str, int *i);
+// void			copy_quoted_content(char *str, int *i, int *j, char *result);
+// void			replace_token_value(t_token *current, t_token *split_tokens);
+// void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
+// void			handle_single_quote(char *str, int *i, char **result);
+// void			handle_double_quote(char *str, int *i, t_shell *shell,
+// 					char **result);
 
 #endif

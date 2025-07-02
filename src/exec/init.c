@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 21:34:42 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 23:18:50 by oligrien         ###   ########.fr       */
+/*   Created: 2025/07/02 22:59:21 by oligrien          #+#    #+#             */
+/*   Updated: 2025/07/02 22:59:31 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int argc, char const **argv, char **envp)
+t_sys	*init_sys(char **envp)
 {
 	t_sys	*sys;
 
-	(void)argc;
-	(void)argv;
-
-	sys = init_sys(envp);
-
-	read_line(sys);
-
-	gc_free_array((void **)sys->envp);
-	gc_destroy();
-	return (0);
+	sys = (t_sys *)gc_malloc(sizeof(t_sys));
+	sys->env_lst = pull_env(envp);
+	sys->envp = dup_array(envp);
+	sys->token = NULL;
+	sys->ast = NULL;
+	sys->exit = 0;
+	return (sys);
 }
-
