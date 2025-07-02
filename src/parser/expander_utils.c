@@ -6,11 +6,11 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 23:56:40 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 21:45:56 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 t_token	*alloc_token_node(char *value, t_token_type type)
 {

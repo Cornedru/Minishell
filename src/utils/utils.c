@@ -6,11 +6,11 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/06/24 04:32:21 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 21:46:49 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	is_numeric(char *str)
 {

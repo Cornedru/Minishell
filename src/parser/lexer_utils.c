@@ -6,11 +6,11 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 22:57:42 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 21:46:06 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 t_ast	*create_and_or_node(t_ast *left, t_ast *right, t_ast_type type)
 {

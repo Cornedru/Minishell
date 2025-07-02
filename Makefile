@@ -1,79 +1,104 @@
-NAME     = minishell
-CC       = cc
-CFLAGS   = -Wall -Wextra -Werror -g3
-LIBS     = -lreadline
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/25 03:00:00 by oligrien          #+#    #+#              #
+#    Updated: 2025/07/02 21:49:54 by ndehmej          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-OBJDIR   = obj
-LIBFTDIR = libft
-SRCDIR   = src
+# Project Name *************************************************************** #
+NAME = minishell
 
-SOURCES = main.c \
-		  $(SRCDIR)/builtins/builtin_handler.c \
-		  $(SRCDIR)/builtins/cd.c \
-		  $(SRCDIR)/builtins/cd_utils.c \
-		  $(SRCDIR)/builtins/echo.c \
-		  $(SRCDIR)/builtins/env.c \
-		  $(SRCDIR)/builtins/exit.c \
-		  $(SRCDIR)/builtins/export.c \
-		  $(SRCDIR)/builtins/pwd.c \
-		  $(SRCDIR)/builtins/unset.c \
-		  $(SRCDIR)/env/env_manager.c \
-		  $(SRCDIR)/env/env_utils.c \
-		  $(SRCDIR)/executor/executor.c \
-		  $(SRCDIR)/executor/pipes.c \
-		  $(SRCDIR)/parser/expander.c \
-		  $(SRCDIR)/parser/expander_utils.c \
-		  $(SRCDIR)/parser/expander_utils2.c \
-		  $(SRCDIR)/parser/heredoc.c \
-		  $(SRCDIR)/parser/lexer.c \
-		  $(SRCDIR)/parser/lexer_utils.c \
-		  $(SRCDIR)/parser/parser.c \
-		  $(SRCDIR)/parser/utils3.c \
-		  $(SRCDIR)/parser/parser2.c \
-		  $(SRCDIR)/parser/clear_utils.c \
-		  $(SRCDIR)/parser/clear_utils2.c \
-		  $(SRCDIR)/parser/parser_utils.c \
-		  $(SRCDIR)/parser/parser_utils2.c \
-		  $(SRCDIR)/parser/quotes.c \
-		  $(SRCDIR)/parser/utils2.c \
-		  $(SRCDIR)/signals/signal_handler.c \
-		  $(SRCDIR)/utils/utils.c \
-		  $(SRCDIR)/utils/memory.c \
-		  $(SRCDIR)/utils/memory_utils.c
+# Directories **************************************************************** #
+SRCS_DIR =		./src
+OBJS_DIR =		./obj
+LIBFT_DIR =		./libft
+GC_DIR =		./gc
+INCLUDES_DIR =	./includes
 
-OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SOURCES))
-LIBFT = $(LIBFTDIR)/libft.a
-INCLUDES = -I. -I$(LIBFTDIR) -I$(SRCDIR)
+BUILTINS_DIR = 	built-ins
+UTILS_DIR =		utils
+PRS_DIR =		parser
 
-all: $(OBJDIR) $(NAME)
+# Source Files *************************************************************** #
+SRCS_FILES =	main.c \
+			parser/expander.c \
+			parser/expander_utils.c \
+			parser/expander_utils2.c \
+			parser/heredoc.c \
+			parser/lexer.c \
+			parser/lexer_utils.c \
+			parser/parser.c \
+			parser/utils3.c \
+			parser/parser2.c \
+			parser/clear_utils.c \
+			parser/clear_utils2.c \
+			parser/parser_utils.c \
+			parser/parser_utils2.c \
+			parser/quotes.c \
+			parser/utils2.c \
+			utils/utils.c \
+			utils/memory.c \
+			utils/memory_utils.c
 
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
-	mkdir -p $(OBJDIR)/$(SRCDIR)
-	mkdir -p $(OBJDIR)/$(SRCDIR)/builtins
-	mkdir -p $(OBJDIR)/$(SRCDIR)/env
-	mkdir -p $(OBJDIR)/$(SRCDIR)/executor
-	mkdir -p $(OBJDIR)/$(SRCDIR)/parser
-	mkdir -p $(OBJDIR)/$(SRCDIR)/signals
-	mkdir -p $(OBJDIR)/$(SRCDIR)/utils
 
-$(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBS) -o $(NAME)
+SRCS = $(addprefix $(SRCS_DIR)/,$(SRCS_FILES))
+OBJS = $(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
 
-$(OBJDIR)/%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+# libft ********************************************************************** #
+LIBFT = $(LIBFT_DIR)/libft.a
 
+# gc ************************************************************************* #
+GC = $(GC_DIR)/gc.a
+
+# Compilation **************************************************************** #
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g3 -I$(INCLUDES_DIR) -I$(LIBFT_DIR) -I$(GC_DIR)/includes
+
+# Rules ********************************************************************** #
+all: $(NAME)
+
+# Build executable *********************************************************** #
+$(NAME): $(OBJS) $(LIBFT) $(GC)
+	@echo "Making" $(NAME) "..."
+	@$(CC) $(CFLAGS) $(OBJS) $(GC) $(LIBFT) -o $(NAME) -lreadline
+	@echo "Done."
+
+# Build libft.a ************************************************************** #
 $(LIBFT):
-	$(MAKE) -C $(LIBFTDIR)
+	@echo "Making libft..."
+	@$(MAKE) -s -C $(LIBFT_DIR)
+	@echo "libft done."
 
+# Build gc.a ***************************************************************** #
+$(GC): $(LIBFT)
+	@echo "Making gc..."
+	@$(MAKE) -s -C $(GC_DIR) LIBFT_PATH="../libft"
+	@echo "gc done."
+
+# Compile .c files to .o files *********************************************** #
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean ********************************************************************** #
 clean:
-	rm -rf $(OBJDIR)
-	$(MAKE) clean -C $(LIBFTDIR) 2>/dev/null || true
+	@echo "Cleaning..."
+	@rm -rf $(OBJS_DIR)
+	@$(MAKE) -s -C $(LIBFT_DIR) clean
+	@$(MAKE) -s -C $(GC_DIR) clean
+	@echo "Done."
 
 fclean: clean
-	rm -f $(NAME)
-	$(MAKE) fclean -C $(LIBFTDIR) 2>/dev/null || true
+	@rm -f $(NAME)
+	@$(MAKE) -s -C $(LIBFT_DIR) fclean
+	@$(MAKE) -s -C $(GC_DIR) fclean
 
 re: fclean all
 
+# **************************************************************************** #
 .PHONY: all clean fclean re

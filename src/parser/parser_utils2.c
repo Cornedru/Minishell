@@ -6,11 +6,11 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 18:49:00 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 21:46:14 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 static t_redir	*create_redir(t_token_type type, char *file)
 {
