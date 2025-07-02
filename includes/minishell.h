@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:43:54 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 22:06:59 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,27 @@ typedef enum e_token_type
 	TOKEN_EOF
 }	t_token_type;
 
+// typedef enum e_ast_type
+// {
+// 	AST_COMMAND,
+// 	AST_PIPELINE,
+// 	AST_AND,
+// 	AST_OR,
+// 	AST_SUBSHELL
+// }	t_ast_type;
+
+
 typedef enum e_ast_type
 {
-	AST_COMMAND,
-	AST_PIPELINE,
-	AST_AND,
-	AST_OR,
-	AST_SUBSHELL
-}	t_ast_type;
+	AST_CMD,
+	AST_PIPE,			// |
+	AST_REDIR_IN,		// <
+	AST_REDIR_OUT,		// >
+	AST_REDIR_APPEND,	// >>
+	AST_HEREDOC,		// <<
+	AST_AND,			// &&
+	AST_OR				// ||
+}								t_ast_type;
 
 typedef struct s_token
 {
@@ -64,37 +77,55 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_redir
-{
-	t_token_type	type;
-	char			*file;
-	struct s_redir	*next;
-}	t_redir;
+// typedef struct s_redir
+// {
+// 	t_token_type	type;
+// 	char			*file;
+// 	struct s_redir	*next;
+// }	t_redir;
 
 typedef struct s_ast
 {
 	t_ast_type		type;
 	char			**argv;
-	t_redir			*redirs;
+	// t_redir			*redirs;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;
 
+// typedef struct s_env
+// {
+// 	char			*key;
+// 	char			*value;
+// 	int				exported;
+// 	struct s_env	*next;
+// }	t_env;
+
 typedef struct s_env
 {
-	char			*key;
-	char			*value;
-	int				exported;
-	struct s_env	*next;
+	char						*var;
+	char						*content;
+	struct s_env				*next;
+	struct s_env				*prev;
 }	t_env;
 
-typedef struct s_shell
+typedef struct s_sys
 {
-	t_env			*env;
-	int				last_status;
-	int				interactive;
-	char			*cwd;
-}	t_shell;
+	t_token						*token;
+	t_ast						*ast;
+	t_env						*envp;
+	// char						**envp;
+	int							exit_status;
+	int							exit;
+}	t_sys;
+
+// typedef struct s_shell
+// {
+// 	// t_env			*env;
+// 	int				last_status;
+// 	int				interactive;
+// 	char			*cwd;
+// }	t_shell;
 
 /* Parser functions */
 t_token			*lexer(char *input);

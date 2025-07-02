@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:46:01 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 22:15:36 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char	*build_numeric_var_value(char *str, int *i, char *value)
 	{
 		c[0] = str[*i];
 		tmp = value;
-		value = ft_strjoin(tmp, c);
-		free(tmp);
+		value = ft_strjoin_free(tmp, c);
+		// free(tmp);
 		(*i)++;
 	}
 	return (value);

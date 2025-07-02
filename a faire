@@ -1,0 +1,4 @@
+modifier tou les strdup par gc 
+				 free (voila voila)
+				 strjoin
+				 malloc 

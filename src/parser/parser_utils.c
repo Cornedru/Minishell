@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:46:11 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 22:13:16 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ t_token	*create_token(t_token_type type, char *value)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = gc_malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->type = type;
-	token->value = ft_strdup(value);
+	token->value = gc_strdup(value);
 	token->next = NULL;
 	if (!token->value)
 	{
-		free(token);
+		gc_free(token);
 		return (NULL);
 	}
 	return (token);
