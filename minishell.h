@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 00:02:14 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 00:15:49 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,10 @@ int				get_unquoted_length(char *str);
 int				count_quoted_chars(char *str, int *i);
 void			copy_quoted_content(char *str, int *i, int *j, char *result);
 void			replace_token_value(t_token *current, t_token *split_tokens);
+void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
+void			handle_single_quote(char *str, int *i, char **result);
+void			handle_double_quote(char *str, int *i, t_shell *shell,
+					char **result);
 
 
 #endif

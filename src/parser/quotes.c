@@ -67,8 +67,8 @@ int	count_quoted_chars(char *str, int *i)
 
 int	get_unquoted_length(char *str)
 {
-	int		i;
-	int		len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;

@@ -28,6 +28,7 @@ SOURCES = main.c \
 		  $(SRCDIR)/parser/lexer.c \
 		  $(SRCDIR)/parser/lexer_utils.c \
 		  $(SRCDIR)/parser/parser.c \
+		  $(SRCDIR)/parser/utils3.c \
 		  $(SRCDIR)/parser/parser2.c \
 		  $(SRCDIR)/parser/clear_utils.c \
 		  $(SRCDIR)/parser/clear_utils2.c \

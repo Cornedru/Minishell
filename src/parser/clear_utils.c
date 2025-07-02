@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/01 23:56:21 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/02 01:29:32 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,47 +51,30 @@ char	*expand_in_double_quotes(char *str, int start, int end, t_shell *shell)
 	return (expand_segment(str, start, end, shell));
 }
 
-void	handle_quoted_segment(char *str, int *i, t_shell *shell, char **result)
+void	handle_single_quote(char *str, int *i, char **result)
 {
-	char	quote;
+	process_quote(str, i, result, '\'');
+}
+
+void	handle_double_quote(char *str, int *i, t_shell *shell,
+		char **result)
+{
 	int		start;
 	char	*segment_result;
 
-	quote = str[*i];
-	if (quote == '\'')
+	start = *i + 1;
+	(*i)++;
+	while (str[*i] && str[*i] != '"')
+		(*i)++;
+	if (str[*i] == '"')
 	{
-		process_quote(str, i, result, quote);
+		segment_result = expand_in_double_quotes(str, start, *i, shell);
+		*result = join_and_free(*result, segment_result);
+		(*i)++;
 	}
 	else
 	{
-		start = *i + 1;
-		(*i)++;
-		while (str[*i] && str[*i] != quote)
-			(*i)++;
-		if (str[*i] == quote)
-		{
-			segment_result = expand_in_double_quotes(str, start, *i, shell);
-			*result = join_and_free(*result, segment_result);
-			(*i)++;
-		}
-		else
-		{
-			segment_result = ft_substr(str, start - 1, *i - start + 1);
-			*result = join_and_free(*result, segment_result);
-		}
+		segment_result = ft_substr(str, start - 1, *i - start + 1);
+		*result = join_and_free(*result, segment_result);
 	}
-}
-
-char	*join_and_free(char *s1, char *s2)
-{
-	char	*result;
-
-	if (!s1)
-		return (s2);
-	if (!s2)
-		return (s1);
-	result = ft_strjoin(s1, s2);
-	free(s1);
-	free(s2);
-	return (result);
 }
