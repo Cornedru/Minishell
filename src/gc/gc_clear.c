@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gc_bzero.c                                         :+:      :+:    :+:   */
+/*   gc_clear.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pespana <pespana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 21:40:52 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/26 21:41:10 by oligrien         ###   ########.fr       */
+/*   Created: 2025/04/29 04:00:22 by pespana           #+#    #+#             */
+/*   Updated: 2025/06/26 22:09:49 by pespana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/gc.h"
+#include "minishell.h"
 
-void	gc_bzero(void *s, size_t n)
+void	gc_delone(t_gc_leaf *gc)
 {
-	char	*str;
-	size_t	i;
+	if (!gc)
+		return ;
+	ft_free(gc->data);
+	ft_free(gc);
+}
 
-	str = (char *)s;
-	i = 0;
-	while (i < n)
+void	gc_clear(t_gc_leaf **gc)
+{
+	t_gc_leaf	*tmp;
+
+	if (!gc || !*gc)
+		return ;
+	while (*gc)
 	{
-		str[i] = 0;
-		i++;
+		tmp = (*gc)->next;
+		gc_delone(*gc);
+		*gc = tmp;
 	}
 }
