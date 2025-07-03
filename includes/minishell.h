@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 07:34:56 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 07:53:25 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,4 +259,17 @@ t_ast	*mock_pipe_command(void);
 
 void	handle_quote_section(char *str, int *i, char **result, t_sys *sys);
 char	*process_segment(char *str, int *i, int seg_start, t_sys *sys);
+char	*handle_invalid_or_numeric_var(char *str, int *i);
+char	*extract_env_value(char *str, int *i, int start, t_sys *sys);
+char	*expand_quoted_content(char *str, int start, int end, t_sys *sys);
+char	*expand_in_quotes(char *str, t_expand_params *params, t_sys *sys);
+int		are_quotes_closed(const char *str);
+char	**create_empty_argv(void);
+int		init_command_node(t_ast **node);
+int		skip_valid_redirections(t_token **tokens);
+int		is_invalid_pipe(t_token **tokens);
+t_ast	*handle_pipeline_right(t_ast *left, t_token **tokens);
+
+
+
 #endif

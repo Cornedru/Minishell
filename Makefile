@@ -6,7 +6,7 @@
 #    By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/25 03:00:00 by oligrien          #+#    #+#              #
-#    Updated: 2025/07/03 06:51:47 by ndehmej          ###   ########.fr        #
+#    Updated: 2025/07/03 07:55:38 by ndehmej          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,8 @@ SRCS_FILES =	../test_parsing.c \
                 $(PRS_DIR)/parser_utils2.c \
                 $(PRS_DIR)/parser_utils4.c \
                 $(PRS_DIR)/quotes.c \
+				$(PRS_DIR)/extra.c \
+				$(PRS_DIR)/extra2.c \
                 $(PRS_DIR)/utils2.c \
                 $(UTILS_DIR)/utils.c \
                 $(UTILS_DIR)/memory.c \

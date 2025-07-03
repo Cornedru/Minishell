@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 07:43:49 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 07:51:56 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 // 	return (gc_strdup(""));
 // }
 
-static char	*handle_invalid_or_numeric_var(char *str, int *i)
+char	*handle_invalid_or_numeric_var(char *str, int *i)
 {
 	int	start;
 
@@ -68,7 +68,7 @@ static char	*handle_invalid_or_numeric_var(char *str, int *i)
 	return (NULL);
 }
 
-static char	*extract_env_value(char *str, int *i, int start, t_sys *sys)
+char	*extract_env_value(char *str, int *i, int start, t_sys *sys)
 {
 	int		end;
 	char	*key;
@@ -88,42 +88,7 @@ static char	*extract_env_value(char *str, int *i, int start, t_sys *sys)
 	return (gc_strdup(""));
 }
 
-char	*expand_variable(char *str, int *i, t_sys *sys)
-{
-	char	*res;
-	int		start;
-
-	res = expand_special_var(str, i, sys);
-	if (res)
-		return (res);
-	res = handle_invalid_or_numeric_var(str, i);
-	if (res)
-		return (res);
-	start = *i + 1;
-	return (extract_env_value(str, i, start, sys));
-}
-
-char	*process_segment(char *str, int *i, int seg_start, t_sys *sys)
-{
-	char	*temp;
-	char	*var_value;
-	char	*result;
-
-	result = gc_strdup("");
-	if (*i > seg_start)
-	{
-		temp = gc_substr(str, seg_start, *i - seg_start);
-		result = gc_strjoin_free_s1(result, temp);
-	}
-	if (*i < (int)ft_strlen(str) && str[*i] == '$')
-	{
-		var_value = expand_variable(str, i, sys);
-		result = gc_strjoin_free_s1(result, var_value);
-	}
-	return (result);
-}
-
-static char	*expand_quoted_content(char *str, int start, int end, t_sys *sys)
+char	*expand_quoted_content(char *str, int start, int end, t_sys *sys)
 {
 	char	*result;
 	int		i;
@@ -142,7 +107,7 @@ static char	*expand_quoted_content(char *str, int start, int end, t_sys *sys)
 	return (result);
 }
 
-static char	*expand_in_quotes(char *str, t_expand_params *params, t_sys *sys)
+char	*expand_in_quotes(char *str, t_expand_params *params, t_sys *sys)
 {
 	if (params->quote == '\'')
 		return (gc_substr(str, params->start, params->end - params->start));
