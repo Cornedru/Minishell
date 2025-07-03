@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 21:34:42 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 23:18:50 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/03 01:01:43 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ int	main(int argc, char const **argv, char **envp)
 	gc_destroy();
 	return (0);
 }
-

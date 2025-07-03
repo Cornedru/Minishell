@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 23:21:34 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/03 01:25:32 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,45 +103,9 @@ typedef struct s_sys
 }								t_sys;
 
 /* global ******************************************************************* */
-
 extern volatile sig_atomic_t	g_signal;
 
-
-
 /* prototypes *************************************************************** */
-
-int		execute(t_ast *node, t_sys *sys);
-
-
-
-// init.c -----------------------------
-
-t_sys	*init_sys(char **envp);
-
-
-// pipe.c -----------------------------
-
-void	left_child(t_ast *node, t_sys *sys, int *pipe_fd);
-void	right_child(t_ast *node, t_sys *sys, int *pipe_fd);
-int	handle_pipe(t_ast *node, t_sys *sys);
-
-
-// exec_builtin.c ---------------------
-
-int	execute_external(t_ast *node, t_sys *sys);
-int	execute_builtin(t_ast *node, t_sys *sys);
-int	is_builtin(char *cmd);
-
-
-// exec_cmd.c -------------------------
-
-int	execute_forked_cmd(t_ast *node, t_sys *sys);
-int	execute_cmd(t_ast *node, t_sys *sys);
-int	execute(t_ast *node, t_sys *sys);
-
-int	read_line(t_sys *sys);
-
-
 
 // test.c -----------------------------
 
@@ -151,15 +115,55 @@ t_ast	*mock_pipe_command(void);
 
 
 
+// init.c -----------------------------
+
+t_sys	*init_sys(char **envp);
+
+
+
+// exec.c -----------------------------
+
+int		execute(t_ast *node, t_sys *sys);
+int		read_line(t_sys *sys);
+
+
+
+// exec_builtin.c ---------------------
+
+int		execute_builtin(t_ast *node, t_sys *sys);
+int		is_builtin(char *cmd);
+
+
+
+// exec_cmd.c -------------------------
+
+int		execute_forked_cmd(t_ast *node, t_sys *sys);
+int		execute_external(t_ast *node, t_sys *sys);
+int		execute_cmd(t_ast *node, t_sys *sys);
+
+
+
+// pipe.c -----------------------------
+
+void	left_child(t_ast *node, t_sys *sys, int *pipe_fd);
+void	right_child(t_ast *node, t_sys *sys, int *pipe_fd);
+int		handle_pipe(t_ast *node, t_sys *sys);
+
+
 
 // env.c ------------------------------
 
 char	**env_getarray(t_env *envp);
 char	*get_env_var(char *var_name, t_env *envp);
-// char	*get_env_var(char *var_name, char **envp);
-int		set_env_var(t_env **envp, char *var_name, char *content);
+int		set_env_var(t_sys *sys, t_env **envp, char *var_name, char *content);
 t_env	*pull_env(char **envp);
 
+// 	env_utils.c	-----------------------
+
+char	**dup_array(char **array);
+int		ft_envsize(t_env *envp);
+t_env	*gc_envnew(char *var, char *content);
+void	ft_envadd_back(t_env **lst, t_env *new);
 
 
 
@@ -170,11 +174,9 @@ char	*find_cmd_path(t_sys *sys, char *cmd);
 
 
 
-
 // redir.c ----------------------------
 
 int		handle_redirection(t_ast *node, t_sys *sys);
-
 
 
 
@@ -186,14 +188,7 @@ int		builtin_cd(t_ast *node, t_sys *sys);
 
 
 
-
 // utils ------------------------------
-// 	env_utils.c	-----------------------
-
-char	**dup_array(char **array);
-int		ft_envsize(t_env *envp);
-t_env	*gc_envnew(char *var, char *content);
-void	ft_envadd_back(t_env **lst, t_env *new);
 
 
 

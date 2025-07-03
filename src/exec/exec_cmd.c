@@ -6,11 +6,30 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 21:53:11 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 21:53:22 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/03 01:00:48 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	execute_external(t_ast *node, t_sys *sys)
+{
+	char	*cmd_path;
+
+	cmd_path = find_cmd_path(sys, node->args[0]);
+	if (!cmd_path)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(node->args[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(127);			// Standard exit code for command not found
+	}
+	execve(cmd_path, node->args, sys->envp);
+	ft_putstr_fd("minishell: ", 2);	// If we get here, execve failed.
+	perror(node->args[0]);	// Perror will print the system error
+	gc_free(cmd_path);		// Free the path if execve fails
+	exit(126);				// Standard exit code for command not executable
+}
 
 int	execute_forked_cmd(t_ast *node, t_sys *sys)
 {
@@ -38,18 +57,4 @@ int	execute_cmd(t_ast *node, t_sys *sys)
 	if (is_builtin(node->args[0]) == 2)
 		return (execute_builtin(node, sys));
 	return (execute_forked_cmd(node, sys));
-}
-
-int	execute(t_ast *node, t_sys *sys)
-{
-	if (!node)
-		return (0);
-	if (node->type == AST_PIPE)
-		return (handle_pipe(node, sys));
-	else if (node->type >= AST_REDIR_IN && node->type <= AST_HEREDOC)
-		return (handle_redirection(node, sys));
-	else if (node->type == AST_CMD)
-		return (execute_cmd(node, sys));
-	// else if AND/OR
-	return (1);
 }

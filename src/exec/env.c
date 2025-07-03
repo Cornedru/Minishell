@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 00:38:16 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 23:17:56 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/03 01:25:08 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ char	**env_getarray(t_env *envp)
 	return (array);
 }
 
-int	set_env_var(t_env **envp, char *var_name, char *content)
+int	set_env_var(t_sys *sys, t_env **env_lst, char *var_name, char *content)
 {
 	t_env	*current;
 	t_env	*new_node;
 
-	current = *envp;
+	current = *env_lst;
 	while (current)
 	{
 		if (!ft_strcmp(current->var, var_name))
@@ -62,7 +62,11 @@ int	set_env_var(t_env **envp, char *var_name, char *content)
 	new_node = gc_envnew(var_name, gc_strdup(content));
 	if (!new_node)
 		return (1);
-	ft_envadd_back(envp, new_node);
+	ft_envadd_back(env_lst, new_node);
+	gc_free_array((void **)sys->envp);
+    sys->envp = env_getarray(sys->env_lst);
+    if (!sys->envp)
+        return (1);
 	return (0);
 }
 
