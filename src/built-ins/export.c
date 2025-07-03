@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 01:43:55 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 03:46:03 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/03 03:51:47 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,23 @@ static int	env_print_sorted(t_env *env_lst)
 		else
 			printf("declare -x %s=\"%s\"", candidate->var, candidate->content);
 		last_printed = candidate->var;
+	}
+}
+
+static void	parse_arg(char *arg, char **var, char **content)
+{
+	char	*equal_sign;
+	
+	equal_sign = ft_strchr(arg, '=');
+	if (equal_sign)
+	{
+		*var = gc_substr(arg, 0, equal_sign - arg);
+		*content = gc_strdup(equal_sign + 1);
+	}
+	else
+	{
+		*var = gc_strdup(arg);
+		*content = NULL;
 	}
 }
 
@@ -74,23 +91,6 @@ static int	handle_arg(t_sys *sys, char *arg)
 	gc_free(var);
 	gc_free(content);
 	return (error);
-}
-
-static void	parse_arg(char *arg, char **var, char **content)
-{
-	char	*equal_sign;
-	
-	equal_sign = ft_strchr(arg, '=');
-	if (equal_sign)
-	{
-		*var = gc_substr(arg, 0, equal_sign - arg);
-		*content = gc_strdup(equal_sign + 1);
-	}
-	else
-	{
-		*var = gc_strdup(arg);
-		*content = NULL;
-	}
 }
 
 int	builtin_export(t_ast *node, t_sys *sys)
