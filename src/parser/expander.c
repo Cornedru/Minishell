@@ -6,23 +6,53 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 06:50:00 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 07:43:49 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*expand_variable(char *str, int *i, t_sys *sys)
-{
-	char	*result;
-	int		start;
-	int		end;
-	char	*key;
-	char	*value;
+// char	*expand_variable(char *str, int *i, t_sys *sys)
+// {
+// 	char	*result;
+// 	int		start;
+// 	int		end;
+// 	char	*key;
+// 	char	*value;
 
-	result = expand_special_var(str, i, sys);
-	if (result)
-		return (result);
+// 	result = expand_special_var(str, i, sys);
+// 	if (result)
+// 		return (result);
+// 	start = *i + 1;
+// 	if (!str[start] || (!ft_isalpha(str[start]) && str[start] != '_'
+// 			&& !ft_isdigit(str[start])))
+// 	{
+// 		*i = start;
+// 		return (gc_strdup("$"));
+// 	}
+// 	if (ft_isdigit(str[start]))
+// 	{
+// 		*i = start + 1;
+// 		return (gc_strdup(""));
+// 	}
+// 	end = start;
+// 	while (str[end] && (ft_isalnum(str[end]) || str[end] == '_'))
+// 		end++;
+// 	key = gc_substr(str, start, end - start);
+// 	if (!key)
+// 		return (gc_strdup(""));
+// 	value = get_env_var(key, sys->env_lst);
+// 	*i = end;
+// 	gc_free(key);
+// 	if (value)
+// 		return (gc_strdup(value));
+// 	return (gc_strdup(""));
+// }
+
+static char	*handle_invalid_or_numeric_var(char *str, int *i)
+{
+	int	start;
+
 	start = *i + 1;
 	if (!str[start] || (!ft_isalpha(str[start]) && str[start] != '_'
 			&& !ft_isdigit(str[start])))
@@ -35,6 +65,15 @@ char	*expand_variable(char *str, int *i, t_sys *sys)
 		*i = start + 1;
 		return (gc_strdup(""));
 	}
+	return (NULL);
+}
+
+static char	*extract_env_value(char *str, int *i, int start, t_sys *sys)
+{
+	int		end;
+	char	*key;
+	char	*value;
+
 	end = start;
 	while (str[end] && (ft_isalnum(str[end]) || str[end] == '_'))
 		end++;
@@ -47,6 +86,21 @@ char	*expand_variable(char *str, int *i, t_sys *sys)
 	if (value)
 		return (gc_strdup(value));
 	return (gc_strdup(""));
+}
+
+char	*expand_variable(char *str, int *i, t_sys *sys)
+{
+	char	*res;
+	int		start;
+
+	res = expand_special_var(str, i, sys);
+	if (res)
+		return (res);
+	res = handle_invalid_or_numeric_var(str, i);
+	if (res)
+		return (res);
+	start = *i + 1;
+	return (extract_env_value(str, i, start, sys));
 }
 
 char	*process_segment(char *str, int *i, int seg_start, t_sys *sys)
