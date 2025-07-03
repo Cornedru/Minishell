@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 01:25:32 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/03 03:48:05 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,10 +182,10 @@ int		handle_redirection(t_ast *node, t_sys *sys);
 
 // built-ins --------------------------
 
-int		builtin_echo(t_ast *node);
-int		builtin_pwd(void);
 int		builtin_cd(t_ast *node, t_sys *sys);
-
+int		builtin_echo(t_ast *node);
+int		builtin_export(t_ast *node, t_sys *sys);
+int		builtin_pwd(void);
 
 
 // utils ------------------------------
