@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 06:50:10 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 07:34:56 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef enum e_token_type
 	TOKEN_HEREDOC,		// <<
 	TOKEN_AND,			// &&
 	TOKEN_OR,			// ||
+	TOKEN_INVALID,
 	TOKEN_EOF			// EOF
 }								t_token_type;
 
