@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:00:00 by vous              #+#    #+#             */
-/*   Updated: 2025/07/03 07:28:56 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 08:13:41 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -741,6 +741,8 @@
 
 volatile sig_atomic_t g_signal = 0;
 
+
+
 t_sys *init_sys(char **envp)
 {
     t_sys *sys;
@@ -843,6 +845,41 @@ void test_and_compare(char *input, t_sys *sys)
     printf("=====================\n\n");
 }
 
+
+// Dans utils.c
+#include "gc.h" // pour gc_free_array
+#include <stdlib.h>
+
+void free_env_list(t_env *env_lst)
+{
+    t_env *tmp;
+
+    while (env_lst)
+    {
+        tmp = env_lst->next;
+        free(env_lst->var);
+        free(env_lst->content);
+        free(env_lst);
+        env_lst = tmp;
+    }
+}
+
+void free_sys(t_sys *sys)
+{
+    if (!sys)
+        return;
+
+    free_env_list(sys->env_lst);
+
+    if (sys->envp)
+        gc_free_array((void **)sys->envp);  // Ton tableau de char*
+
+    // Pour token et ast, on les libère ailleurs, donc ici on ne les libère pas
+
+    free(sys);
+}
+
+
 int main(int argc, char **argv, char **envp)
 {
     t_sys *sys = init_sys(envp);
@@ -863,9 +900,11 @@ int main(int argc, char **argv, char **envp)
         NULL};
 
     for (int i = 0; tests[i]; i++)
+    {
         test_and_compare(tests[i], sys);
+    }
 
-    // Libérations éventuelles de sys ici si nécessaire
+    free_sys(sys);
 
     return 0;
 }
