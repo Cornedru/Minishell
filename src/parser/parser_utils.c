@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 22:13:16 by ndehmej          ###   ########.fr       */
+/*   Created: 2024/12/18 10:00:00 by oligrien          #+#    #+#             */
+/*   Updated: 2025/07/03 02:50:42 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token	*create_token(t_token_type type, char *value)
 {
 	t_token	*token;
 
-	token = gc_malloc(sizeof(t_token));
+	token = (t_token *)gc_malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->type = type;
@@ -70,7 +70,7 @@ int	extract_word_with_quotes(char *input, int i, char **word)
 			end++;
 		}
 	}
-	*word = ft_substr(input, start, end - start);
+	*word = gc_substr(input, start, end - start);
 	return (end);
 }
 
@@ -79,7 +79,7 @@ int	extract_operator(char *input, int i, char **op)
 	int	len;
 
 	len = get_operator_len(input, i);
-	*op = ft_substr(input, i, len);
+	*op = gc_substr(input, i, len);
 	return (i + len);
 }
 

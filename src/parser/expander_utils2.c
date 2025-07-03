@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:45:58 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 02:05:03 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*expand_token_segments(char *str, t_shell *shell)
 	int		i;
 	int		start;
 
-	result = ft_strdup("");
+	result = gc_strdup("");
 	i = 0;
 	while (str[i])
 	{
@@ -59,7 +59,7 @@ char	*expand_outside_quotes(char *str, int start, int end, t_shell *shell)
 	int		i;
 	int		seg_start;
 
-	result = ft_strdup("");
+	result = gc_strdup("");
 	i = start;
 	while (i < end)
 	{
@@ -93,7 +93,7 @@ char	*expand_variable(char *str, int *i, t_shell *shell)
 			&& !ft_isdigit(str[start])))
 	{
 		*i = start;
-		return (ft_strdup("$"));
+		return (gc_strdup("$"));
 	}
 	if (ft_isdigit(str[start]))
 		return (handle_numeric_var(str, i, start));

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:46:22 by ndehmej          ###   ########.fr       */
+/*   Created: 2024/12/18 10:00:00 by oligrien          #+#    #+#             */
+/*   Updated: 2025/07/03 02:50:24 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*remove_quotes(char *str)
 
 	if (!str)
 		return (NULL);
-	result = malloc(get_unquoted_length(str) + 1);
+	result = (char *)gc_malloc(get_unquoted_length(str) + 1);
 	if (!result)
 		return (NULL);
 	i = 0;

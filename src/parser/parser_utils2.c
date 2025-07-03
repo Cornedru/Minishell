@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:46:14 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 02:05:13 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_redir	*parse_redir(t_token **tokens)
 		return (NULL);
 	clean_file = remove_quotes((*tokens)->value);
 	if (!clean_file)
-		clean_file = ft_strdup((*tokens)->value);
+		clean_file = gc_strdup((*tokens)->value);
 	advance_token(tokens);
 	return (create_redir(type, clean_file));
 }

@@ -5,115 +5,165 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 22:15:36 by ndehmej          ###   ########.fr       */
+/*   Created: 2024/12/18 10:00:00 by oligrien          #+#    #+#             */
+/*   Updated: 2025/07/03 02:54:55 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*expand_special_var(char *str, int *i, t_shell *shell)
+char	*expand_variable(char *str, int *i, t_sys *sys)
 {
-	int	start;
-
-	start = *i + 1;
-	if (str[start] == '?')
-	{
-		*i = start + 1;
-		return (ft_itoa(shell->last_status));
-	}
-	if (str[start] == '$')
-	{
-		*i = start + 1;
-		return (ft_itoa(getpid()));
-	}
-	if (str[start] == '\0' || str[start] == ' ' || str[start] == '\t'
-		|| str[start] == '"' || str[start] == '\'')
-	{
-		*i = start;
-		return (ft_strdup("$"));
-	}
-	return (NULL);
-}
-
-char	*build_numeric_var_value(char *str, int *i, char *value)
-{
-	char	c[2];
-	char	*tmp;
-
-	c[1] = '\0';
-	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
-	{
-		c[0] = str[*i];
-		tmp = value;
-		value = ft_strjoin_free(tmp, c);
-		// free(tmp);
-		(*i)++;
-	}
-	return (value);
-}
-
-char	*process_regular_var(char *str, int *i, int start, t_shell *shell)
-{
+	char	*result;
+	int		start;
 	int		end;
 	char	*key;
 	char	*value;
 
+	result = expand_special_var(str, i, sys);
+	if (result)
+		return (result);
+	start = *i + 1;
+	if (!str[start] || (!ft_isalpha(str[start]) && str[start] != '_'
+			&& !ft_isdigit(str[start])))
+	{
+		*i = start;
+		return (gc_strdup("$"));
+	}
+	if (ft_isdigit(str[start]))
+	{
+		*i = start + 1;
+		return (gc_strdup(""));
+	}
 	end = start;
 	while (str[end] && (ft_isalnum(str[end]) || str[end] == '_'))
 		end++;
-	key = ft_substr(str, start, end - start);
+	key = gc_substr(str, start, end - start);
 	if (!key)
-		return (ft_strdup(""));
-	value = get_env_value(key, shell);
+		return (gc_strdup(""));
+	value = get_env_var(key, sys->env_lst);
 	*i = end;
-	free(key);
+	gc_free(key);
 	if (value)
-		return (ft_strdup(value));
-	return (ft_strdup(""));
+		return (gc_strdup(value));
+	return (gc_strdup(""));
 }
 
-static void	handle_token_expansion(t_token *current, char *expanded)
+char	*expand_in_quotes(char *str, int start, int end, t_sys *sys, char quote)
 {
-	t_token	*split_tokens;
+	char	*result;
+	char	*temp;
+	char	*var_value;
+	int		i;
+	int		seg_start;
 
-	if (should_split_token(current->value, expanded))
+	if (quote == '\'')
 	{
-		split_tokens = split_expanded_token(expanded, current->type);
-		if (split_tokens)
+		return (gc_substr(str, start, end - start));
+	}
+	result = gc_strdup("");
+	i = start;
+	while (i < end)
+	{
+		seg_start = i;
+		while (i < end && str[i] != '$')
+			i++;
+		if (i > seg_start)
 		{
-			replace_token_value(current, split_tokens);
+			temp = gc_substr(str, seg_start, i - seg_start);
+			result = gc_strjoin_free_s1(result, temp);
+		}
+		if (i < end && str[i] == '$')
+		{
+			var_value = expand_variable(str, &i, sys);
+			result = gc_strjoin_free_s1(result, var_value);
+		}
+	}
+	return (result);
+}
+
+char	*expand_outside_quotes(char *str, int start, int end, t_sys *sys)
+{
+	char	*result;
+	char	*temp;
+	char	*var_value;
+	int		i;
+	int		seg_start;
+
+	result = gc_strdup("");
+	i = start;
+	while (i < end)
+	{
+		seg_start = i;
+		while (i < end && str[i] != '$')
+			i++;
+		if (i > seg_start)
+		{
+			temp = gc_substr(str, seg_start, i - seg_start);
+			result = gc_strjoin_free_s1(result, temp);
+		}
+		if (i < end && str[i] == '$')
+		{
+			var_value = expand_variable(str, &i, sys);
+			result = gc_strjoin_free_s1(result, var_value);
+		}
+	}
+	return (result);
+}
+
+char	*expand_token_value(char *str, t_sys *sys)
+{
+	char	*result;
+	char	*segment_result;
+	int		i;
+	int		start;
+	char	quote;
+
+	result = gc_strdup("");
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			quote = str[i];
+			start = i + 1;
+			i++;
+			while (str[i] && str[i] != quote)
+				i++;
+			segment_result = expand_in_quotes(str, start, i, sys, quote);
+			result = gc_strjoin_free_s1(result, segment_result);
+			if (str[i] == quote)
+				i++;
 		}
 		else
 		{
-			free(current->value);
-			current->value = expanded;
+			start = i;
+			while (str[i] && str[i] != '\'' && str[i] != '"')
+				i++;
+			segment_result = expand_outside_quotes(str, start, i, sys);
+			result = gc_strjoin_free_s1(result, segment_result);
 		}
-		free(expanded);
 	}
-	else
-	{
-		free(current->value);
-		current->value = expanded;
-	}
+	return (result);
 }
 
-void	expand_tokens(t_token *tokens, t_shell *shell)
+void	expand_tokens(t_token *tokens, t_sys *sys)
 {
 	t_token	*current;
-	t_token	*next;
 	char	*expanded;
 
 	current = tokens;
 	while (current)
 	{
-		next = current->next;
 		if (current->type == TOKEN_WORD)
 		{
-			expanded = expand_token_segments(current->value, shell);
+			expanded = expand_token_value(current->value, sys);
 			if (expanded)
-				handle_token_expansion(current, expanded);
+			{
+				gc_free(current->value);
+				current->value = expanded;
+			}
 		}
-		current = next;
+		current = current->next;
 	}
 }

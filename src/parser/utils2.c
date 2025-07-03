@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:46:25 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 02:55:30 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,28 @@ t_ast	*create_pipeline_node(t_ast *left, t_ast *right)
 	pipeline->left = left;
 	pipeline->right = right;
 	return (pipeline);
+}
+
+char	*expand_special_var(char *str, int *i, t_sys *sys)
+{
+	int	start;
+
+	start = *i + 1;
+	if (str[start] == '?')
+	{
+		*i = start + 1;
+		return (ft_itoa(sys->exit_status));
+	}
+	if (str[start] == '$')
+	{
+		*i = start + 1;
+		return (ft_itoa(getpid()));
+	}
+	if (str[start] == '\0' || str[start] == ' ' || str[start] == '\t'
+		|| str[start] == '"' || str[start] == '\'')
+	{
+		*i = start;
+		return (gc_strdup("$"));
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:45:56 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 02:04:54 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token	*alloc_token_node(char *value, t_token_type type)
 	if (!tmp)
 		return (NULL);
 	tmp->type = type;
-	tmp->value = ft_strdup(value);
+	tmp->value = gc_strdup(value);
 	tmp->next = NULL;
 	return (tmp);
 }

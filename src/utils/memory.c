@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:46:45 by ndehmej          ###   ########.fr       */
+/*   Created: 2024/12/18 10:00:00 by oligrien          #+#    #+#             */
+/*   Updated: 2025/07/03 02:47:15 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	free_tokens(t_token *tokens)
 {
@@ -20,22 +19,9 @@ void	free_tokens(t_token *tokens)
 	while (tokens)
 	{
 		tmp = tokens->next;
-		free(tokens->value);
-		free(tokens);
+		gc_free(tokens->value);
+		gc_free(tokens);
 		tokens = tmp;
-	}
-}
-
-void	free_redirs(t_redir *redirs)
-{
-	t_redir	*tmp;
-
-	while (redirs)
-	{
-		tmp = redirs->next;
-		free(redirs->file);
-		free(redirs);
-		redirs = tmp;
 	}
 }
 
@@ -43,59 +29,28 @@ void	free_ast(t_ast *ast)
 {
 	if (!ast)
 		return ;
-	if (ast->argv)
-		ft_free_split(ast->argv);
-	if (ast->redirs)
-		free_redirs(ast->redirs);
+	if (ast->args)
+		gc_free_array((void **)ast->args);
+	if (ast->filename)
+		gc_free(ast->filename);
 	free_ast(ast->left);
 	free_ast(ast->right);
-	free(ast);
+	gc_free(ast);
 }
 
-void	free_env(t_env *env)
+int	count_word_tokens(t_token *start)
 {
-	t_env	*tmp;
+	t_token	*tmp;
+	int		count;
 
-	while (env)
+	count = 0;
+	tmp = start;
+	while (tmp && tmp->type != TOKEN_PIPE && tmp->type != TOKEN_AND
+		&& tmp->type != TOKEN_OR)
 	{
-		tmp = env->next;
-		free(env->key);
-		free(env->value);
-		free(env);
-		env = tmp;
+		if (tmp->type == TOKEN_WORD)
+			count++;
+		tmp = tmp->next;
 	}
-}
-
-void	cleanup_shell(t_shell *shell)
-{
-	if (shell->env)
-		free_env(shell->env);
-	if (shell->cwd)
-		free(shell->cwd);
-}
-
-void	*safe_malloc(size_t size)
-{
-	void	*ptr;
-
-	ptr = malloc(size);
-	if (!ptr)
-	{
-		write(2, "malloc error\n", 13);
-		exit(1);
-	}
-	return (ptr);
-}
-
-char	*safe_strdup(const char *s)
-{
-	char	*dup;
-
-	dup = ft_strdup(s);
-	if (!dup)
-	{
-		write(2, "malloc error\n", 13);
-		exit(1);
-	}
-	return (dup);
+	return (count);
 }

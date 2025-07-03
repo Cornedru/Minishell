@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:46:08 by ndehmej          ###   ########.fr       */
+/*   Created: 2024/12/18 10:00:00 by oligrien          #+#    #+#             */
+/*   Updated: 2025/07/03 02:50:08 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ static int	process_token(char *input, int i, t_token **tokens)
 	}
 	if (!new_token)
 	{
-		free(value);
+		gc_free(value);
 		free_tokens(*tokens);
 		*tokens = NULL;
 		return (-1);
 	}
 	add_token(tokens, new_token);
-	free(value);
+	gc_free(value);
 	return (i);
 }
 

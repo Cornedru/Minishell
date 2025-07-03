@@ -6,12 +6,11 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:45:49 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 02:41:23 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	ft_clear(void)
 {
@@ -26,7 +25,7 @@ char	*expand_segment(char *str, int start, int end, t_shell *shell)
 	int		i;
 	int		seg_start;
 
-	result = ft_strdup("");
+	result = gc_strdup("");
 	i = start;
 	while (i < end)
 	{
@@ -57,8 +56,7 @@ void	handle_single_quote(char *str, int *i, char **result)
 	process_quote(str, i, result, '\'');
 }
 
-void	handle_double_quote(char *str, int *i, t_shell *shell,
-		char **result)
+void	handle_double_quote(char *str, int *i, t_shell *shell, char **result)
 {
 	int		start;
 	char	*segment_result;

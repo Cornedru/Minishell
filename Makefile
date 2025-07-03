@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+         #
+#    By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/25 03:00:00 by oligrien          #+#    #+#              #
-#    Updated: 2025/07/02 22:17:36 by oligrien         ###   ########.fr        #
+#    Updated: 2025/07/03 02:54:32 by ndehmej          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS_FILES =	main.c \
 				$(PRS_DIR)/clear_utils2.c \
 				$(PRS_DIR)/parser_utils.c \
 				$(PRS_DIR)/parser_utils2.c \
+				$(PRS_DIR)/parser_utils4.c \
 				$(PRS_DIR)/quotes.c \
 				$(PRS_DIR)/utils2.c \
 				$(UTILS_DIR)/utils.c \

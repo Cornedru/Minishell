@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/02 21:46:19 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 02:05:25 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	**create_empty_argv(void)
 	argv = malloc(sizeof(char *) * 2);
 	if (argv)
 	{
-		argv[0] = ft_strdup("");
+		argv[0] = gc_strdup("");
 		argv[1] = NULL;
 	}
 	return (argv);
