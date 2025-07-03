@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/03 02:04:54 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 06:41:05 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token	*alloc_token_node(char *value, t_token_type type)
 {
 	t_token	*tmp;
 
-	tmp = malloc(sizeof(t_token));
+	tmp = gc_malloc(sizeof(t_token));
 	if (!tmp)
 		return (NULL);
 	tmp->type = type;
@@ -71,15 +71,15 @@ t_token	*split_expanded_token(char *expanded, t_token_type type)
 	char	*clean;
 
 	clean = normalize_whitespace(expanded);
-	split_values = ft_split(clean, ' ');
+	split_values = gc_split(clean, ' ');
 	if (!split_values || !split_values[0])
 	{
 		if (split_values)
-			ft_free_split(split_values);
+			gc_free_array((void **)split_values);
 		return (NULL);
 	}
 	new_tokens = create_token_list(split_values, type);
-	ft_free_split(split_values);
+	gc_free_array((void **)split_values);
 	return (new_tokens);
 }
 
@@ -92,7 +92,7 @@ void	process_quote(char *str, int *i, char **result, char quote)
 	(*i)++;
 	while (str[*i] && str[*i] != quote)
 		(*i)++;
-	segment_result = ft_substr(str, start, *i - start);
+	segment_result = gc_substr(str, start, *i - start);
 	*result = join_and_free(*result, segment_result);
 	if (str[*i] == quote)
 		(*i)++;

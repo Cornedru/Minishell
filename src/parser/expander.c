@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 02:54:55 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 06:50:00 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,44 +49,29 @@ char	*expand_variable(char *str, int *i, t_sys *sys)
 	return (gc_strdup(""));
 }
 
-char	*expand_in_quotes(char *str, int start, int end, t_sys *sys, char quote)
+char	*process_segment(char *str, int *i, int seg_start, t_sys *sys)
 {
-	char	*result;
 	char	*temp;
 	char	*var_value;
-	int		i;
-	int		seg_start;
+	char	*result;
 
-	if (quote == '\'')
-	{
-		return (gc_substr(str, start, end - start));
-	}
 	result = gc_strdup("");
-	i = start;
-	while (i < end)
+	if (*i > seg_start)
 	{
-		seg_start = i;
-		while (i < end && str[i] != '$')
-			i++;
-		if (i > seg_start)
-		{
-			temp = gc_substr(str, seg_start, i - seg_start);
-			result = gc_strjoin_free_s1(result, temp);
-		}
-		if (i < end && str[i] == '$')
-		{
-			var_value = expand_variable(str, &i, sys);
-			result = gc_strjoin_free_s1(result, var_value);
-		}
+		temp = gc_substr(str, seg_start, *i - seg_start);
+		result = gc_strjoin_free_s1(result, temp);
+	}
+	if (*i < (int)ft_strlen(str) && str[*i] == '$')
+	{
+		var_value = expand_variable(str, i, sys);
+		result = gc_strjoin_free_s1(result, var_value);
 	}
 	return (result);
 }
 
-char	*expand_outside_quotes(char *str, int start, int end, t_sys *sys)
+static char	*expand_quoted_content(char *str, int start, int end, t_sys *sys)
 {
 	char	*result;
-	char	*temp;
-	char	*var_value;
 	int		i;
 	int		seg_start;
 
@@ -97,73 +82,32 @@ char	*expand_outside_quotes(char *str, int start, int end, t_sys *sys)
 		seg_start = i;
 		while (i < end && str[i] != '$')
 			i++;
-		if (i > seg_start)
-		{
-			temp = gc_substr(str, seg_start, i - seg_start);
-			result = gc_strjoin_free_s1(result, temp);
-		}
-		if (i < end && str[i] == '$')
-		{
-			var_value = expand_variable(str, &i, sys);
-			result = gc_strjoin_free_s1(result, var_value);
-		}
+		result = gc_strjoin_free_s1(result, process_segment(str, &i, seg_start,
+					sys));
 	}
 	return (result);
 }
 
-char	*expand_token_value(char *str, t_sys *sys)
+static char	*expand_in_quotes(char *str, t_expand_params *params, t_sys *sys)
 {
-	char	*result;
-	char	*segment_result;
-	int		i;
-	int		start;
-	char	quote;
-
-	result = gc_strdup("");
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '"')
-		{
-			quote = str[i];
-			start = i + 1;
-			i++;
-			while (str[i] && str[i] != quote)
-				i++;
-			segment_result = expand_in_quotes(str, start, i, sys, quote);
-			result = gc_strjoin_free_s1(result, segment_result);
-			if (str[i] == quote)
-				i++;
-		}
-		else
-		{
-			start = i;
-			while (str[i] && str[i] != '\'' && str[i] != '"')
-				i++;
-			segment_result = expand_outside_quotes(str, start, i, sys);
-			result = gc_strjoin_free_s1(result, segment_result);
-		}
-	}
-	return (result);
+	if (params->quote == '\'')
+		return (gc_substr(str, params->start, params->end - params->start));
+	return (expand_quoted_content(str, params->start, params->end, sys));
 }
 
-void	expand_tokens(t_token *tokens, t_sys *sys)
+void	handle_quote_section(char *str, int *i, char **result, t_sys *sys)
 {
-	t_token	*current;
-	char	*expanded;
+	t_expand_params	params;
+	char			*segment_result;
 
-	current = tokens;
-	while (current)
-	{
-		if (current->type == TOKEN_WORD)
-		{
-			expanded = expand_token_value(current->value, sys);
-			if (expanded)
-			{
-				gc_free(current->value);
-				current->value = expanded;
-			}
-		}
-		current = current->next;
-	}
+	params.quote = str[*i];
+	params.start = *i + 1;
+	(*i)++;
+	while (str[*i] && str[*i] != params.quote)
+		(*i)++;
+	params.end = *i;
+	segment_result = expand_in_quotes(str, &params, sys);
+	*result = gc_strjoin_free_s1(*result, segment_result);
+	if (str[*i] == params.quote)
+		(*i)++;
 }

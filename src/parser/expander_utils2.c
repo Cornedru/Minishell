@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/03 02:05:03 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 06:43:24 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 char	*handle_numeric_var(char *str, int *i, int start)
 {
-	char	*key;
-	char	*value;
-
+	(void)str;
 	*i = start + 1;
-	key = ft_substr(str, start, 1);
-	value = ft_strjoin("$", key);
-	free(key);
-	return (build_numeric_var_value(str, i, value));
+	return (gc_strdup(""));
 }
 
-char	*expand_token_segments(char *str, t_shell *shell)
+char	*expand_token_segments(char *str, t_sys *sys)
 {
 	char	*result;
 	char	*segment_result;
@@ -37,67 +32,18 @@ char	*expand_token_segments(char *str, t_shell *shell)
 	{
 		if (str[i] == '\'' || str[i] == '"')
 		{
-			handle_quoted_segment(str, &i, shell, &result);
+			handle_quoted_segment(str, &i, sys, &result);
 		}
 		else
 		{
 			start = i;
 			while (str[i] && str[i] != '\'' && str[i] != '"')
 				i++;
-			segment_result = expand_outside_quotes(str, start, i, shell);
+			segment_result = expand_outside_quotes(str, start, i, sys);
 			result = join_and_free(result, segment_result);
 		}
 	}
 	return (result);
-}
-
-char	*expand_outside_quotes(char *str, int start, int end, t_shell *shell)
-{
-	char	*result;
-	char	*temp;
-	char	*var_value;
-	int		i;
-	int		seg_start;
-
-	result = gc_strdup("");
-	i = start;
-	while (i < end)
-	{
-		seg_start = i;
-		while (i < end && str[i] != '$')
-			i++;
-		if (i > seg_start)
-		{
-			temp = ft_substr(str, seg_start, i - seg_start);
-			result = join_and_free(result, temp);
-		}
-		if (i < end && str[i] == '$')
-		{
-			var_value = expand_variable(str, &i, shell);
-			result = join_and_free(result, var_value);
-		}
-	}
-	return (result);
-}
-
-char	*expand_variable(char *str, int *i, t_shell *shell)
-{
-	char	*result;
-	int		start;
-
-	result = expand_special_var(str, i, shell);
-	if (result)
-		return (result);
-	start = *i + 1;
-	if (!str[start] || (!ft_isalpha(str[start]) && str[start] != '_'
-			&& !ft_isdigit(str[start])))
-	{
-		*i = start;
-		return (gc_strdup("$"));
-	}
-	if (ft_isdigit(str[start]))
-		return (handle_numeric_var(str, i, start));
-	return (process_regular_var(str, i, start, shell));
 }
 
 char	*normalize_whitespace(char *expanded)
@@ -114,4 +60,24 @@ char	*normalize_whitespace(char *expanded)
 		i++;
 	}
 	return (clean);
+}
+
+char	*process_regular_var(char *str, int *i, int start, t_sys *sys)
+{
+	int		end;
+	char	*key;
+	char	*value;
+
+	end = start;
+	while (str[end] && (ft_isalnum(str[end]) || str[end] == '_'))
+		end++;
+	key = gc_substr(str, start, end - start);
+	if (!key)
+		return (gc_strdup(""));
+	value = get_env_var(key, sys->env_lst);
+	*i = end;
+	gc_free(key);
+	if (value)
+		return (gc_strdup(value));
+	return (gc_strdup(""));
 }

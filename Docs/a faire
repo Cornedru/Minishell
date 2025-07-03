@@ -2,3 +2,46 @@ modifier tou les strdup par gc
 				 free (voila voila)
 				 strjoin
 				 malloc 
+
+
+## Problèmes restants à corriger :
+
+### 1. Fonction manquante dans expander_utils2.c
+La fonction `build_numeric_var_value` est appelée mais n'est pas définie.
+Elle devrait probablement être similaire à `handle_digit_var` dans clear_utils2.c
+
+### 2. Structure t_redir non définie
+parser_utils2.c utilise t_redir qui n'existe pas dans minishell.h
+- Soit il faut supprimer ces fonctions
+- Soit il faut ajouter la structure dans minishell.h
+
+### 3. Prototypes manquants dans minishell.h
+Ajouter les prototypes pour :
+- expand_variable (utilisé dans clear_utils.c et expander_utils2.c)
+- process_quote (utilisé dans clear_utils.c)
+- handle_single_quote (utilisé dans utils3.c)
+- handle_double_quote (utilisé dans utils3.c)
+- handle_quoted_segment (utilisé dans expander_utils2.c)
+- join_and_free (utilisé dans plusieurs fichiers)
+- normalize_whitespace (utilisé dans expander_utils.c)
+- gather_all_words (utilisé dans parser2.c)
+- handle_heredoc (si utilisé ailleurs)
+
+### 4. Corrections suggérées pour expander_utils2.c
+Remplacer l'appel à `build_numeric_var_value` par le code direct :
+
+```c
+char	*handle_numeric_var(char *str, int *i, int start)
+{
+	*i = start + 1;
+	return (gc_strdup(""));
+}
+```
+
+### 5. Fonction de remplacement pour t_redir
+Si t_redir n'est pas nécessaire, supprimer les fonctions :
+- create_redir
+- parse_redir
+- add_redir
+
+Ou les adapter pour utiliser les structures existantes du projet.

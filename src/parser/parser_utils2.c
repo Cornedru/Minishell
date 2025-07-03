@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/03 02:05:13 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 06:43:34 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_redir	*create_redir(t_token_type type, char *file)
 {
 	t_redir	*redir;
 
-	redir = malloc(sizeof(t_redir));
+	redir = gc_malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);
 	redir->type = type;
@@ -72,10 +72,10 @@ t_ast	*new_ast_node(t_ast_type type)
 {
 	t_ast	*node;
 
-	node = malloc(sizeof(t_ast));
+	node = gc_malloc(sizeof(t_ast));
 	if (!node)
 		return (NULL);
-	ft_memset(node, 0, sizeof(t_ast));
+	ft_bzero(node, sizeof(t_ast));
 	node->type = type;
 	return (node);
 }

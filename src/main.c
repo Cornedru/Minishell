@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 21:34:42 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 22:41:40 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/03 06:52:34 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+volatile sig_atomic_t g_signal = 0;
 
 t_sys	*init_sys(char **envp)
 {
@@ -59,6 +61,39 @@ int	read_line(t_sys *sys)
 	return (1);
 }
 
+// void cleanup(t_sys *sys) {
+//     // Libérer environnement
+//     for (char **e = sys->env; *e; e++) 
+//         free(*e);
+//     free(sys->env);
+    
+//     // Libérer tableau environnement
+//     free(sys->env_array);
+// }
+
+void	run_parsing_tests(void);
+
+// Dans main(), ajouter une option de test
+int main(int argc, char const **argv, char **envp)
+{
+	t_sys	*sys;
+
+	// Mode test si --test est passé en argument
+	if (argc > 1 && !ft_strcmp(argv[1], "--test"))
+	{
+		run_parsing_tests();
+		return (0);
+	}
+
+	// Code normal...
+	sys = init_sys(envp);
+	read_line(sys);
+	gc_free_array((void **)sys->envp);
+	gc_destroy();
+	// atexit(cleanup); 
+	return (0);
+}
+
 int main(int argc, char const **argv, char **envp)
 {
 	t_sys	*sys;
@@ -74,4 +109,6 @@ int main(int argc, char const **argv, char **envp)
 	gc_destroy();
 	return (0);
 }
+
+
 

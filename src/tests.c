@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 20:13:22 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/27 20:26:35 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/03 06:26:32 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,14 @@ t_ast	*mock_pipe_command(void)
 
 	// The pipe node connects them.
 	return (create_op_node(AST_PIPE, ls_node, grep_node));
+}
+
+void run_parsing_tests(void)
+{
+    printf("Running parsing tests...\n");
+    
+    // Your testing code here
+    // For example: test_lexer(); test_parser(); etc.
+    
+    printf("Parsing tests completed.\n");
 }

@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/03 02:55:30 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 06:40:46 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_ast	*create_pipeline_node(t_ast *left, t_ast *right)
 {
 	t_ast	*pipeline;
 
-	pipeline = new_ast_node(AST_PIPELINE);
+	pipeline = new_ast_node(AST_PIPE);
 	if (!pipeline)
 	{
 		free_ast(left);

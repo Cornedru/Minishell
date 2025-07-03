@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 23:01:04 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 20:55:41 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/03 06:21:27 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ static char	*ft_getcwd(char *buf, size_t size)
 
 int	set_dir(t_sys *sys, char *cwd, char *path)
 {
-	if (set_env_var(&sys->envp, "OLDPWD", cwd))
+	if (set_env_var(&sys->env_lst, "OLDPWD", cwd))
 		return (free(cwd), gc_free(path), 1);
 	free(cwd);
 	cwd = ft_getcwd(NULL, 0);
 	if (!cwd)
 		return (perror("minishell: cd"), gc_free(path), 1);
-	if (set_env_var(&sys->envp, "PWD", cwd))
+	if (set_env_var(&sys->env_lst, "PWD", cwd))
 		return (free(cwd), gc_free(path), 1);
 	return (free(cwd), gc_free(path), 0);
 }
@@ -73,7 +73,7 @@ int	builtin_cd(t_ast *node, t_sys *sys)
 	cwd = ft_getcwd(NULL, 0);
 	if (!cwd)
 		return (perror("minishell: cd"), 1);
-	path = get_path(sys->envp, node->args[1]);
+	path = get_path(sys->env_lst, node->args[1]);
 	if (!path)
     	return (free(cwd), 1);
 	if (!chdir(path))	// SUCCESS

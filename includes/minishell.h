@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 02:48:28 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 06:50:10 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,15 @@ typedef struct s_ast
 	struct s_ast				*right;
 }								t_ast;
 
+// REDIR (if needed) ------------------
+
+typedef struct s_redir
+{
+	t_token_type				type;
+	char						*file;
+	struct s_redir				*next;
+}								t_redir;
+
 // SYS --------------------------------
 
 typedef struct s_env
@@ -101,6 +110,13 @@ typedef struct s_sys
 	int							exit_status;
 	int							exit;
 }								t_sys;
+
+typedef struct s_expand_params
+{
+	int		start;
+	int		end;
+	char	quote;
+}			t_expand_params;
 
 /* global ******************************************************************* */
 
@@ -169,6 +185,8 @@ t_ast	*create_pipeline_node(t_ast *left, t_ast *right);
 t_ast	*create_and_or_node(t_ast *left, t_ast *right, t_ast_type type);
 t_ast	*parse_command(t_token **tokens);
 t_ast	*parse_simple_command(t_token **tokens);
+char	**parse_args(t_token **tokens);
+
 
 // Lexer utilities
 int		is_operator(char c);
@@ -184,10 +202,60 @@ int		extract_operator(char *input, int i, char **op);
 char	*expand_variable(char *str, int *i, t_sys *sys);
 char	*expand_special_var(char *str, int *i, t_sys *sys);
 char	*expand_token_value(char *str, t_sys *sys);
+char	*expand_outside_quotes(char *str, int start, int end, t_sys *sys);
+char	*expand_segment(char *str, int start, int end, t_sys *sys);
+char	*expand_in_double_quotes(char *str, int start, int end, t_sys *sys);
+char	*expand_regular_var(char *str, int *i, t_sys *sys);
+char	*handle_digit_var(char *str, int *i, char *key, char *value);
+char	*extract_var_key(char *str, int start, int *end);
+char	*get_var_value(char *key, t_sys *sys, int *i, int end);
+char	*handle_numeric_var(char *str, int *i, int start);
+char	*expand_token_segments(char *str, t_sys *sys);
+char	*process_regular_var(char *str, int *i, int start, t_sys *sys);
+char	*normalize_whitespace(char *expanded);
+
+// Quote handling utilities
+void	handle_single_quote(char *str, int *i, char **result);
+void	handle_double_quote(char *str, int *i, t_sys *sys, char **result);
+void	handle_quoted_segment(char *str, int *i, t_sys *sys, char **result);
+void	process_quote(char *str, int *i, char **result, char quote);
+void		copy_quoted_content(char *str, int *i, int *j, char *result);
+int		count_quoted_chars(char *str, int *i);
+int		get_unquoted_length(char *str);
+
+// Token utilities
+t_token	*alloc_token_node(char *value, t_token_type type);
+void	append_token(t_token **head, t_token *new_token);
+t_token	*create_token_list(char **split_values, t_token_type type);
+t_token	*split_expanded_token(char *expanded, t_token_type type);
+void	replace_token_value(t_token *current, t_token *split_tokens);
+
+// Utility functions
+char	*join_and_free(char *s1, char *s2);
+char	**gather_all_words(t_token **tokens);
+int		has_quotes(char *str);
+int		has_whitespace(char *str);
+int		should_split_token(char *original, char *expanded);
+void	ft_clear(void);
 
 // AST utilities
 t_ast	*new_ast_node(t_ast_type type);
 t_token	*advance_token(t_token **tokens);
 int		count_word_tokens(t_token *start);
 
+// Heredoc
+int		handle_heredoc(char *delimiter);
+
+// Redirections (if t_redir is used)
+t_redir	*parse_redir(t_token **tokens);
+void	add_redir(t_redir **redirs, t_redir *new_redir);
+
+// Mock functions for testing (remove in production)
+t_ast	*mock_ls_command(void);
+t_ast	*mock_redir_command(void);
+t_ast	*mock_pipe_command(void);
+
+
+void	handle_quote_section(char *str, int *i, char **result, t_sys *sys);
+char	*process_segment(char *str, int *i, int seg_start, t_sys *sys);
 #endif

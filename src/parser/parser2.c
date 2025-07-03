@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/03 02:05:25 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/03 06:07:17 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	**create_empty_argv(void)
 {
 	char	**argv;
 
-	argv = malloc(sizeof(char *) * 2);
+	argv = gc_malloc(sizeof(char *) * 2);
 	if (argv)
 	{
 		argv[0] = gc_strdup("");
@@ -27,11 +27,10 @@ static char	**create_empty_argv(void)
 
 static int	init_command_node(t_ast **node)
 {
-	*node = new_ast_node(AST_COMMAND);
+	*node = new_ast_node(AST_CMD);
 	if (!*node)
 		return (0);
-	(*node)->redirs = NULL;
-	(*node)->argv = NULL;
+	(*node)->args = NULL;
 	return (1);
 }
 
@@ -43,12 +42,20 @@ t_ast	*parse_simple_command(t_token **tokens)
 	if (!init_command_node(&node))
 		return (NULL);
 	start = *tokens;
-	parse_redirections(tokens, node);
+	while (*tokens && ((*tokens)->type == TOKEN_REDIR_IN
+			|| (*tokens)->type == TOKEN_REDIR_OUT
+			|| (*tokens)->type == TOKEN_REDIR_APPEND
+			|| (*tokens)->type == TOKEN_HEREDOC))
+	{
+		advance_token(tokens);
+		if (*tokens && (*tokens)->type == TOKEN_WORD)
+			advance_token(tokens);
+	}
 	*tokens = start;
-	node->argv = gather_all_words(tokens);
-	if (!node->argv && node->redirs)
-		node->argv = create_empty_argv();
-	if (!node->argv)
+	node->args = gather_all_words(tokens);
+	if (!node->args)
+		node->args = create_empty_argv();
+	if (!node->args)
 	{
 		free_ast(node);
 		return (NULL);
