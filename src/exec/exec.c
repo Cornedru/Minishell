@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:41:49 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 02:45:06 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/04 03:53:49 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	read_line(t_sys *sys)
 
 
 		// Build AST
-		/* ----------- MOCK AST ------------
+		// ----------- MOCK AST ------------
 		if (!ft_strcmp(line, "ls -l"))
 			sys->ast = mock_ls_command();
 		if (!ft_strcmp(line, "cat < input.txt"))
@@ -63,7 +63,7 @@ int	read_line(t_sys *sys)
 			sys->ast = mock_exit_command();
 		if (!ft_strcmp(line, "echo \"testing redir\" > output.txt"))
 			sys->ast = mock_redir_out_command();
-		--------------------------------- */
+		// ---------------------------------
 
 
 		// Execute AST:

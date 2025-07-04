@@ -6,7 +6,7 @@
 #    By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/25 01:44:57 by oligrien          #+#    #+#              #
-#    Updated: 2025/06/29 23:58:34 by oligrien         ###   ########.fr        #
+#    Updated: 2025/07/04 04:08:30 by oligrien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,9 +40,6 @@ SRCS_FILES =	ft_isalpha.c \
 				ft_strdup.c \
 				ft_substr.c \
 				ft_strjoin.c \
-				ft_strjoin_free_s1.c \
-				ft_strjoin_free_s2.c \
-				ft_strjoin_free_s1_s2.c \
 				ft_strtrim.c \
 				ft_split.c \
 				ft_itoa.c \

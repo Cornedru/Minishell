@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 20:13:22 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 02:41:06 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/04 04:25:01 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,14 +173,14 @@ t_ast	*mock_env_command(void)
 	return (create_cmd_node(args));
 }
 
-// exit f42 /* 43 */
+// exit (overflow)
 t_ast	*mock_exit_command(void)
 {
 	char	**args;
 
 	args = (char **)gc_malloc(sizeof(char *) * 3);
 	args[0] = gc_strdup("exit");
-	args[1] = gc_strdup("f42");
+	args[1] = gc_strdup("9223372036854775808");
 	args[2] = /* gc_strdup("43");
 	args[3] = */ NULL;
 	return (create_cmd_node(args));

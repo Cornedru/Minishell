@@ -6,13 +6,13 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 00:59:51 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 01:49:39 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/04 04:22:42 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_num(char *str)
+static int	is_valid_num(char *str)
 {
 	int	i;
 
@@ -27,8 +27,11 @@ static int	is_num(char *str)
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
-		i++;
+		if(++i > 19)
+			return (0);
 	}
+	if (ft_strcmp(str, "9223372036854775807") > 0)
+		return (0);	
 	return (1);
 }
 
@@ -40,7 +43,7 @@ int	builtin_exit(t_ast *node, t_sys *sys)
 		sys->exit = 1;
 		return (0);
 	}
-	if (is_num(node->args[1]))
+	if (is_valid_num(node->args[1]))
 	{
 		if (node->args[2])
 			return (ft_putstr_fd("minishell: exit: too many arguments\n", 2),
