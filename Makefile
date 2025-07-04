@@ -6,7 +6,7 @@
 #    By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/25 03:00:00 by oligrien          #+#    #+#              #
-#    Updated: 2025/07/03 03:50:11 by oligrien         ###   ########.fr        #
+#    Updated: 2025/07/04 01:04:02 by oligrien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,14 @@ SRCS_FILES =	main.c \
 				tests.c \
 				$(BUILTINS_DIR)/cd.c \
 				$(BUILTINS_DIR)/echo.c \
+				$(BUILTINS_DIR)/env.c \
+				$(BUILTINS_DIR)/exit.c \
 				$(BUILTINS_DIR)/export.c \
 				$(BUILTINS_DIR)/pwd.c \
+				$(BUILTINS_DIR)/unset.c \
+				$(EXEC_DIR)/env_array.c \
+				$(EXEC_DIR)/env_lst.c \
 				$(EXEC_DIR)/env_utils.c \
-				$(EXEC_DIR)/env.c \
-				$(EXEC_DIR)/exec_builtin.c \
 				$(EXEC_DIR)/exec_cmd.c \
 				$(EXEC_DIR)/exec.c \
 				$(EXEC_DIR)/init.c \

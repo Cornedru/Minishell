@@ -6,13 +6,13 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 01:43:55 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 03:51:47 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/04 02:21:50 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	env_print_sorted(t_env *env_lst)
+static void	env_print_sorted(t_env *env_lst)
 {
 	int		size;
 	char	*last_printed;
@@ -55,21 +55,6 @@ static void	parse_arg(char *arg, char **var, char **content)
 		*var = gc_strdup(arg);
 		*content = NULL;
 	}
-}
-
-static int	is_valid_identifier(char *arg)
-{
-	int	i;
-
-	i = -1;
-	while (arg[++i])
-	{
-		if (i == 0 && !ft_isalpha(arg[i]) && arg[i] != '_')
-			return (0);
-		else if (!ft_isalnum(arg[i]) && arg[i] != '_')
-			return (0);
-	}
-	return (1);
 }
 
 static int	handle_arg(t_sys *sys, char *arg)

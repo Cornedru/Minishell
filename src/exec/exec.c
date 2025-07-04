@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:41:49 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 01:04:11 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/04 02:45:06 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,45 @@ int	read_line(t_sys *sys)
 	char	*line;
 
 	line = NULL;
-	while (!(sys->exit))
+	while (!sys->exit)
 	{
 		line = readline(PROMPT);
 		if (!line)
-			return (0);
-		if (ft_strlen(line) > 0)
-		{
-			add_history(line);
+			return (1);
+		add_history(line);
 
-			// Tokenize
+		// Tokenize
 
-			// Build AST
-			// ----------- MOCK AST ------------
-			// sys->ast = mock_ls_command();
-			// sys->ast = mock_redir_command();
+
+		// Build AST
+		/* ----------- MOCK AST ------------
+		if (!ft_strcmp(line, "ls -l"))
+			sys->ast = mock_ls_command();
+		if (!ft_strcmp(line, "cat < input.txt"))
+			sys->ast = mock_redir_in_command();
+		if (!ft_strcmp(line, "ls -l | grep \".c\""))
 			sys->ast = mock_pipe_command();
-			// ---------------------------------
+		if (!ft_strcmp(line, "export A=1 B=2 A=new C 1INVALID"))
+			sys->ast = mock_export_command();
+		if (!ft_strcmp(line, "export"))
+			sys->ast = mock_export_no_args_command();
+		if (!ft_strcmp(line, "unset A C NONEXISTENT"))
+			sys->ast = mock_unset_command();
+		if (!ft_strcmp(line, "cd /tmp"))
+			sys->ast = mock_cd_command();
+		if (!ft_strcmp(line, "env"))
+			sys->ast = mock_env_command();
+		if (!ft_strcmp(line, "exit f42"))
+			sys->ast = mock_exit_command();
+		if (!ft_strcmp(line, "echo \"testing redir\" > output.txt"))
+			sys->ast = mock_redir_out_command();
+		--------------------------------- */
 
-			// Execute AST:
-			if (sys->ast)
-				sys->exit_status = execute(sys->ast, sys);
-			gc_free(sys->ast);
-		}
-		else
-			printf("(empty line)\n");
+
+		// Execute AST:
+		if (sys->ast)
+			sys->exit_status = execute(sys->ast, sys);
+		gc_free(sys->ast);
 	}
-	return (1);
+	return (0);
 }
