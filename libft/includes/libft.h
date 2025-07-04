@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 09:00:49 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 04:07:06 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/04 05:40:26 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <errno.h>
+# include <limits.h>
 
 /* typedef ****************************************************************** */
 typedef struct s_list
@@ -63,7 +64,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
 /* <stdlib.h> *************************************************************** */
 int				ft_atoi(const char *nptr);
-long long int	ft_atoll(const char *nptr);
+long long int	ft_atoll(const char *nptr, int *fail);
 
 void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_free(void **ptr);

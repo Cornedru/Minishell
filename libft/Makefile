@@ -6,7 +6,7 @@
 #    By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/25 01:44:57 by oligrien          #+#    #+#              #
-#    Updated: 2025/07/04 04:08:30 by oligrien         ###   ########.fr        #
+#    Updated: 2025/07/04 05:40:41 by oligrien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS_FILES =	ft_isalpha.c \
 				ft_memcmp.c \
 				ft_strnstr.c \
 				ft_atoi.c \
+				ft_atoll.c \
 				ft_calloc.c \
 				ft_strdup.c \
 				ft_substr.c \

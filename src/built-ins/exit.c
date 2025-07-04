@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 00:59:51 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 04:22:42 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/04 06:14:50 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,13 @@
 
 static int	is_valid_num(char *str)
 {
-	int	i;
+	long long int	nb;
+	int				fail;
 
-	i = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (!str[i])
+	fail = 0;
+	nb = ft_atoll(str , &fail);
+	if (fail > 0)
 		return (0);
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		if(++i > 19)
-			return (0);
-	}
-	if (ft_strcmp(str, "9223372036854775807") > 0)
-		return (0);	
 	return (1);
 }
 
@@ -49,7 +38,7 @@ int	builtin_exit(t_ast *node, t_sys *sys)
 			return (ft_putstr_fd("minishell: exit: too many arguments\n", 2),
 				1);
 		sys->exit = 1;
-		sys->exit_status = ft_atoi(node->args[1]) % 256;
+		sys->exit_status = ft_atoll(node->args[1], NULL) % 256;
 	}
 	else
 	{
