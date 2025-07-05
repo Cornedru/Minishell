@@ -1,0 +1,4370 @@
+diff --git a/.obsidian/app.json b/.obsidian/app.json
+deleted file mode 100644
+index 9e26dfe..0000000
+--- a/.obsidian/app.json
++++ /dev/null
+@@ -1 +0,0 @@
+-{}
+\ No newline at end of file
+diff --git a/.obsidian/appearance.json b/.obsidian/appearance.json
+deleted file mode 100644
+index 9e26dfe..0000000
+--- a/.obsidian/appearance.json
++++ /dev/null
+@@ -1 +0,0 @@
+-{}
+\ No newline at end of file
+diff --git a/.obsidian/core-plugins.json b/.obsidian/core-plugins.json
+deleted file mode 100644
+index b977c25..0000000
+--- a/.obsidian/core-plugins.json
++++ /dev/null
+@@ -1,31 +0,0 @@
+-{
+-  "file-explorer": true,
+-  "global-search": true,
+-  "switcher": true,
+-  "graph": true,
+-  "backlink": true,
+-  "canvas": true,
+-  "outgoing-link": true,
+-  "tag-pane": true,
+-  "properties": false,
+-  "page-preview": true,
+-  "daily-notes": true,
+-  "templates": true,
+-  "note-composer": true,
+-  "command-palette": true,
+-  "slash-command": false,
+-  "editor-status": true,
+-  "bookmarks": true,
+-  "markdown-importer": false,
+-  "zk-prefixer": false,
+-  "random-note": false,
+-  "outline": true,
+-  "word-count": true,
+-  "slides": false,
+-  "audio-recorder": false,
+-  "workspaces": false,
+-  "file-recovery": true,
+-  "publish": false,
+-  "sync": true,
+-  "webviewer": false
+-}
+\ No newline at end of file
+diff --git a/.obsidian/workspace.json b/.obsidian/workspace.json
+deleted file mode 100644
+index a4ad64c..0000000
+--- a/.obsidian/workspace.json
++++ /dev/null
+@@ -1,166 +0,0 @@
+-{
+-  "main": {
+-    "id": "ad86463bdfa3452f",
+-    "type": "split",
+-    "children": [
+-      {
+-        "id": "409d465087f768f2",
+-        "type": "tabs",
+-        "children": [
+-          {
+-            "id": "60dbcf40e2c46a0c",
+-            "type": "leaf",
+-            "state": {
+-              "type": "empty",
+-              "state": {},
+-              "icon": "lucide-file",
+-              "title": "New tab"
+-            }
+-          }
+-        ]
+-      }
+-    ],
+-    "direction": "vertical"
+-  },
+-  "left": {
+-    "id": "edc53e03d8270265",
+-    "type": "split",
+-    "children": [
+-      {
+-        "id": "529ff44f968c5474",
+-        "type": "tabs",
+-        "children": [
+-          {
+-            "id": "a98aa18ceff4eb1a",
+-            "type": "leaf",
+-            "state": {
+-              "type": "file-explorer",
+-              "state": {
+-                "sortOrder": "alphabetical",
+-                "autoReveal": false
+-              },
+-              "icon": "lucide-folder-closed",
+-              "title": "Files"
+-            }
+-          },
+-          {
+-            "id": "20a321871f91a3f7",
+-            "type": "leaf",
+-            "state": {
+-              "type": "search",
+-              "state": {
+-                "query": "",
+-                "matchingCase": false,
+-                "explainSearch": false,
+-                "collapseAll": false,
+-                "extraContext": false,
+-                "sortOrder": "alphabetical"
+-              },
+-              "icon": "lucide-search",
+-              "title": "Search"
+-            }
+-          },
+-          {
+-            "id": "fdb5ae278009c828",
+-            "type": "leaf",
+-            "state": {
+-              "type": "bookmarks",
+-              "state": {},
+-              "icon": "lucide-bookmark",
+-              "title": "Bookmarks"
+-            }
+-          }
+-        ]
+-      }
+-    ],
+-    "direction": "horizontal",
+-    "width": 300
+-  },
+-  "right": {
+-    "id": "655e39a5b3e68864",
+-    "type": "split",
+-    "children": [
+-      {
+-        "id": "71c91e64b49f0d75",
+-        "type": "tabs",
+-        "children": [
+-          {
+-            "id": "ee6fc3eea02ee480",
+-            "type": "leaf",
+-            "state": {
+-              "type": "backlink",
+-              "state": {
+-                "collapseAll": false,
+-                "extraContext": false,
+-                "sortOrder": "alphabetical",
+-                "showSearch": false,
+-                "searchQuery": "",
+-                "backlinkCollapsed": false,
+-                "unlinkedCollapsed": true
+-              },
+-              "icon": "links-coming-in",
+-              "title": "Backlinks"
+-            }
+-          },
+-          {
+-            "id": "31feb325af7b96c1",
+-            "type": "leaf",
+-            "state": {
+-              "type": "outgoing-link",
+-              "state": {
+-                "linksCollapsed": false,
+-                "unlinkedCollapsed": true
+-              },
+-              "icon": "links-going-out",
+-              "title": "Outgoing links"
+-            }
+-          },
+-          {
+-            "id": "28be3e2442566d1c",
+-            "type": "leaf",
+-            "state": {
+-              "type": "tag",
+-              "state": {
+-                "sortOrder": "frequency",
+-                "useHierarchy": true,
+-                "showSearch": false,
+-                "searchQuery": ""
+-              },
+-              "icon": "lucide-tags",
+-              "title": "Tags"
+-            }
+-          },
+-          {
+-            "id": "9d610b0cf6a2fb82",
+-            "type": "leaf",
+-            "state": {
+-              "type": "outline",
+-              "state": {
+-                "followCursor": false,
+-                "showSearch": false,
+-                "searchQuery": ""
+-              },
+-              "icon": "lucide-list",
+-              "title": "Outline"
+-            }
+-          }
+-        ]
+-      }
+-    ],
+-    "direction": "horizontal",
+-    "width": 300,
+-    "collapsed": true
+-  },
+-  "left-ribbon": {
+-    "hiddenItems": {
+-      "switcher:Open quick switcher": false,
+-      "graph:Open graph view": false,
+-      "canvas:Create new canvas": false,
+-      "daily-notes:Open today's daily note": false,
+-      "templates:Insert template": false,
+-      "command-palette:Open command palette": false
+-    }
+-  },
+-  "active": "60dbcf40e2c46a0c",
+-  "lastOpenFiles": []
+-}
+\ No newline at end of file
+diff --git a/Docs/git_v2.html b/Docs/git_v2.html
+deleted file mode 100644
+index 06e0974..0000000
+--- a/Docs/git_v2.html
++++ /dev/null
+@@ -1,1609 +0,0 @@
+-<!DOCTYPE html>
+-<html lang="fr">
+-<head>
+-    <meta charset="UTF-8">
+-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+-    <title>Git Master Guide - École 42</title>
+-    <style>
+-        * {
+-            margin: 0;
+-            padding: 0;
+-            box-sizing: border-box;
+-        }
+-
+-        body {
+-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-            min-height: 100vh;
+-            color: #333;
+-        }
+-
+-        .container {
+-            max-width: 1400px;
+-            margin: 0 auto;
+-            padding: 20px;
+-        }
+-
+-        .header {
+-            text-align: center;
+-            margin-bottom: 40px;
+-            color: white;
+-        }
+-
+-        .header h1 {
+-            font-size: 3.5rem;
+-            margin-bottom: 10px;
+-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+-        }
+-
+-        .header .subtitle {
+-            font-size: 1.3rem;
+-            opacity: 0.9;
+-            margin-bottom: 20px;
+-        }
+-
+-        .header .school-badge {
+-            background: rgba(255,255,255,0.2);
+-            padding: 10px 20px;
+-            border-radius: 25px;
+-            display: inline-block;
+-            font-weight: bold;
+-            font-size: 1.1rem;
+-            backdrop-filter: blur(10px);
+-        }
+-
+-        .navigation {
+-            background: rgba(255,255,255,0.95);
+-            border-radius: 15px;
+-            padding: 20px;
+-            margin-bottom: 30px;
+-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+-        }
+-
+-        .nav-tabs {
+-            display: flex;
+-            flex-wrap: wrap;
+-            gap: 10px;
+-            justify-content: center;
+-        }
+-
+-        .nav-tab {
+-            padding: 12px 24px;
+-            background: #e9ecef;
+-            border: none;
+-            border-radius: 25px;
+-            cursor: pointer;
+-            font-weight: bold;
+-            transition: all 0.3s ease;
+-            color: #2c3e50;
+-        }
+-
+-        .nav-tab.active {
+-            background: #3498db;
+-            color: white;
+-        }
+-
+-        .nav-tab:hover {
+-            transform: translateY(-2px);
+-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+-        }
+-
+-        .search-bar {
+-            margin-top: 20px;
+-            text-align: center;
+-        }
+-
+-        .search-input {
+-            padding: 12px 20px;
+-            border: 2px solid #e9ecef;
+-            border-radius: 25px;
+-            font-size: 1.1rem;
+-            width: 100%;
+-            max-width: 400px;
+-            outline: none;
+-            transition: border-color 0.3s;
+-        }
+-
+-        .search-input:focus {
+-            border-color: #3498db;
+-        }
+-
+-        .section {
+-            display: none;
+-            margin-bottom: 40px;
+-        }
+-
+-        .section.active {
+-            display: block;
+-        }
+-
+-        .commands-grid {
+-            display: grid;
+-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+-            gap: 25px;
+-            margin-bottom: 40px;
+-        }
+-
+-        .command-card {
+-            background: rgba(255, 255, 255, 0.95);
+-            border-radius: 15px;
+-            padding: 25px;
+-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+-            backdrop-filter: blur(10px);
+-            border: 1px solid rgba(255,255,255,0.2);
+-            transition: all 0.3s ease;
+-            cursor: pointer;
+-            opacity: 1;
+-            transform: translateY(0);
+-        }
+-
+-        .command-card:hover {
+-            transform: translateY(-5px);
+-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+-        }
+-
+-        .command-card.danger {
+-            border-left: 5px solid #e74c3c;
+-        }
+-
+-        .command-card.warning {
+-            border-left: 5px solid #f39c12;
+-        }
+-
+-        .command-card.success {
+-            border-left: 5px solid #27ae60;
+-        }
+-
+-        .command-title {
+-            display: flex;
+-            align-items: center;
+-            margin-bottom: 15px;
+-        }
+-
+-        .command-icon {
+-            font-size: 2rem;
+-            margin-right: 15px;
+-        }
+-
+-        .command-title h3 {
+-            font-size: 1.5rem;
+-            color: #2c3e50;
+-        }
+-
+-        .difficulty-badge {
+-            margin-left: auto;
+-            padding: 4px 12px;
+-            border-radius: 12px;
+-            font-size: 0.8rem;
+-            font-weight: bold;
+-            cursor: help;
+-        }
+-
+-        .difficulty-beginner {
+-            background: #d4edda;
+-            color: #155724;
+-        }
+-
+-        .difficulty-intermediate {
+-            background: #fff3cd;
+-            color: #856404;
+-        }
+-
+-        .difficulty-advanced {
+-            background: #f8d7da;
+-            color: #721c24;
+-        }
+-
+-        .command-code {
+-            background: #2c3e50;
+-            color: #ecf0f1;
+-            padding: 12px 15px;
+-            border-radius: 8px;
+-            font-family: 'Courier New', monospace;
+-            font-size: 1.1rem;
+-            margin: 15px 0;
+-            position: relative;
+-            overflow-x: auto;
+-        }
+-
+-        .copy-btn {
+-            position: absolute;
+-            top: 8px;
+-            right: 10px;
+-            background: #3498db;
+-            color: white;
+-            border: none;
+-            padding: 5px 10px;
+-            border-radius: 4px;
+-            cursor: pointer;
+-            font-size: 0.8rem;
+-            transition: background 0.3s;
+-        }
+-
+-        .copy-btn:hover {
+-            background: #2980b9;
+-        }
+-
+-        .command-description {
+-            color: #555;
+-            line-height: 1.6;
+-            margin-bottom: 15px;
+-        }
+-
+-        .command-example {
+-            background: #f8f9fa;
+-            padding: 15px;
+-            border-radius: 8px;
+-            border-left: 4px solid #3498db;
+-            margin-top: 15px;
+-        }
+-
+-        .example-title {
+-            font-weight: bold;
+-            color: #2c3e50;
+-            margin-bottom: 8px;
+-        }
+-
+-        .quick-reference {
+-            background: rgba(255, 255, 255, 0.95);
+-            border-radius: 15px;
+-            padding: 30px;
+-            margin-bottom: 30px;
+-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+-        }
+-
+-        .quick-reference h2 {
+-            text-align: center;
+-            color: #2c3e50;
+-            margin-bottom: 25px;
+-            font-size: 2rem;
+-        }
+-
+-        .cheat-sheet {
+-            display: grid;
+-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+-            gap: 20px;
+-        }
+-
+-        .cheat-category {
+-            background: #f8f9fa;
+-            padding: 20px;
+-            border-radius: 10px;
+-            border-left: 4px solid #3498db;
+-        }
+-
+-        .cheat-category h3 {
+-            color: #2c3e50;
+-            margin-bottom: 15px;
+-        }
+-
+-        .cheat-command {
+-            margin-bottom: 8px;
+-            font-family: 'Courier New', monospace;
+-            font-size: 0.9rem;
+-        }
+-
+-        .cheat-command strong {
+-            color: #e74c3c;
+-        }
+-
+-        .workflow-visual {
+-            background: rgba(255, 255, 255, 0.95);
+-            border-radius: 15px;
+-            padding: 30px;
+-            margin-bottom: 30px;
+-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+-        }
+-
+-        .workflow-title {
+-            text-align: center;
+-            font-size: 2rem;
+-            color: #2c3e50;
+-            margin-bottom: 25px;
+-            border-bottom: 3px solid #3498db;
+-            padding-bottom: 10px;
+-        }
+-
+-        .workflow-diagram {
+-            display: flex;
+-            flex-wrap: wrap;
+-            justify-content: center;
+-            align-items: center;
+-            gap: 20px;
+-            margin-bottom: 30px;
+-        }
+-
+-        .workflow-step {
+-            background: linear-gradient(45deg, #3498db, #2ecc71);
+-            color: white;
+-            padding: 15px 25px;
+-            border-radius: 25px;
+-            font-weight: bold;
+-            text-align: center;
+-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+-            transition: transform 0.3s ease;
+-            min-width: 200px;
+-        }
+-
+-        .workflow-step:hover {
+-            transform: scale(1.05);
+-        }
+-
+-        .arrow {
+-            font-size: 1.5rem;
+-            color: #3498db;
+-            font-weight: bold;
+-        }
+-
+-        .emergency-section {
+-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+-            color: white;
+-            border-radius: 15px;
+-            padding: 30px;
+-            margin-bottom: 30px;
+-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+-        }
+-
+-        .emergency-section h2 {
+-            text-align: center;
+-            margin-bottom: 25px;
+-            font-size: 2rem;
+-        }
+-
+-        .emergency-commands {
+-            display: grid;
+-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+-            gap: 20px;
+-        }
+-
+-        .emergency-card {
+-            background: rgba(255,255,255,0.1);
+-            padding: 20px;
+-            border-radius: 10px;
+-            backdrop-filter: blur(10px);
+-        }
+-
+-        .emergency-card h3 {
+-            margin-bottom: 15px;
+-            font-size: 1.3rem;
+-        }
+-
+-        .emergency-code {
+-            background: rgba(0,0,0,0.3);
+-            padding: 10px;
+-            border-radius: 5px;
+-            font-family: 'Courier New', monospace;
+-            margin: 10px 0;
+-        }
+-
+-        .notification {
+-            position: fixed;
+-            top: 20px;
+-            right: 20px;
+-            background: #2ecc71;
+-            color: white;
+-            padding: 15px 20px;
+-            border-radius: 8px;
+-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+-            transform: translateX(400px);
+-            transition: transform 0.3s ease;
+-            z-index: 1000;
+-        }
+-
+-        .notification.show {
+-            transform: translateX(0);
+-        }
+-
+-        .no-results {
+-            text-align: center;
+-            padding: 40px;
+-            color: #666;
+-            font-size: 1.2rem;
+-            background: rgba(255,255,255,0.9);
+-            border-radius: 15px;
+-            margin: 20px 0;
+-        }
+-
+-        @media (max-width: 768px) {
+-            .header h1 {
+-                font-size: 2.5rem;
+-            }
+-            
+-            .commands-grid {
+-                grid-template-columns: 1fr;
+-            }
+-
+-            .nav-tabs {
+-                flex-direction: column;
+-            }
+-            
+-            .workflow-diagram {
+-                flex-direction: column;
+-            }
+-            
+-            .arrow {
+-                transform: rotate(90deg);
+-            }
+-
+-            .command-card {
+-                padding: 20px;
+-            }
+-        }
+-    </style>
+-</head>
+-<body>
+-    <div class="container">
+-        <div class="header">
+-            <h1>🚀 Git Master Guide</h1>
+-            <p class="subtitle">Le guide ultime pour maîtriser Git à l'École 42</p>
+-            <div class="school-badge">🎓 École 42 - Édition Complète</div>
+-        </div>
+-
+-        <div class="navigation">
+-            <div class="nav-tabs">
+-                <button class="nav-tab active" onclick="showSection('basics')">🌟 Bases</button>
+-                <button class="nav-tab" onclick="showSection('branches')">🌿 Branches</button>
+-                <button class="nav-tab" onclick="showSection('advanced')">🔧 Avancé</button>
+-                <button class="nav-tab" onclick="showSection('troubleshooting')">🚨 Dépannage</button>
+-                <button class="nav-tab" onclick="showSection('workflows')">📋 Workflows</button>
+-                <button class="nav-tab" onclick="showSection('cheatsheet')">⚡ Aide-mémoire</button>
+-            </div>
+-            <div class="search-bar">
+-                <input type="text" class="search-input" placeholder="🔍 Rechercher une commande..." oninput="searchCommands(this.value)">
+-            </div>
+-        </div>
+-
+-        <!-- SECTION BASES -->
+-        <div class="section active" id="basics">
+-            <div class="commands-grid">
+-                <div class="command-card success" data-search="git clone télécharger repository">
+-                    <div class="command-title">
+-                        <span class="command-icon">📥</span>
+-                        <h3>git clone</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git clone &lt;url-du-repository&gt;
+-                        <button class="copy-btn" onclick="copyToClipboard('git clone <url-du-repository>')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Télécharge un repository Git existant depuis un serveur distant. Votre point de départ pour rejoindre n'importe quel projet.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Exemples 42 :</div>
+-                        <code>git clone git@vogsphere.42.fr:vogsphere/intra-uuid-intra-uuid-project-name</code><br>
+-                        <code>git clone https://github.com/42School/norminette.git</code>
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git pull synchroniser récupérer modifications">
+-                    <div class="command-title">
+-                        <span class="command-icon">🔄</span>
+-                        <h3>git pull</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git pull origin main
+-                        <button class="copy-btn" onclick="copyToClipboard('git pull origin main')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Récupère et intègre les dernières modifications depuis le repository distant. Équivalent à git fetch + git merge.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Routine quotidienne :</div>
+-                        <code>git pull</code> - Récupère depuis la branche courante<br>
+-                        <code>git pull --rebase</code> - Évite les commits de merge
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git add staging zone ajout fichiers">
+-                    <div class="command-title">
+-                        <span class="command-icon">📋</span>
+-                        <h3>git add</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git add .
+-                        <button class="copy-btn" onclick="copyToClipboard('git add .')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Ajoute les fichiers modifiés à la zone de staging. Sélectionne les modifications à inclure dans le prochain commit.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Options utiles :</div>
+-                        <code>git add *.c</code> - Tous les fichiers .c<br>
+-                        <code>git add -p</code> - Ajouter par petits morceaux interactifs
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git commit sauvegarder enregistrer modifications">
+-                    <div class="command-title">
+-                        <span class="command-icon">💾</span>
+-                        <h3>git commit</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git commit -m "Description des modifications"
+-                        <button class="copy-btn" onclick="copyToClipboard('git commit -m \"Description des modifications\"')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Enregistre vos modifications dans l'historique local avec un message descriptif. Créé un point de sauvegarde.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Messages de commit 42 :</div>
+-                        <code>git commit -m "feat: add ft_strlen function"</code><br>
+-                        <code>git commit -m "fix: handle null pointer in ft_strcpy"</code>
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git push publier envoyer partager">
+-                    <div class="command-title">
+-                        <span class="command-icon">🚀</span>
+-                        <h3>git push</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git push origin main
+-                        <button class="copy-btn" onclick="copyToClipboard('git push origin main')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Envoie vos commits locaux vers le repository distant. Rend vos modifications visibles aux autres.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Push sécurisé :</div>
+-                        <code>git push -u origin feature-branch</code> - Première fois<br>
+-                        <code>git push --force-with-lease</code> - Force sécurisé
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git status état fichiers modifications">
+-                    <div class="command-title">
+-                        <span class="command-icon">📊</span>
+-                        <h3>git status</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git status
+-                        <button class="copy-btn" onclick="copyToClipboard('git status')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Affiche l'état actuel de votre working directory et staging area. Votre boussole Git.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Variations :</div>
+-                        <code>git status -s</code> - Version courte<br>
+-                        <code>git status --porcelain</code> - Pour les scripts
+-                    </div>
+-                </div>
+-
+-                <div class="command-card warning" data-search="git tag version étiquette">
+-                    <div class="command-title">
+-                        <span class="command-icon">🏷️</span>
+-                        <h3>git tag</h3>
+-                        <span class="difficulty-badge difficulty-intermediate">Intermédiaire</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git tag -a v1.0 -m "Version 1.0"
+-                        <button class="copy-btn" onclick="copyToClipboard('git tag -a v1.0 -m \"Version 1.0\"')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Crée des étiquettes pour marquer des versions importantes. Essentiel pour la gestion des releases.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Gestion des tags :</div>
+-                        <code>git tag</code> - Liste tous les tags<br>
+-                        <code>git push origin v1.0</code> - Push un tag spécifique<br>
+-                        <code>git tag -d v1.0</code> - Supprimer un tag local
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-
+-        <!-- SECTION BRANCHES -->
+-        <div class="section" id="branches">
+-            <div class="commands-grid">
+-                <div class="command-card success" data-search="git branch créer nouvelle branche">
+-                    <div class="command-title">
+-                        <span class="command-icon">🌿</span>
+-                        <h3>git branch</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git branch nom-de-la-branche
+-                        <button class="copy-btn" onclick="copyToClipboard('git branch nom-de-la-branche')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Crée une nouvelle branche pour développer des fonctionnalités isolées. Permet le développement parallèle.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Gestion des branches :</div>
+-                        <code>git branch -a</code> - Voir toutes les branches<br>
+-                        <code>git branch -r</code> - Branches distantes uniquement
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git checkout changer basculer branche switch">
+-                    <div class="command-title">
+-                        <span class="command-icon">↔️</span>
+-                        <h3>git checkout / git switch</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git checkout nom-de-la-branche
+-                        <button class="copy-btn" onclick="copyToClipboard('git checkout nom-de-la-branche')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Change de branche active ou restaure des fichiers. Git switch est la nouvelle alternative moderne.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Raccourcis puissants :</div>
+-                        <code>git checkout -b feature-new</code> - Créer + basculer<br>
+-                        <code>git switch -c feature-new</code> - Version moderne<br>
+-                        <code>git checkout -</code> - Retour à la branche précédente
+-                    </div>
+-                </div>
+-
+-                <div class="command-card warning" data-search="git merge fusionner branche">
+-                    <div class="command-title">
+-                        <span class="command-icon">🔀</span>
+-                        <h3>git merge</h3>
+-                        <span class="difficulty-badge difficulty-intermediate">Intermédiaire</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git merge nom-de-la-branche
+-                        <button class="copy-btn" onclick="copyToClipboard('git merge nom-de-la-branche')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Fusionne une branche dans la branche courante. Intègre les développements terminés.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Stratégies de merge :</div>
+-                        <code>git merge --no-ff feature</code> - Force un commit de merge<br>
+-                        <code>git merge --squash feature</code> - Regroupe les commits
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git branch supprimer delete">
+-                    <div class="command-title">
+-                        <span class="command-icon">🗑️</span>
+-                        <h3>git branch -d</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git branch -d nom-de-la-branche
+-                        <button class="copy-btn" onclick="copyToClipboard('git branch -d nom-de-la-branche')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Supprime une branche locale après qu'elle ait été fusionnée. Garde votre repository propre.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Suppression sécurisée :</div>
+-                        <code>git branch -d feature</code> - Suppression sécurisée<br>
+-                        <code>git branch -D feature</code> - Suppression forcée
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-
+-        <!-- SECTION AVANCÉ -->
+-        <div class="section" id="advanced">
+-            <div class="commands-grid">
+-                <div class="command-card warning" data-search="git rebase réécrire historique">
+-                    <div class="command-title">
+-                        <span class="command-icon">🔧</span>
+-                        <h3>git rebase</h3>
+-                        <span class="difficulty-badge difficulty-advanced">Avancé</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git rebase main
+-                        <button class="copy-btn" onclick="copyToClipboard('git rebase main')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Réécrit l'historique en "rejouant" vos commits sur une autre base. Crée un historique linéaire et propre.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Rebase interactif :</div>
+-                        <code>git rebase -i HEAD~3</code> - Modifier les 3 derniers commits<br>
+-                        <code>git rebase --continue</code> - Continuer après résolution
+-                    </div>
+-                </div>
+-
+-                <div class="command-card warning" data-search="git stash sauvegarder temporaire">
+-                    <div class="command-title">
+-                        <span class="command-icon">📦</span>
+-                        <h3>git stash</h3>
+-                        <span class="difficulty-badge difficulty-intermediate">Intermédiaire</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git stash
+-                        <button class="copy-btn" onclick="copyToClipboard('git stash')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Sauvegarde temporairement vos modifications non commitées. Parfait pour changer de branche rapidement.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Gestion du stash :</div>
+-                        <code>git stash pop</code> - Récupère et supprime le stash<br>
+-                        <code>git stash list</code> - Liste tous les stashes<br>
+-                        <code>git stash apply stash@{1}</code> - Applique un stash spécifique
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git log historique commits">
+-                    <div class="command-title">
+-                        <span class="command-icon">📜</span>
+-                        <h3>git log</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git log --oneline --graph
+-                        <button class="copy-btn" onclick="copyToClipboard('git log --oneline --graph')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Affiche l'historique des commits avec de nombreuses options d'affichage. Votre journal de bord Git.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Logs utiles :</div>
+-                        <code>git log --author="nom"</code> - Commits d'un auteur<br>
+-                        <code>git log --since="2 weeks ago"</code> - Commits récents<br>
+-                        <code>git log --grep="bug"</code> - Recherche dans les messages
+-                    </div>
+-                </div>
+-
+-                <div class="command-card warning" data-search="git cherry-pick prendre commit">
+-                    <div class="command-title">
+-                        <span class="command-icon">🍒</span>
+-                        <h3>git cherry-pick</h3>
+-                        <span class="difficulty-badge difficulty-intermediate">Intermédiaire</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git cherry-pick &lt;commit-hash&gt;
+-                        <button class="copy-btn" onclick="copyToClipboard('git cherry-pick <commit-hash>')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Applique un commit spécifique d'une autre branche sur la branche courante. Sélection précise de modifications.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Cherry-pick avancé :</div>
+-                        <code>git cherry-pick abc123..def456</code> - Plage de commits<br>
+-                        <code>git cherry-pick -n abc123</code> - Sans commit automatique
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git diff différences comparaison">
+-                    <div class="command-title">
+-                        <span class="command-icon">🔍</span>
+-                        <h3>git diff</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git diff
+-                        <button class="copy-btn" onclick="copyToClipboard('git diff')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Affiche les différences entre différentes versions de fichiers. Votre loupe pour analyser les changements.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Comparaisons utiles :</div>
+-                        <code>git diff --staged</code> - Différences dans staging<br>
+-                        <code>git diff HEAD~1</code> - Avec le commit précédent<br>
+-                        <code>git diff branch1..branch2</code> - Entre branches
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-
+-        <!-- SECTION DÉPANNAGE -->
+-        <div class="section" id="troubleshooting">
+-            <div class="emergency-section">
+-                <h2>🚨 Situations d'Urgence à l'École 42</h2>
+-                <div class="emergency-commands">
+-                    <div class="emergency-card">
+-                        <h3>😱 J'ai fait n'importe quoi avec mon repo !</h3>
+-                        <div class="emergency-code">git reflog</div>
+-                        <div class="emergency-code">git reset --hard HEAD@{n}</div>
+-                        <p>Le reflog garde TOUT. Même vos erreurs peuvent être annulées !</p>
+-                    </div>
+-                    
+-                    <div class="emergency-card">
+-                        <h3>💥 Conflit de merge impossible à résoudre</h3>
+-                        <div class="emergency-code">git merge --abort</div>
+-                        <div class="emergency-code">git rebase --abort</div>
+-                        <p>Annule le merge/rebase en cours et revient à l'état précédent.</p>
+-                    </div>
+-                    
+-                    <div class="emergency-card">
+-                        <h3>🔒 Push rejeté par 42 (protection de branche)</h3>
+-                        <div class="emergency-code">git pull --rebase</div>
+-                        <div class="emergency-code">git push</div>
+-                        <p>Synchronise avec les modifications distantes avant de pusher.</p>
+-                    </div>
+-                    
+-                    <div class="emergency-card">
+-                        <h3>📁 Fichier supprimé par erreur</h3>
+-                        <div class="emergency-code">git checkout HEAD -- nomfichier.c</div>
+-                        <div class="emergency-code">git restore nomfichier.c</div>
+-                        <p>Restaure un fichier depuis le dernier commit.</p>
+-                    </div>
+-                </div>
+-            </div>
+-
+-            <div class="commands-grid">
+-                <div class="command-card danger" data-search="git reset annuler commits">
+-                    <div class="command-title">
+-                        <span class="command-icon">⏪</span>
+-                        <h3>git reset</h3>
+-                        <span class="difficulty-badge difficulty-advanced">Avancé</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git reset --hard HEAD~1
+-                        <button class="copy-btn" onclick="copyToClipboard('git reset --hard HEAD~1')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Annule des commits et/ou modifications. ATTENTION : --hard supprime définitivement les modifications.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Types de reset :</div>
+-                        <code>git reset --soft HEAD~1</code> - Garde les modifications en staging<br>
+-                        <code>git reset --mixed HEAD~1</code> - Garde les modifications non stagées<br>
+-                        <code>git reset --hard HEAD~1</code> - SUPPRIME tout
+-                    </div>
+-                </div>
+-
+-                <div class="command-card warning" data-search="git revert annuler commit sécurisé">
+-                    <div class="command-title">
+-                        <span class="command-icon">↩️</span>
+-                        <h3>git revert</h3>
+-                        <span class="difficulty-badge difficulty-intermediate">Intermédiaire</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git revert &lt;commit-hash&gt;
+-                        <button class="copy-btn" onclick="copyToClipboard('git revert <commit-hash>')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Annule un commit en créant un nouveau commit inverse. Méthode sécurisée pour annuler des changements.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Revert sécurisé :</div>
+-                        <code>git revert HEAD</code> - Annule le dernier commit<br>
+-                        <code>git revert --no-commit HEAD~3..HEAD</code> - Annule plusieurs commits
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git reflog historique complet">
+-                    <div class="command-title">
+-                        <span class="command-icon">🔄</span>
+-                        <h3>git reflog</h3>
+-                        <span class="difficulty-badge difficulty-intermediate">Intermédiaire</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git reflog
+-                        <button class="copy-btn" onclick="copyToClipboard('git reflog')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Affiche l'historique complet de toutes vos actions Git. Votre filet de sécurité ultime !
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Récupération miracle :</div>
+-                        <code>git reflog --all</code> - Historique de toutes les branches<br>
+-                        <code>git reset --hard HEAD@{5}</code> - Retour à un état précédent
+-                    </div>
+-                </div>
+-
+-                <div class="command-card warning" data-search="git clean nettoyer fichiers non trackés">
+-                    <div class="command-title">
+-                        <span class="command-icon">🧹</span>
+-                        <h3>git clean</h3>
+-                        <span class="difficulty-badge difficulty-intermediate">Intermédiaire</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git clean -fd
+-                        <button class="copy-btn" onclick="copyToClipboard('git clean -fd')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Supprime les fichiers non trackés. Parfait pour nettoyer après une compilation.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Nettoyage sécurisé :</div>
+-                        <code>git clean -n</code> - Aperçu (dry-run)<br>
+-                        <code>git clean -f</code> - Force la suppression<br>
+-                        <code>git clean -fd</code> - Inclut les dossiers
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git blame qui auteur ligne">
+-                    <div class="command-title">
+-                        <span class="command-icon">🔍</span>
+-                        <h3>git blame</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git blame nomfichier.c
+-                        <button class="copy-btn" onclick="copyToClipboard('git blame nomfichier.c')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Montre qui a modifié chaque ligne d'un fichier et quand. Parfait pour comprendre l'historique du code.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Analyse détaillée :</div>
+-                        <code>git blame -L 10,20 file.c</code> - Lignes 10 à 20<br>
+-                        <code>git blame -C file.c</code> - Détecte les copies/déplacements
+-                    </div>
+-                </div>
+-
+-                <div class="command-card warning" data-search="git bisect debug recherche bug">
+-                    <div class="command-title">
+-                        <span class="command-icon">🎯</span>
+-                        <h3>git bisect</h3>
+-                        <span class="difficulty-badge difficulty-advanced">Avancé</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git bisect start
+-                        <button class="copy-btn" onclick="copyToClipboard('git bisect start')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Recherche par dichotomie le commit qui a introduit un bug. Debugging niveau expert !
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Processus bisect :</div>
+-                        <code>git bisect bad</code> - Marque le commit courant comme bugué<br>
+-                        <code>git bisect good abc123</code> - Marque un commit comme bon<br>
+-                        <code>git bisect reset</code> - Termine la recherche
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-
+-        <!-- SECTION WORKFLOWS -->
+-        <div class="section" id="workflows">
+-            <div class="workflow-visual">
+-                <h2 class="workflow-title">🚀 Workflow École 42 - Projet Solo</h2>
+-                <div class="workflow-diagram">
+-                    <div class="workflow-step">git clone projet-42</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">Développer</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">git add .</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">git commit -m "feat: ..."</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">git push</div>
+-                </div>
+-                <p style="text-align: center; margin-top: 20px; color: #666;">
+-                    ⚡ <strong>Conseil 42 :</strong> Commitez souvent ! Un commit par fonction implémentée.
+-                </p>
+-            </div>
+-
+-            <div class="workflow-visual">
+-                <h2 class="workflow-title">👥 Workflow École 42 - Projet en Équipe</h2>
+-                <div class="workflow-diagram">
+-                    <div class="workflow-step">git checkout -b feature/mon-nom</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">Développer ma partie</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">git push origin feature/mon-nom</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">Pull Request sur intra</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">Code Review + Merge</div>
+-                </div>
+-                <p style="text-align: center; margin-top: 20px; color: #666;">
+-                    🤝 <strong>Team Work :</strong> Une branche par personne, merge sur main via PR.
+-                </p>
+-            </div>
+-
+-            <div class="workflow-visual">
+-                <h2 class="workflow-title">🔧 Workflow École 42 - Debug/Fix</h2>
+-                <div class="workflow-diagram">
+-                    <div class="workflow-step">git stash</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">git checkout -b hotfix/bug-name</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">Fix du bug</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">Test + Commit</div>
+-                    <div class="arrow">→</div>
+-                    <div class="workflow-step">git checkout main && git merge hotfix</div>
+-                </div>
+-                <p style="text-align: center; margin-top: 20px; color: #666;">
+-                    🐛 <strong>Bug Fix :</strong> Isolez les corrections dans des branches séparées.
+-                </p>
+-            </div>
+-
+-            <div class="commands-grid">
+-                <div class="command-card success" data-search="gitignore ignorer fichiers">
+-                    <div class="command-title">
+-                        <span class="command-icon">🙈</span>
+-                        <h3>.gitignore</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        echo "*.o" >> .gitignore
+-					<button class="copy-btn" onclick="copyToClipboard('echo &quot;*.o&quot; &gt;&gt; .gitignore')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Configure les fichiers à ignorer par Git. Essentiel pour les projets 42 (*.o, *.a, executables).
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Gitignore type 42 :</div>
+-                        <code>*.o *.a .DS_Store a.out</code><br>
+-                        <code>**/obj/ **/bin/ /.vscode/</code>
+-                    </div>
+-                </div>
+-
+-                <div class="command-card success" data-search="git remote origine distant">
+-                    <div class="command-title">
+-                        <span class="command-icon">🌐</span>
+-                        <h3>git remote</h3>
+-                        <span class="difficulty-badge difficulty-beginner">Débutant</span>
+-                    </div>
+-                    <div class="command-code">
+-                        git remote -v
+-                        <button class="copy-btn" onclick="copyToClipboard('git remote -v')">Copier</button>
+-                    </div>
+-                    <div class="command-description">
+-                        Gère les repositories distants. Utile pour connecter votre repo local à vogsphere.
+-                    </div>
+-                    <div class="command-example">
+-                        <div class="example-title">Gestion des remotes :</div>
+-                        <code>git remote add origin git@vogsphere...</code><br>
+-                        <code>git remote set-url origin nouvelle-url</code>
+-                    </div>
+-                </div>
+-            </div>
+-        </div>
+-
+-        <!-- SECTION AIDE-MÉMOIRE -->
+-        <div class="section" id="cheatsheet">
+-            <div class="quick-reference">
+-                <h2>⚡ Aide-mémoire Complet École 42</h2>
+-                <div class="cheat-sheet">
+-                    <div class="cheat-category">
+-                        <h3>🚀 Démarrage Rapide</h3>
+-                        <div class="cheat-command"><strong>git init</strong> - Créer un nouveau repo</div>
+-                        <div class="cheat-command"><strong>git clone &lt;url&gt;</strong> - Cloner un repo existant</div>
+-                        <div class="cheat-command"><strong>git status</strong> - État actuel</div>
+-                        <div class="cheat-command"><strong>git add .</strong> - Ajouter tous les fichiers</div>
+-                        <div class="cheat-command"><strong>git commit -m "msg"</strong> - Commit avec message</div>
+-                        <div class="cheat-command"><strong>git push</strong> - Pousser vers distant</div>
+-                    </div>
+-
+-                    <div class="cheat-category">
+-                        <h3>🌿 Branches</h3>
+-                        <div class="cheat-command"><strong>git branch</strong> - Lister les branches</div>
+-                        <div class="cheat-command"><strong>git branch nom</strong> - Créer une branche</div>
+-                        <div class="cheat-command"><strong>git checkout nom</strong> - Changer de branche</div>
+-                        <div class="cheat-command"><strong>git checkout -b nom</strong> - Créer + changer</div>
+-                        <div class="cheat-command"><strong>git merge nom</strong> - Fusionner une branche</div>
+-                        <div class="cheat-command"><strong>git branch -d nom</strong> - Supprimer branche</div>
+-                    </div>
+-
+-                    <div class="cheat-category">
+-                        <h3>📜 Historique</h3>
+-                        <div class="cheat-command"><strong>git log</strong> - Historique des commits</div>
+-                        <div class="cheat-command"><strong>git log --oneline</strong> - Historique compact</div>
+-                        <div class="cheat-command"><strong>git show &lt;hash&gt;</strong> - Détails d'un commit</div>
+-                        <div class="cheat-command"><strong>git diff</strong> - Différences actuelles</div>
+-                        <div class="cheat-command"><strong>git blame file</strong> - Qui a écrit quoi</div>
+-                        <div class="cheat-command"><strong>git reflog</strong> - Historique complet</div>
+-                    </div>
+-
+-                    <div class="cheat-category">
+-                        <h3>🚨 Urgences</h3>
+-                        <div class="cheat-command"><strong>git stash</strong> - Sauvegarder temporairement</div>
+-                        <div class="cheat-command"><strong>git stash pop</strong> - Récupérer stash</div>
+-                        <div class="cheat-command"><strong>git reset --hard HEAD~1</strong> - Annuler dernier commit</div>
+-                        <div class="cheat-command"><strong>git checkout -- file</strong> - Restaurer fichier</div>
+-                        <div class="cheat-command"><strong>git clean -fd</strong> - Nettoyer fichiers non trackés</div>
+-                        <div class="cheat-command"><strong>git reflog</strong> - Récupérer l'impossible</div>
+-                    </div>
+-
+-                    <div class="cheat-category">
+-                        <h3>🔧 Configuration</h3>
+-                        <div class="cheat-command"><strong>git config --global user.name "Nom"</strong></div>
+-                        <div class="cheat-command"><strong>git config --global user.email "email"</strong></div>
+-                        <div class="cheat-command"><strong>git config --list</strong> - Voir la config</div>
+-                        <div class="cheat-command"><strong>ssh-keygen -t rsa</strong> - Générer clé SSH</div>
+-                        <div class="cheat-command"><strong>cat ~/.ssh/id_rsa.pub</strong> - Voir clé publique</div>
+-                    </div>
+-
+-                    <div class="cheat-category">
+-                        <h3>🎯 École 42 Spécifique</h3>
+-                        <div class="cheat-command"><strong>git clone git@vogsphere.42...</strong> - Clone 42</div>
+-                        <div class="cheat-command"><strong>norminette *.c *.h</strong> - Vérif norme</div>
+-                        <div class="cheat-command"><strong>echo "*.o" >> .gitignore</strong> - Ignorer .o</div>
+-                        <div class="cheat-command"><strong>git log --author="login"</strong> - Commits par étudiant</div>
+-                        <div class="cheat-command"><strong>git shortlog -sn</strong> - Stats par auteur</div>
+-                    </div>
+-                </div>
+-            </div>
+-
+-            <div class="quick-reference">
+-                <h2>🏆 Conventions École 42</h2>
+-                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid #3498db;">
+-                    <h3 style="color: #2c3e50; margin-bottom: 15px;">📝 Messages de Commit</h3>
+-                    <div style="margin-bottom: 10px;"><strong>feat:</strong> nouvelle fonctionnalité</div>
+-                    <div style="margin-bottom: 10px;"><strong>fix:</strong> correction de bug</div>
+-                    <div style="margin-bottom: 10px;"><strong>docs:</strong> documentation</div>
+-                    <div style="margin-bottom: 10px;"><strong>style:</strong> formatage, norme</div>
+-                    <div style="margin-bottom: 10px;"><strong>refactor:</strong> refactorisation</div>
+-                    <div style="margin-bottom: 10px;"><strong>test:</strong> ajout de tests</div>
+-                    
+-                    <h3 style="color: #2c3e50; margin: 20px 0 15px 0;">🌿 Nommage des Branches</h3>
+-                    <div style="margin-bottom: 10px;"><strong>feature/nom-fonctionnalite</strong> - nouvelles fonctionnalités</div>
+-                    <div style="margin-bottom: 10px;"><strong>fix/nom-bug</strong> - corrections</div>
+-                    <div style="margin-bottom: 10px;"><strong>hotfix/urgence</strong> - corrections urgentes</div>
+-                    <div style="margin-bottom: 10px;"><strong>docs/mise-a-jour</strong> - documentation</div>
+-                </div>
+-            </div>
+-        </div>
+-
+-        <div class="notification" id="notification">
+-            Commande copiée dans le presse-papiers ! 🚀
+-        </div>
+-    </div>
+-
+-    <script>
+-        // Configuration et état global
+-        const config = {
+-            currentSection: 'basics',
+-            animationDelay: 50,
+-            notificationDuration: 2500
+-        };
+-
+-        // Gestionnaire de sections
+-        function showSection(sectionName) {
+-            // Performance: batch DOM operations
+-            const sectionsToHide = document.querySelectorAll('.section.active');
+-            const tabsToDeactivate = document.querySelectorAll('.nav-tab.active');
+-            const sectionToShow = document.getElementById(sectionName);
+-            
+-            // Cacher toutes les sections actives
+-            sectionsToHide.forEach(section => section.classList.remove('active'));
+-            
+-            // Désactiver tous les onglets actifs
+-            tabsToDeactivate.forEach(tab => tab.classList.remove('active'));
+-            
+-            // Afficher la nouvelle section
+-            if (sectionToShow) {
+-                sectionToShow.classList.add('active');
+-            }
+-            
+-            // Activer l'onglet correspondant
+-            event.target.classList.add('active');
+-            
+-            config.currentSection = sectionName;
+-
+-            // Nettoyer les résultats de recherche précédents
+-            clearSearchResults();
+-        }
+-
+-        // Gestionnaire de copie dans le presse-papiers
+-        async function copyToClipboard(text) {
+-            try {
+-                await navigator.clipboard.writeText(text);
+-                showNotification("Commande copiée ! 🚀");
+-            } catch (err) {
+-                // Fallback pour les navigateurs plus anciens
+-                const textArea = document.createElement('textarea');
+-                textArea.value = text;
+-                textArea.style.position = 'fixed';
+-                textArea.style.opacity = '0';
+-                document.body.appendChild(textArea);
+-                textArea.select();
+-                
+-                try {
+-                    document.execCommand('copy');
+-                    showNotification("Commande copiée ! 🚀");
+-                } catch (fallbackErr) {
+-                    showNotification("Erreur lors de la copie 😞");
+-                    console.error('Erreur lors de la copie : ', fallbackErr);
+-                }
+-                
+-                document.body.removeChild(textArea);
+-            }
+-        }
+-
+-        // Gestionnaire de notifications
+-        function showNotification(message) {
+-            const notification = document.getElementById('notification');
+-            notification.textContent = message;
+-            notification.classList.add('show');
+-            
+-            setTimeout(() => {
+-                notification.classList.remove('show');
+-            }, config.notificationDuration);
+-        }
+-
+-        // Gestionnaire de recherche optimisé
+-        function searchCommands(query) {
+-            const searchQuery = query.toLowerCase().trim();
+-            const allCards = document.querySelectorAll('.command-card');
+-            let visibleCount = 0;
+-
+-            // Performance: utiliser documentFragment pour éviter les reflows
+-            allCards.forEach(card => {
+-                const searchData = card.getAttribute('data-search') || '';
+-                const title = card.querySelector('h3').textContent.toLowerCase();
+-                const description = card.querySelector('.command-description').textContent.toLowerCase();
+-                
+-                const isVisible = searchQuery === '' || 
+-                    searchData.toLowerCase().includes(searchQuery) ||
+-                    title.includes(searchQuery) ||
+-                    description.includes(searchQuery);
+-                
+-                card.style.display = isVisible ? 'block' : 'none';
+-                if (isVisible) visibleCount++;
+-            });
+-
+-            // Gérer l'affichage "aucun résultat"
+-            handleNoResults(searchQuery, visibleCount);
+-        }
+-
+-        // Gestionnaire "aucun résultat"
+-        function handleNoResults(query, visibleCount) {
+-            const activeSection = document.querySelector('.section.active');
+-            let noResultsDiv = activeSection.querySelector('.no-results');
+-
+-            if (visibleCount === 0 && query !== '') {
+-                if (!noResultsDiv) {
+-                    noResultsDiv = document.createElement('div');
+-                    noResultsDiv.className = 'no-results';
+-                    noResultsDiv.innerHTML = `🔍 Aucune commande trouvée pour "${query}"<br><small>Essayez d'autres mots-clés</small>`;
+-                    activeSection.appendChild(noResultsDiv);
+-                }
+-            } else if (noResultsDiv) {
+-                noResultsDiv.remove();
+-            }
+-        }
+-
+-        // Nettoyer les résultats de recherche
+-        function clearSearchResults() {
+-            const noResultsElements = document.querySelectorAll('.no-results');
+-            noResultsElements.forEach(element => element.remove());
+-        }
+-
+-        // Animation d'apparition des cartes
+-        function animateCards() {
+-            const cards = document.querySelectorAll('.command-card');
+-            cards.forEach((card, index) => {
+-                card.style.opacity = '0';
+-                card.style.transform = 'translateY(30px)';
+-                
+-                setTimeout(() => {
+-                    card.style.transition = 'all 0.6s ease';
+-                    card.style.opacity = '1';
+-                    card.style.transform = 'translateY(0)';
+-                }, index * config.animationDelay);
+-            });
+-        }
+-
+-        // Gestionnaire d'événements au chargement
+-        document.addEventListener('DOMContentLoaded', function() {
+-            // Animation des cartes
+-            animateCards();
+-
+-            // Ajouter les tooltips aux badges de difficulté
+-            initializeTooltips();
+-
+-            // Message de bienvenue
+-            setTimeout(() => {
+-                showNotification("Bienvenue dans Git Master Guide ! 🎓");
+-            }, 1000);
+-        });
+-
+-        // Initialisation des tooltips
+-        function initializeTooltips() {
+-            document.querySelectorAll('.difficulty-badge').forEach(badge => {
+-                if (badge.classList.contains('difficulty-beginner')) {
+-                    badge.title = 'Commande de base - Safe à utiliser';
+-                } else if (badge.classList.contains('difficulty-intermediate')) {
+-                    badge.title = 'Commande intermédiaire - Attention aux options';
+-                } else if (badge.classList.contains('difficulty-advanced')) {
+-                    badge.title = 'Commande avancée - Risque de perte de données';
+-                }
+-            });
+-        }
+-
+-        // Raccourcis clavier
+-        document.addEventListener('keydown', function(e) {
+-            // Ctrl+F pour focus sur la recherche
+-            if (e.ctrlKey && e.key === 'f') {
+-                e.preventDefault();
+-                const searchInput = document.querySelector('.search-input');
+-                searchInput.focus();
+-                searchInput.select();
+-            }
+-            
+-            // Escape pour vider la recherche
+-            if (e.key === 'Escape') {
+-                const searchInput = document.querySelector('.search-input');
+-                searchInput.value = '';
+-                searchCommands('');
+-                searchInput.blur();
+-            }
+-
+-            // Raccourcis pour naviguer entre sections (Alt + numéro)
+-            if (e.altKey && e.key >= '1' && e.key <= '6') {
+-                e.preventDefault();
+-                const sections = ['basics', 'branches', 'advanced', 'troubleshooting', 'workflows', 'cheatsheet'];
+-                const sectionIndex = parseInt(e.key) - 1;
+-                if (sections[sectionIndex]) {
+-                    const targetTab = document.querySelector(`[onclick="showSection('${sections[sectionIndex]}')"]`);
+-                    if (targetTab) {
+-                        targetTab.click();
+-                    }
+-                }
+-            }
+-        });
+-
+-        // Amélioration de l'accessibilité
+-        document.querySelectorAll('.nav-tab').forEach((tab, index) => {
+-            tab.setAttribute('tabindex', '0');
+-            tab.setAttribute('role', 'tab');
+-            tab.addEventListener('keydown', function(e) {
+-                if (e.key === 'Enter' || e.key === ' ') {
+-                    e.preventDefault();
+-                    tab.click();
+-                }
+-            });
+-        });
+-
+-        // Gestion des cartes de commandes
+-        document.querySelectorAll('.command-card').forEach(card => {
+-            card.setAttribute('tabindex', '0');
+-            card.addEventListener('keydown', function(e) {
+-                if (e.key === 'Enter') {
+-                    const copyBtn = card.querySelector('.copy-btn');
+-                    if (copyBtn) {
+-                        copyBtn.click();
+-                    }
+-                }
+-            });
+-        });
+-
+-        // Debounce pour la recherche (optimisation performance)
+-        let searchTimeout;
+-        const originalSearchInput = document.querySelector('.search-input');
+-        if (originalSearchInput) {
+-            originalSearchInput.addEventListener('input', function(e) {
+-                clearTimeout(searchTimeout);
+-                searchTimeout = setTimeout(() => {
+-                    searchCommands(e.target.value);
+-                }, 300);
+-            });
+-        }
+-
+-        // Gestion du mode sombre (bonus)
+-        function toggleDarkMode() {
+-            document.body.classList.toggle('dark-mode');
+-            const isDark = document.body.classList.contains('dark-mode');
+-            localStorage.setItem('darkMode', isDark);
+-        }
+-
+-        // Restaurer le mode sombre si activé précédemment
+-        if (localStorage.getItem('darkMode') === 'true') {
+-            document.body.classList.add('dark-mode');
+-        }
+-
+-        // Ajouter un bouton de mode sombre (optionnel)
+-        const darkModeBtn = document.createElement('button');
+-        darkModeBtn.innerHTML = '🌙';
+-        darkModeBtn.className = 'dark-mode-toggle';
+-        darkModeBtn.style.cssText = `
+-            position: fixed;
+-            top: 20px;
+-            left: 20px;
+-            background: rgba(255,255,255,0.2);
+-            border: none;
+-            border-radius: 50%;
+-            width: 50px;
+-            height: 50px;
+-            font-size: 1.5rem;
+-            cursor: pointer;
+-            backdrop-filter: blur(10px);
+-            z-index: 1000;
+-            transition: all 0.3s ease;
+-        `;
+-        darkModeBtn.addEventListener('click', toggleDarkMode);
+-        document.body.appendChild(darkModeBtn);
+-
+-        // Stats d'utilisation (pour les développeurs)
+-        const stats = {
+-            sectionsVisited: new Set(['basics']),
+-            commandsCopied: 0,
+-            searchesPerformed: 0
+-        };
+-
+-        // Tracker les sections visitées
+-        const originalShowSection = window.showSection;
+-        window.showSection = function(sectionName) {
+-            stats.sectionsVisited.add(sectionName);
+-            originalShowSection.call(this, sectionName);
+-        };
+-
+-        // Tracker les commandes copiées
+-        const originalCopyToClipboard = window.copyToClipboard;
+-        window.copyToClipboard = function(text) {
+-            stats.commandsCopied++;
+-            originalCopyToClipboard.call(this, text);
+-        };
+-
+-        // Tracker les recherches
+-        const originalSearchCommands = window.searchCommands;
+-        window.searchCommands = function(query) {
+-            if (query.trim()) stats.searchesPerformed++;
+-            originalSearchCommands.call(this, query);
+-        };
+-
+-        // Console.log des stats pour debug (optionnel)
+-        window.getStats = () => {
+-            console.log('📊 Statistiques d\'utilisation:', {
+-                sectionsVisitées: Array.from(stats.sectionsVisited),
+-                commandesCopiées: stats.commandsCopied,
+-                recherchesEffectuées: stats.searchesPerformed
+-            });
+-        };
+-
+-        // Easter egg pour les étudiants 42 :)
+-        let konamiCode = [];
+-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+-        
+-        document.addEventListener('keydown', function(e) {
+-            konamiCode.push(e.code);
+-            if (konamiCode.length > konamiSequence.length) {
+-                konamiCode.shift();
+-            }
+-            
+-            if (konamiCode.join(',') === konamiSequence.join(',')) {
+-                showNotification("🎉 Easter Egg activé ! Bravo l'étudiant 42 ! 🎓");
+-                document.body.style.animation = 'rainbow 2s infinite';
+-                setTimeout(() => {
+-                    document.body.style.animation = '';
+-                }, 2000);
+-            }
+-        });
+-
+-        // CSS pour l'animation rainbow (easter egg)
+-        const style = document.createElement('style');
+-        style.textContent = `
+-            @keyframes rainbow {
+-                0% { filter: hue-rotate(0deg); }
+-                100% { filter: hue-rotate(360deg); }
+-            }
+-            
+-            .dark-mode {
+-                filter: invert(1) hue-rotate(180deg);
+-            }
+-            
+-            .dark-mode img,
+-            .dark-mode video,
+-            .dark-mode iframe {
+-                filter: invert(1) hue-rotate(180deg);
+-            }
+-
+-            /* Amélioration de l'accessibilité */
+-            .command-card:focus,
+-            .nav-tab:focus {
+-                outline: 3px solid #3498db;
+-                outline-offset: 2px;
+-            }
+-
+-            /* Responsive amélioré */
+-            @media (max-width: 480px) {
+-                .header h1 {
+-                    font-size: 2rem;
+-                }
+-                
+-                .command-card {
+-                    padding: 15px;
+-                }
+-                
+-                .workflow-step {
+-                    min-width: 150px;
+-                    padding: 10px 15px;
+-                }
+-                
+-                .dark-mode-toggle {
+-                    width: 40px !important;
+-                    height: 40px !important;
+-                    font-size: 1.2rem !important;
+-                }
+-            }
+-
+-            /* Animation d'entrée pour les nouvelles sections */
+-            .section.active {
+-                animation: fadeInSection 0.5s ease-in-out;
+-            }
+-
+-            @keyframes fadeInSection {
+-                from {
+-                    opacity: 0;
+-                    transform: translateY(20px);
+-                }
+-                to {
+-                    opacity: 1;
+-                    transform: translateY(0);
+-                }
+-            }
+-
+-            /* Amélioration des boutons de copie */
+-            .copy-btn:active {
+-                transform: scale(0.95);
+-            }
+-
+-            /* Smooth scroll pour la navigation */
+-            html {
+-                scroll-behavior: smooth;
+-            }
+-
+-            /* Indicateur de chargement */
+-            .loading {
+-                opacity: 0.5;
+-                pointer-events: none;
+-            }
+-
+-            /* Amélioration des tooltips */
+-            .difficulty-badge:hover::after {
+-                content: attr(title);
+-                position: absolute;
+-                bottom: 100%;
+-                left: 50%;
+-                transform: translateX(-50%);
+-                background: #333;
+-                color: white;
+-                padding: 5px 10px;
+-                border-radius: 4px;
+-                font-size: 0.8rem;
+-                white-space: nowrap;
+-                z-index: 1000;
+-                margin-bottom: 5px;
+-            }
+-        `;
+-        document.head.appendChild(style);
+-
+-        // Performance monitoring (optionnel, pour optimisation)
+-        if ('performance' in window) {
+-            window.addEventListener('load', function() {
+-                setTimeout(() => {
+-                    const perfData = performance.getEntriesByType('navigation')[0];
+-                    console.log('⚡ Performance:', {
+-                        'Temps de chargement': Math.round(perfData.loadEventEnd - perfData.fetchStart) + 'ms',
+-                        'DOM Ready': Math.round(perfData.domContentLoadedEventEnd - perfData.fetchStart) + 'ms'
+-                    });
+-                }, 1000);
+-            });
+-        }
+-
+-        // Sauvegarde de l'état de la session
+-        window.addEventListener('beforeunload', function() {
+-            sessionStorage.setItem('git-guide-state', JSON.stringify({
+-                currentSection: config.currentSection,
+-                stats: {
+-                    sectionsVisited: Array.from(stats.sectionsVisited),
+-                    commandsCopied: stats.commandsCopied,
+-                    searchesPerformed: stats.searchesPerformed
+-                }
+-            }));
+-        });
+-
+-        // Restauration de l'état de la session
+-        document.addEventListener('DOMContentLoaded', function() {
+-            const savedState = sessionStorage.getItem('git-guide-state');
+-            if (savedState) {
+-                try {
+-                    const state = JSON.parse(savedState);
+-                    if (state.currentSection && state.currentSection !== 'basics') {
+-                        const targetTab = document.querySelector(`[onclick="showSection('${state.currentSection}')"]`);
+-                        if (targetTab) {
+-                            setTimeout(() => targetTab.click(), 100);
+-                        }
+-                    }
+-                } catch (e) {
+-                    console.log('Erreur lors de la restauration de l\'état:', e);
+-                }
+-            }
+-        });
+-    </script>
+-</body>
+-</html>
+\ No newline at end of file
+diff --git a/Makefile b/Makefile
+index d640111..b8f7db6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -6,7 +6,7 @@
+ #    By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+         #
+ #                                                 +#+#+#+#+#+   +#+            #
+ #    Created: 2025/03/25 03:00:00 by oligrien          #+#    #+#              #
+-#    Updated: 2025/07/04 01:04:02 by oligrien         ###   ########.fr        #
++#    Updated: 2025/07/02 22:17:36 by oligrien         ###   ########.fr        #
+ #                                                                              #
+ # **************************************************************************** #
+ 
+@@ -20,50 +20,45 @@ LIBFT_DIR =		./libft
+ GC_DIR =		./gc
+ INCLUDES_DIR =	./includes
+ 
+-BUILTINS_DIR = 	built-ins
+ EXEC_DIR =		exec
+-PRS_DIR =		parser
++BUILTINS_DIR = 	built-ins
+ UTILS_DIR =		utils
++PRS_DIR =		parser
+ 
+ # Source Files *************************************************************** #
+ SRCS_FILES =	main.c \
+ 				tests.c \
+-				$(BUILTINS_DIR)/cd.c \
+-				$(BUILTINS_DIR)/echo.c \
+-				$(BUILTINS_DIR)/env.c \
+-				$(BUILTINS_DIR)/exit.c \
+-				$(BUILTINS_DIR)/export.c \
+-				$(BUILTINS_DIR)/pwd.c \
+-				$(BUILTINS_DIR)/unset.c \
+-				$(EXEC_DIR)/env_array.c \
+-				$(EXEC_DIR)/env_lst.c \
+-				$(EXEC_DIR)/env_utils.c \
+-				$(EXEC_DIR)/exec_cmd.c \
+ 				$(EXEC_DIR)/exec.c \
+-				$(EXEC_DIR)/init.c \
+-				$(EXEC_DIR)/path.c \
++				$(EXEC_DIR)/exec_cmd.c \
++				$(EXEC_DIR)/exec_builtin.c \
+ 				$(EXEC_DIR)/pipe.c \
++				$(EXEC_DIR)/path.c \
+ 				$(EXEC_DIR)/redir.c \
+-				# $(PRS_DIR)/expander.c \
+-				# $(PRS_DIR)/expander_utils.c \
+-				# $(PRS_DIR)/expander_utils2.c \
+-				# $(PRS_DIR)/heredoc.c \
+-				# $(PRS_DIR)/lexer.c \
+-				# $(PRS_DIR)/lexer_utils.c \
+-				# $(PRS_DIR)/parser.c \
+-				# $(PRS_DIR)/utils3.c \
+-				# $(PRS_DIR)/parser2.c \
+-				# $(PRS_DIR)/clear_utils.c \
+-				# $(PRS_DIR)/clear_utils2.c \
+-				# $(PRS_DIR)/parser_utils.c \
+-				# $(PRS_DIR)/parser_utils2.c \
+-				# $(PRS_DIR)/quotes.c \
+-				# $(PRS_DIR)/utils2.c \
+-				# $(UTILS_DIR)/utils.c \
+-				# $(UTILS_DIR)/memory.c \
+-				# $(UTILS_DIR)/memory_utils.c
+-
+-SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
++				$(EXEC_DIR)/env.c \
++				$(EXEC_DIR)/env_utils.c \
++				$(BUILTINS_DIR)/echo.c \
++				$(BUILTINS_DIR)/pwd.c \
++				$(BUILTINS_DIR)/cd.c \
++				$(PRS_DIR)/expander.c \
++				$(PRS_DIR)/expander_utils.c \
++				$(PRS_DIR)/expander_utils2.c \
++				$(PRS_DIR)/heredoc.c \
++				$(PRS_DIR)/lexer.c \
++				$(PRS_DIR)/lexer_utils.c \
++				$(PRS_DIR)/parser.c \
++				$(PRS_DIR)/utils3.c \
++				$(PRS_DIR)/parser2.c \
++				$(PRS_DIR)/clear_utils.c \
++				$(PRS_DIR)/clear_utils2.c \
++				$(PRS_DIR)/parser_utils.c \
++				$(PRS_DIR)/parser_utils2.c \
++				$(PRS_DIR)/quotes.c \
++				$(PRS_DIR)/utils2.c \
++				$(UTILS_DIR)/utils.c \
++				$(UTILS_DIR)/memory.c \
++				$(UTILS_DIR)/memory_utils.c
++
++SRCS = $(addprefix $(SRCS_DIR)/,$(SRCS_FILES))
+ OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS_FILES:.c=.o))
+ 
+ # libft ********************************************************************** #
+@@ -99,7 +94,7 @@ $(GC): $(LIBFT)
+ 
+ # Compile .c files to .o files *********************************************** #
+ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
+-	@mkdir -p $(@D)
++	@mkdir -p $(OBJS_DIR)
+ 	@$(CC) $(CFLAGS) -c $< -o $@
+ 
+ # Clean ********************************************************************** #
+diff --git a/gc/src/gc_lst.c b/gc/src/gc_lst.c
+index c118fe9..6617425 100644
+--- a/gc/src/gc_lst.c
++++ b/gc/src/gc_lst.c
+@@ -6,7 +6,7 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/06/29 02:26:42 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/03 23:03:05 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/06/29 02:27:46 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+diff --git a/includes/minishell.h b/includes/minishell.h
+index 9063301..3717ae6 100644
+--- a/includes/minishell.h
++++ b/includes/minishell.h
+@@ -6,7 +6,7 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 03:49:50 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/07/02 22:39:46 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -89,7 +89,7 @@ typedef struct s_env
+ 	char						*var;
+ 	char						*content;
+ 	struct s_env				*next;
+-	// struct s_env				*prev;
++	struct s_env				*prev;
+ }								t_env;
+ 
+ typedef struct s_sys
+@@ -103,105 +103,90 @@ typedef struct s_sys
+ }								t_sys;
+ 
+ /* global ******************************************************************* */
+-extern volatile sig_atomic_t	g_signal;
+-
+-/* prototypes *************************************************************** */
+ 
+-// test.c -----------------------------
+-
+-t_ast	*mock_ls_command(void);
+-t_ast	*mock_redir_in_command(void);
+-t_ast	*mock_pipe_command(void);
+-t_ast	*mock_export_command(void);
+-t_ast	*mock_export_no_args_command(void);
+-t_ast	*mock_unset_command(void);
+-t_ast	*mock_cd_command(void);
+-t_ast	*mock_env_command(void);
+-t_ast	*mock_exit_command(void);
+-t_ast	*mock_redir_out_command(void);
++extern volatile sig_atomic_t	g_signal;
+ 
+ 
+ 
+-// init.c -----------------------------
++/* prototypes *************************************************************** */
+ 
++int		execute(t_ast *node, t_sys *sys);
+ t_sys	*init_sys(char **envp);
+-t_env	*pull_env(char **envp);
+ 
++// pipe.c
+ 
++void	left_child(t_ast *node, t_sys *sys, int *pipe_fd);
++void	right_child(t_ast *node, t_sys *sys, int *pipe_fd);
++int	handle_pipe(t_ast *node, t_sys *sys);
+ 
+-// exec.c -----------------------------
+-
+-int		execute(t_ast *node, t_sys *sys);
+-int		read_line(t_sys *sys);
+-
++// exec_builtin.c
+ 
++int	execute_external(t_ast *node, t_sys *sys);
++int	execute_builtin(t_ast *node, t_sys *sys);
++int	is_builtin(char *cmd);
+ 
+-// exec_cmd.c -------------------------
++// exec_cmd.c
+ 
+-int		execute_builtin(t_ast *node, t_sys *sys);
+-int		is_builtin(char *cmd);
+-int		execute_forked_cmd(t_ast *node, t_sys *sys);
+-int		execute_external(t_ast *node, t_sys *sys);
+-int		execute_cmd(t_ast *node, t_sys *sys);
++int	execute_forked_cmd(t_ast *node, t_sys *sys);
++int	execute_cmd(t_ast *node, t_sys *sys);
++int	execute(t_ast *node, t_sys *sys);
+ 
++int	read_line(t_sys *sys);
+ 
+ 
+-// pipe.c -----------------------------
+ 
+-void	left_child(t_ast *node, t_sys *sys, int *pipe_fd);
+-void	right_child(t_ast *node, t_sys *sys, int *pipe_fd);
+-int		handle_pipe(t_ast *node, t_sys *sys);
++// test.c ---------------------
+ 
++t_ast	*mock_ls_command(void);
++t_ast	*mock_redir_command(void);
++t_ast	*mock_pipe_command(void);
+ 
+ 
+-// env_lst.c ------------------------------
+ 
+-void	free_envnode(t_env *env_lst);
+-int		is_valid_identifier(char *arg);
+-char	*get_env_var(char *var_name, t_env *envp);
+-int		set_env_var(t_sys *sys, t_env **envp, char *var_name, char *content);
+ 
+-// env_array.c
++// env.c ----------------------
+ 
+-char	**dup_array(char **array);
+ char	**env_getarray(t_env *envp);
+-int		update_env_array(t_sys *sys);
+-
+-// 	env_utils.c	-----------------------
++char	*get_env_var(char *var_name, t_env *envp);
++// char	*get_env_var(char *var_name, char **envp);
++int		set_env_var(t_env **envp, char *var_name, char *content);
++t_env	*pull_env(char **envp);
+ 
+-int		unset_env_var(t_sys *sys, t_env **env_lst, char *var_name);
+-int		ft_envsize(t_env *envp);
+-t_env	*gc_envnew(char *var, char *content);
+-void	ft_envadd_back(t_env **lst, t_env *new);
+ 
+ 
+ 
+-// path.c -----------------------------
++// path.c ---------------------
+ 
+ char	*pull_path(char **env_paths, char *cmd);
+ char	*find_cmd_path(t_sys *sys, char *cmd);
+ 
+ 
+ 
+-// redir.c ----------------------------
++
++// redir.c --------------------
+ 
+ int		handle_redirection(t_ast *node, t_sys *sys);
+ 
+ 
+ 
+-// built-ins --------------------------
+ 
+-int		builtin_cd(t_ast *node, t_sys *sys);
+-int		builtin_echo(t_ast *node);
+-int		builtin_env(t_sys *sys);
+-int		builtin_exit(t_ast *node, t_sys *sys);
+-int		builtin_export(t_ast *node, t_sys *sys);
++// built-ins ------------------
++
++void	builtin_echo(t_ast *node);
+ int		builtin_pwd(void);
+-int		builtin_unset(t_ast *node, t_sys *sys);
++int		builtin_cd(t_ast *node, t_sys *sys);
+ 
+ 
+ 
+-// utils ------------------------------
++
++// utils ----------------------
++// 	env_utils.c	---------------
++
++char	**dup_array(char **array);
++int		ft_envsize(t_env *envp);
++t_env	*gc_envnew(char *var, char *content);
++void	ft_envadd_back(t_env **lst, t_env *new);
++
+ 
+ 
+ 
+@@ -212,89 +197,92 @@ int		builtin_unset(t_ast *node, t_sys *sys);
+ /* ************************************************************************** */
+ /* ************************************************************************** */
+ 
+-// /* Parser functions */
+-// t_token			*lexer(char *input);
+-// t_ast			*parse(t_token **tokens);
+-// void			free_tokens(t_token *tokens);
+-// void			free_ast(t_ast *ast);
+-// void			expand_tokens(t_token *tokens, t_shell *shell);
+-// int				check_quotes(char *line);
+-// char			*remove_quotes(char *str);
+-// void			parse_redirections(t_token **tokens, t_ast *node);
+-
+-
+-// /* Parser helper functions */
+-// t_ast			*parse_pipeline(t_token **tokens);
+-// t_ast			*parse_and_or(t_token **tokens);
+-// t_ast			*create_pipeline_node(t_ast *left, t_ast *right);
+-// t_ast			*create_and_or_node(t_ast *left, t_ast *right, t_ast_type type);
+-// t_ast			*parse_command(t_token **tokens);
+-// t_ast			*parse_simple_command(t_token **tokens);
+-
+-
+-// /* Utils */
+-// void			cleanup_shell(t_shell *shell);
+-// int				is_numeric(char *str);
+-// void			print_exported_vars(t_shell *shell);
+-// void			mark_as_exported(char *key, t_shell *shell);
+-// int				is_valid_identifier(char *str);
+-// char			*ft_strjoin_free(char *s1, char *s2);
+-// void			free_env(t_env *env);
+-// void			free_redirs(t_redir *redirs);
+-// char			*ft_re(char *s, int old, int new);
+-// int				is_operator(char c);
+-// int				skip_whitespace(char *input, int i);
+-// t_token_type	get_operator_type(char *input, int i);
+-// int				get_operator_len(char *input, int i);
+-// t_token			*create_token(t_token_type type, char *value);
+-// void			add_token(t_token **tokens, t_token *new_token);
+-// int				extract_word_with_quotes(char *input, int i, char **word);
+-// int				extract_operator(char *input, int i, char **op);
+-// char			*expand_variable(char *str, int *i, t_shell *shell);
+-// char			*process_regular_var(char *str, int *i, int start,
+-// 					t_shell *shell);
+-// char			*handle_numeric_var(char *str, int *i, int start);
+-// char			*build_numeric_var_value(char *str, int *i, char *value);
+-// char			*expand_special_var(char *str, int *i, t_shell *shell);
+-// t_ast			*new_ast_node(t_ast_type type);
+-// t_token			*advance_token(t_token **tokens);
+-// t_redir			*parse_redir(t_token **tokens);
+-// void			add_redir(t_redir **redirs, t_redir *new_redir);
+-// char			**gather_all_words(t_token **tokens);
+-// void			ft_clear(void);
+-// int				should_split_token(char *original, char *expanded);
+-// t_token			*split_expanded_token(char *expanded, t_token_type type);
+-// char			*expand_token_segments(char *str, t_shell *shell);
+-// char			*expand_in_double_quotes(char *str, int start, int end,
+-// 					t_shell *shell);
+-// char			*expand_outside_quotes(char *str, int start, int end,
+-// 					t_shell *shell);
+-// char			*expand_regular_var(char *str, int *i, t_shell *shell);
+-// char			*join_and_free(char *s1, char *s2);
+-// void			handle_quoted_segment(char *str, int *i, t_shell *shell,
+-// 					char **result);
+-// int				count_word_tokens(t_token *start);
+-// char			**allocate_argv(int count);
+-// void			fill_argv(t_token **tokens, char **argv);
+-// char			*expand_segment(char *str, int start, int end, t_shell *shell);
+-// char			*handle_digit_var(char *str, int *i, char *key, char *value);
+-// char			*extract_var_key(char *str, int start, int *end);
+-// char			*get_var_value(char *key, t_shell *shell, int *i, int end);
+-// char			*normalize_whitespace(char *expanded);
+-// t_token			*alloc_token_node(char *value, t_token_type type);
+-// void			append_token(t_token **head, t_token *new_token);
+-// t_token			*create_token_list(char **split_values, t_token_type type);
+-// void			process_quote(char *str, int *i, char **result, char quote);
+-// void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
+-// int				has_whitespace(char *str);
+-// int				has_quotes(char *str);
+-// int				get_unquoted_length(char *str);
+-// int				count_quoted_chars(char *str, int *i);
+-// void			copy_quoted_content(char *str, int *i, int *j, char *result);
+-// void			replace_token_value(t_token *current, t_token *split_tokens);
+-// void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
+-// void			handle_single_quote(char *str, int *i, char **result);
+-// void			handle_double_quote(char *str, int *i, t_shell *shell,
+-// 					char **result);
++/* Parser functions */
++t_token			*lexer(char *input);
++t_ast			*parse(t_token **tokens);
++void			free_tokens(t_token *tokens);
++void			free_ast(t_ast *ast);
++void			expand_tokens(t_token *tokens, t_shell *shell);
++int				check_quotes(char *line);
++char			*remove_quotes(char *str);
++void			parse_redirections(t_token **tokens, t_ast *node);
++
++
++/* Parser helper functions */
++t_ast			*parse_pipeline(t_token **tokens);
++t_ast			*parse_and_or(t_token **tokens);
++t_ast			*create_pipeline_node(t_ast *left, t_ast *right);
++t_ast			*create_and_or_node(t_ast *left, t_ast *right, t_ast_type type);
++t_ast			*parse_command(t_token **tokens);
++t_ast			*parse_simple_command(t_token **tokens);
++
++
++
++
++/* Utils */
++void			cleanup_shell(t_shell *shell);
++int				is_numeric(char *str);
++void			print_exported_vars(t_shell *shell);
++void			mark_as_exported(char *key, t_shell *shell);
++int				is_valid_identifier(char *str);
++char			*ft_strjoin_free(char *s1, char *s2);
++void			free_env(t_env *env);
++void			free_redirs(t_redir *redirs);
++char			*ft_re(char *s, int old, int new);
++int				is_operator(char c);
++int				skip_whitespace(char *input, int i);
++t_token_type	get_operator_type(char *input, int i);
++int				get_operator_len(char *input, int i);
++t_token			*create_token(t_token_type type, char *value);
++void			add_token(t_token **tokens, t_token *new_token);
++int				extract_word_with_quotes(char *input, int i, char **word);
++int				extract_operator(char *input, int i, char **op);
++char			*expand_variable(char *str, int *i, t_shell *shell);
++char			*process_regular_var(char *str, int *i, int start,
++					t_shell *shell);
++char			*handle_numeric_var(char *str, int *i, int start);
++char			*build_numeric_var_value(char *str, int *i, char *value);
++char			*expand_special_var(char *str, int *i, t_shell *shell);
++t_ast			*new_ast_node(t_ast_type type);
++t_token			*advance_token(t_token **tokens);
++t_redir			*parse_redir(t_token **tokens);
++void			add_redir(t_redir **redirs, t_redir *new_redir);
++char			**gather_all_words(t_token **tokens);
++void			ft_clear(void);
++int				should_split_token(char *original, char *expanded);
++t_token			*split_expanded_token(char *expanded, t_token_type type);
++char			*expand_token_segments(char *str, t_shell *shell);
++char			*expand_in_double_quotes(char *str, int start, int end,
++					t_shell *shell);
++char			*expand_outside_quotes(char *str, int start, int end,
++					t_shell *shell);
++char			*expand_regular_var(char *str, int *i, t_shell *shell);
++char			*join_and_free(char *s1, char *s2);
++void			handle_quoted_segment(char *str, int *i, t_shell *shell,
++					char **result);
++int				count_word_tokens(t_token *start);
++char			**allocate_argv(int count);
++void			fill_argv(t_token **tokens, char **argv);
++char			*expand_segment(char *str, int start, int end, t_shell *shell);
++char			*handle_digit_var(char *str, int *i, char *key, char *value);
++char			*extract_var_key(char *str, int start, int *end);
++char			*get_var_value(char *key, t_shell *shell, int *i, int end);
++char			*normalize_whitespace(char *expanded);
++t_token			*alloc_token_node(char *value, t_token_type type);
++void			append_token(t_token **head, t_token *new_token);
++t_token			*create_token_list(char **split_values, t_token_type type);
++void			process_quote(char *str, int *i, char **result, char quote);
++void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
++int				has_whitespace(char *str);
++int				has_quotes(char *str);
++int				get_unquoted_length(char *str);
++int				count_quoted_chars(char *str, int *i);
++void			copy_quoted_content(char *str, int *i, int *j, char *result);
++void			replace_token_value(t_token *current, t_token *split_tokens);
++void			handle_quoted_segment(char *str, int *i, t_shell *shell, char **result);
++void			handle_single_quote(char *str, int *i, char **result);
++void			handle_double_quote(char *str, int *i, t_shell *shell,
++					char **result);
++
+ 
+ #endif
+\ No newline at end of file
+diff --git a/libft/Makefile b/libft/Makefile
+index 805cae6..f400b62 100644
+--- a/libft/Makefile
++++ b/libft/Makefile
+@@ -6,7 +6,7 @@
+ #    By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+         #
+ #                                                 +#+#+#+#+#+   +#+            #
+ #    Created: 2025/03/25 01:44:57 by oligrien          #+#    #+#              #
+-#    Updated: 2025/07/04 05:40:41 by oligrien         ###   ########.fr        #
++#    Updated: 2025/06/29 23:58:34 by oligrien         ###   ########.fr        #
+ #                                                                              #
+ # **************************************************************************** #
+ 
+@@ -36,11 +36,13 @@ SRCS_FILES =	ft_isalpha.c \
+ 				ft_memcmp.c \
+ 				ft_strnstr.c \
+ 				ft_atoi.c \
+-				ft_atoll.c \
+ 				ft_calloc.c \
+ 				ft_strdup.c \
+ 				ft_substr.c \
+ 				ft_strjoin.c \
++				ft_strjoin_free_s1.c \
++				ft_strjoin_free_s2.c \
++				ft_strjoin_free_s1_s2.c \
+ 				ft_strtrim.c \
+ 				ft_split.c \
+ 				ft_itoa.c \
+diff --git a/libft/includes/libft.h b/libft/includes/libft.h
+index 8e998f5..ce739e2 100644
+--- a/libft/includes/libft.h
++++ b/libft/includes/libft.h
+@@ -6,7 +6,7 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2024/10/15 09:00:49 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 05:40:26 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/06/29 23:58:20 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -23,7 +23,6 @@
+ # include <stdarg.h>
+ # include <unistd.h>
+ # include <errno.h>
+-# include <limits.h>
+ 
+ /* typedef ****************************************************************** */
+ typedef struct s_list
+@@ -63,8 +62,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+ size_t	ft_strlcat(char *dst, const char *src, size_t size);
+ 
+ /* <stdlib.h> *************************************************************** */
+-int				ft_atoi(const char *nptr);
+-long long int	ft_atoll(const char *nptr, int *fail);
++int		ft_atoi(const char *nptr);
+ 
+ void	*ft_calloc(size_t nmemb, size_t size);
+ void	ft_free(void **ptr);
+diff --git a/libft/src/ft_atoi.c b/libft/src/ft_atoi.c
+index 6109d66..3ba5d02 100644
+--- a/libft/src/ft_atoi.c
++++ b/libft/src/ft_atoi.c
+@@ -6,7 +6,7 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2024/09/07 16:52:55 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 05:06:36 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/04/27 03:42:27 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+diff --git a/libft/src/ft_atoll.c b/libft/src/ft_atoll.c
+deleted file mode 100644
+index 6aba0c4..0000000
+--- a/libft/src/ft_atoll.c
++++ /dev/null
+@@ -1,81 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   ft_atoll.c                                         :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2024/09/07 16:52:55 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 06:16:46 by oligrien         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "../includes/libft.h"
+-
+-static int	to_number(const char *nptr, int *sign)
+-{
+-	int	i;
+-
+-	i = 0;
+-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
+-		i++;
+-	if (nptr[i] == '-' || nptr[i] == '+')
+-	{
+-		if (nptr[i] == '-')
+-			*sign = -1;
+-		i++;
+-	}
+-	return (i);
+-}
+-
+-static int	is_overflow(unsigned long long d, unsigned long long nb,
+-		int sign, int *fail)
+-{
+-	if (sign == 1)
+-	{
+-		if (nb > LLONG_MAX / 10 || (nb == LLONG_MAX / 10
+-				&& d > LLONG_MAX % 10))
+-		{
+-			if (fail)
+-				*fail = 1;
+-			return (1);
+-		}
+-	}
+-	else
+-	{
+-		if (nb > ((unsigned long long)LLONG_MAX + 1) / 10
+-			|| (nb == ((unsigned long long)LLONG_MAX + 1) / 10
+-				&& d > ((unsigned long long)LLONG_MAX + 1) % 10))
+-		{
+-			if (fail)
+-				*fail = 1;
+-			return (1);
+-		}
+-	}
+-	return (0);
+-}
+-
+-long long int	ft_atoll(const char *nptr, int *fail)
+-{
+-	unsigned long long int	nb;
+-	int						sign;
+-	int						i;
+-
+-	if (!nptr)
+-		return (0);
+-	if (fail)
+-		*fail = 0;
+-	sign = 1;
+-	i = to_number(nptr, &sign);
+-	nb = 0;
+-	while (ft_isdigit(nptr[i]))
+-	{
+-		if (is_overflow(nptr[i] - '0', nb, sign, fail))
+-			return (0);
+-		nb = nb * 10 + (nptr[i] - '0');
+-		i++;
+-	}
+-	if (nptr[i] && fail)
+-		*fail = 2;
+-	return (nb * sign);
+-}
+diff --git a/libft/src/ft_strjoin.c b/libft/src/ft_strjoin.c
+index b8ffa34..cfd1940 100644
+--- a/libft/src/ft_strjoin.c
++++ b/libft/src/ft_strjoin.c
+@@ -6,7 +6,7 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2024/09/10 14:33:06 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 04:07:54 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/04/29 23:08:20 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -37,81 +37,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
+ 		join[i + j] = s2[j];
+ 	return (join);
+ }
+-
+-char	*ft_strjoin_free_s1(char const *s1, char const *s2)
+-{
+-	char	*join;
+-	int		len;
+-	int		i;
+-	int		j;
+-
+-	if (!s1 && !s2)
+-		return (ft_free((void *)&s1), "");
+-	else if (!s1)
+-		return (ft_free((void *)&s1), (char *)s2);
+-	else if (!s2)
+-		return (ft_free((void *)&s1), (char *)s1);
+-	len = ft_strlen(s1) + ft_strlen(s2);
+-	join = (char *)ft_calloc(len + 1, sizeof(char));
+-	if (!join)
+-		return (ft_free((void *)&s1), NULL);
+-	i = -1;
+-	while (s1 && s1[++i])
+-		join[i] = s1[i];
+-	j = -1;
+-	while (s2 && s2[++j])
+-		join[i + j] = s2[j];
+-	return (ft_free((void *)&s1), join);
+-}
+-
+-char	*ft_strjoin_free_s2(char const *s1, char const *s2)
+-{
+-	char	*join;
+-	int		len;
+-	int		i;
+-	int		j;
+-
+-	if (!s1 && !s2)
+-		return (ft_free((void *)&s2), "");
+-	else if (!s1)
+-		return (ft_free((void *)&s2), (char *)s2);
+-	else if (!s2)
+-		return (ft_free((void *)&s2), (char *)s1);
+-	len = ft_strlen(s1) + ft_strlen(s2);
+-	join = (char *)ft_calloc(len + 1, sizeof(char));
+-	if (!join)
+-		return (ft_free((void *)&s2), NULL);
+-	i = -1;
+-	while (s1 && s1[++i])
+-		join[i] = s1[i];
+-	j = -1;
+-	while (s2 && s2[++j])
+-		join[i + j] = s2[j];
+-	return (ft_free((void *)&s2), join);
+-}
+-
+-char	*ft_strjoin_free_s1_s2(char const *s1, char const *s2)
+-{
+-	char	*join;
+-	int		len;
+-	int		i;
+-	int		j;
+-
+-	if (!s1 && !s2)
+-		return (ft_free((void *)&s1), ft_free((void *)&s2), "");
+-	else if (!s1)
+-		return (ft_free((void *)&s1), ft_free((void *)&s2), (char *)s2);
+-	else if (!s2)
+-		return (ft_free((void *)&s1), ft_free((void *)&s2), (char *)s1);
+-	len = ft_strlen(s1) + ft_strlen(s2);
+-	join = (char *)ft_calloc(len + 1, sizeof(char));
+-	if (!join)
+-		return (ft_free((void *)&s1), ft_free((void *)&s2), NULL);
+-	i = -1;
+-	while (s1 && s1[++i])
+-		join[i] = s1[i];
+-	j = -1;
+-	while (s2 && s2[++j])
+-		join[i + j] = s2[j];
+-	return (ft_free((void *)&s1), ft_free((void *)&s2), join);
+-}
+diff --git a/libft/src/ft_strjoin_free_s1.c b/libft/src/ft_strjoin_free_s1.c
+new file mode 100644
+index 0000000..c9fd5af
+--- /dev/null
++++ b/libft/src/ft_strjoin_free_s1.c
+@@ -0,0 +1,39 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   ft_strjoin_free_s1.c                               :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2024/09/10 14:33:06 by oligrien          #+#    #+#             */
++/*   Updated: 2025/04/29 22:41:18 by oligrien         ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "../includes/libft.h"
++
++char	*ft_strjoin_free_s1(char const *s1, char const *s2)
++{
++	char	*join;
++	int		len;
++	int		i;
++	int		j;
++
++	if (!s1 && !s2)
++		return (ft_free((void *)&s1), "");
++	else if (!s1)
++		return (ft_free((void *)&s1), (char *)s2);
++	else if (!s2)
++		return (ft_free((void *)&s1), (char *)s1);
++	len = ft_strlen(s1) + ft_strlen(s2);
++	join = (char *)ft_calloc(len + 1, sizeof(char));
++	if (!join)
++		return (ft_free((void *)&s1), NULL);
++	i = -1;
++	while (s1 && s1[++i])
++		join[i] = s1[i];
++	j = -1;
++	while (s2 && s2[++j])
++		join[i + j] = s2[j];
++	return (ft_free((void *)&s1), join);
++}
+diff --git a/libft/src/ft_strjoin_free_s1_s2.c b/libft/src/ft_strjoin_free_s1_s2.c
+new file mode 100644
+index 0000000..9b9f749
+--- /dev/null
++++ b/libft/src/ft_strjoin_free_s1_s2.c
+@@ -0,0 +1,39 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   ft_strjoin_free_s1_s2.c                            :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2024/09/10 14:33:06 by oligrien          #+#    #+#             */
++/*   Updated: 2025/04/29 22:58:19 by oligrien         ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "../includes/libft.h"
++
++char	*ft_strjoin_free_s1_s2(char const *s1, char const *s2)
++{
++	char	*join;
++	int		len;
++	int		i;
++	int		j;
++
++	if (!s1 && !s2)
++		return (ft_free((void *)&s1), ft_free((void *)&s2), "");
++	else if (!s1)
++		return (ft_free((void *)&s1), ft_free((void *)&s2), (char *)s2);
++	else if (!s2)
++		return (ft_free((void *)&s1), ft_free((void *)&s2), (char *)s1);
++	len = ft_strlen(s1) + ft_strlen(s2);
++	join = (char *)ft_calloc(len + 1, sizeof(char));
++	if (!join)
++		return (ft_free((void *)&s1), ft_free((void *)&s2), NULL);
++	i = -1;
++	while (s1 && s1[++i])
++		join[i] = s1[i];
++	j = -1;
++	while (s2 && s2[++j])
++		join[i + j] = s2[j];
++	return (ft_free((void *)&s1), ft_free((void *)&s2), join);
++}
+diff --git a/libft/src/ft_strjoin_free_s2.c b/libft/src/ft_strjoin_free_s2.c
+new file mode 100644
+index 0000000..a985aba
+--- /dev/null
++++ b/libft/src/ft_strjoin_free_s2.c
+@@ -0,0 +1,39 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   ft_strjoin_free_s2.c                               :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2024/09/10 14:33:06 by oligrien          #+#    #+#             */
++/*   Updated: 2025/04/29 22:57:00 by oligrien         ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "../includes/libft.h"
++
++char	*ft_strjoin_free_s2(char const *s1, char const *s2)
++{
++	char	*join;
++	int		len;
++	int		i;
++	int		j;
++
++	if (!s1 && !s2)
++		return (ft_free((void *)&s2), "");
++	else if (!s1)
++		return (ft_free((void *)&s2), (char *)s2);
++	else if (!s2)
++		return (ft_free((void *)&s2), (char *)s1);
++	len = ft_strlen(s1) + ft_strlen(s2);
++	join = (char *)ft_calloc(len + 1, sizeof(char));
++	if (!join)
++		return (ft_free((void *)&s2), NULL);
++	i = -1;
++	while (s1 && s1[++i])
++		join[i] = s1[i];
++	j = -1;
++	while (s2 && s2[++j])
++		join[i + j] = s2[j];
++	return (ft_free((void *)&s2), join);
++}
+diff --git a/output.txt b/output.txt
+deleted file mode 100644
+index d99034d..0000000
+--- a/output.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-testing redir
+diff --git a/src/built-ins/cd.c b/src/built-ins/cd.c
+index 5c89ec6..4c01dfc 100644
+--- a/src/built-ins/cd.c
++++ b/src/built-ins/cd.c
+@@ -6,7 +6,7 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/06/29 23:01:04 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 03:44:54 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/07/02 20:55:41 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -52,6 +52,19 @@ static char	*ft_getcwd(char *buf, size_t size)
+ 	return (cwd);
+ }
+ 
++int	set_dir(t_sys *sys, char *cwd, char *path)
++{
++	if (set_env_var(&sys->envp, "OLDPWD", cwd))
++		return (free(cwd), gc_free(path), 1);
++	free(cwd);
++	cwd = ft_getcwd(NULL, 0);
++	if (!cwd)
++		return (perror("minishell: cd"), gc_free(path), 1);
++	if (set_env_var(&sys->envp, "PWD", cwd))
++		return (free(cwd), gc_free(path), 1);
++	return (free(cwd), gc_free(path), 0);
++}
++
+ int	builtin_cd(t_ast *node, t_sys *sys)
+ {
+ 	char	*path;
+@@ -60,20 +73,21 @@ int	builtin_cd(t_ast *node, t_sys *sys)
+ 	cwd = ft_getcwd(NULL, 0);
+ 	if (!cwd)
+ 		return (perror("minishell: cd"), 1);
+-	path = get_path(sys->env_lst, node->args[1]);
++	path = get_path(sys->envp, node->args[1]);
+ 	if (!path)
+     	return (free(cwd), 1);
+ 	if (!chdir(path))	// SUCCESS
+ 	{
+-		if (set_env_var(sys, &sys->env_lst, "OLDPWD", cwd))
+-			return (free(cwd), gc_free(path), 1);
+-		free(cwd);
+-		cwd = ft_getcwd(NULL, 0);
+-		if (!cwd)
+-			return (perror("minishell: cd"), gc_free(path), 1);
+-		if (set_env_var(sys, &sys->env_lst, "PWD", cwd))
+-			return (free(cwd), gc_free(path), 1);
+-		return (free(cwd), gc_free(path), 0);
++		return (set_dir(sys, cwd,path));
++		// if (set_env_var(&sys->envp, "OLDPWD", cwd))
++		// 	return (free(cwd), gc_free(path), 1);
++		// free(cwd);
++		// cwd = ft_getcwd(NULL, 0);
++		// if (!cwd)
++		// 	return (perror("minishell: cd"), gc_free(path), 1);
++		// if (set_env_var(&sys->envp, "PWD", cwd))
++		// 	return (free(cwd), gc_free(path), 1);
++		// return (free(cwd), gc_free(path), 0);
+ 	}
+ 	else				// FAILURE
+ 		return (ft_putstr_fd("minishell: cd: ", 2), perror(path), free(cwd),
+diff --git a/src/built-ins/env.c b/src/built-ins/env.c
+deleted file mode 100644
+index e33972e..0000000
+--- a/src/built-ins/env.c
++++ /dev/null
+@@ -1,34 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   env.c                                              :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/06/27 00:38:16 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 00:58:00 by oligrien         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "../../includes/minishell.h"
+-
+-int	builtin_env(t_sys *sys)
+-{
+-	t_env *current;
+-
+-	// if (node->args[1])
+-	// {
+-	// 	ft_putstr_fd("env: ", 2);
+-	// 	ft_putstr_fd(node->args[1], 2);
+-	// 	ft_putstr_fd(": No such file or directory\n", 2);
+-	// 	return (127);
+-	// }
+-	current = sys->env_lst;
+-	while (current)
+-	{
+-		if (current->content)
+-			printf("%s=%s\n", current->var, current->content);
+-		current = current->next;
+-	}
+-	return (0);
+-}
+diff --git a/src/built-ins/exit.c b/src/built-ins/exit.c
+deleted file mode 100644
+index 79053f3..0000000
+--- a/src/built-ins/exit.c
++++ /dev/null
+@@ -1,52 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   exit.c                                             :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/04 00:59:51 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 06:14:50 by oligrien         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "../../includes/minishell.h"
+-
+-static int	is_valid_num(char *str)
+-{
+-	long long int	nb;
+-	int				fail;
+-
+-	fail = 0;
+-	nb = ft_atoll(str , &fail);
+-	if (fail > 0)
+-		return (0);
+-	return (1);
+-}
+-
+-int	builtin_exit(t_ast *node, t_sys *sys)
+-{
+-	ft_putstr_fd("exit\n", 1);
+-	if (!node->args[1])
+-	{
+-		sys->exit = 1;
+-		return (0);
+-	}
+-	if (is_valid_num(node->args[1]))
+-	{
+-		if (node->args[2])
+-			return (ft_putstr_fd("minishell: exit: too many arguments\n", 2),
+-				1);
+-		sys->exit = 1;
+-		sys->exit_status = ft_atoll(node->args[1], NULL) % 256;
+-	}
+-	else
+-	{
+-		ft_putstr_fd("minishell: exit: ", 2);
+-		ft_putstr_fd(node->args[1], 2);
+-		ft_putstr_fd(": numeric argument required\n", 2);
+-		sys->exit = 1;
+-		sys->exit_status = 255;
+-	}
+-	return (sys->exit_status);
+-}
+diff --git a/src/built-ins/export.c b/src/built-ins/export.c
+deleted file mode 100644
+index 0399161..0000000
+--- a/src/built-ins/export.c
++++ /dev/null
+@@ -1,98 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   export.c                                           :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/03 01:43:55 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 02:21:50 by oligrien         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "../../includes/minishell.h"
+-
+-static void	env_print_sorted(t_env *env_lst)
+-{
+-	int		size;
+-	char	*last_printed;
+-	t_env	*candidate;
+-	t_env	*current;
+-
+-	size = ft_envsize(env_lst);
+-	last_printed = NULL;
+-	while (size--)
+-	{
+-		candidate = NULL;
+-		current = env_lst;
+-		while (current)
+-		{
+-			if ((!last_printed || ft_strcmp(current->var, last_printed) > 0)
+-				&& (!candidate || ft_strcmp(current->var, candidate->var) < 0))
+-				candidate = current;
+-			current = current->next;
+-		}
+-		if (!candidate->content)
+-			printf("declare -x %s", candidate->var);
+-		else
+-			printf("declare -x %s=\"%s\"", candidate->var, candidate->content);
+-		last_printed = candidate->var;
+-	}
+-}
+-
+-static void	parse_arg(char *arg, char **var, char **content)
+-{
+-	char	*equal_sign;
+-	
+-	equal_sign = ft_strchr(arg, '=');
+-	if (equal_sign)
+-	{
+-		*var = gc_substr(arg, 0, equal_sign - arg);
+-		*content = gc_strdup(equal_sign + 1);
+-	}
+-	else
+-	{
+-		*var = gc_strdup(arg);
+-		*content = NULL;
+-	}
+-}
+-
+-static int	handle_arg(t_sys *sys, char *arg)
+-{
+-	char	*var;
+-	char	*content;
+-	int		error;
+-
+-	parse_arg(arg, &var, &content);
+-	if (is_valid_identifier(var))
+-		error = set_env_var(sys, &sys->env_lst, var, content);
+-	else
+-	{
+-		ft_putstr_fd("minishell: export: '", 2);
+-		ft_putstr_fd(arg, 2);
+-		ft_putstr_fd("': not a valid identifier", 2);
+-		error = 1;
+-	}
+-	gc_free(var);
+-	gc_free(content);
+-	return (error);
+-}
+-
+-int	builtin_export(t_ast *node, t_sys *sys)
+-{
+-	int		error;
+-	int		i;
+-
+-	error = 0;
+-	if (!node->args[1])
+-		return (env_print_sorted(sys->env_lst), 0);
+-	i = 0;
+-	while (node->args[++i])
+-	{
+-		if (handle_arg(sys, node->args[i]))
+-			error = 1;
+-	}
+-	if (error)
+-		return (1);
+-	return (0);
+-}
+diff --git a/src/built-ins/pwd.c b/src/built-ins/pwd.c
+index 01cf8e2..b10525c 100644
+--- a/src/built-ins/pwd.c
++++ b/src/built-ins/pwd.c
+@@ -6,7 +6,7 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/06/29 03:03:24 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 00:47:15 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/06/29 03:09:19 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -23,7 +23,8 @@ int	builtin_pwd(void)
+ 		ft_free((void *)&wd);
+ 		return (1);
+ 	}
+-	printf("%s\n", wd);
++	ft_putstr_fd(wd, 1);
++	ft_putchar_fd('\n', 1);
+ 	ft_free((void *)&wd);
+ 	return (0);
+ }
+diff --git a/src/built-ins/unset.c b/src/built-ins/unset.c
+deleted file mode 100644
+index 00f0d10..0000000
+--- a/src/built-ins/unset.c
++++ /dev/null
+@@ -1,48 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   unset.c                                            :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/03 20:47:09 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/03 23:56:59 by oligrien         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "../../includes/minishell.h"
+-
+-static int	handle_arg(t_sys *sys, char *arg)
+-{
+-	int		error;
+-
+-	if (is_valid_identifier(arg))
+-		error = unset_env_var(sys, &sys->env_lst, arg);
+-	else
+-	{
+-		ft_putstr_fd("minishell: unset: '", 2);
+-		ft_putstr_fd(arg, 2);
+-		ft_putstr_fd("': not a valid identifier", 2);
+-		error = 1;
+-	}
+-	return (error);
+-}
+-
+-int builtin_unset(t_ast *node, t_sys *sys)
+-{
+-	int	i;
+-	int	error;
+-
+-	if (!node->args[1])
+-		return (0);
+-	error = 0;
+-	i = 0;
+-	while (node->args[++i])
+-	{
+-		if (handle_arg(sys, node->args[i]))
+-			error = 1;
+-	}
+-	if (error)
+-		return (1);
+-	return (0);
+-}
+diff --git a/src/exec/env.c b/src/exec/env.c
+new file mode 100644
+index 0000000..5d6771d
+--- /dev/null
++++ b/src/exec/env.c
+@@ -0,0 +1,158 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   env.c                                              :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2025/06/27 00:38:16 by oligrien          #+#    #+#             */
++/*   Updated: 2025/07/02 21:45:12 by oligrien         ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "../../includes/minishell.h"
++
++/**
++ * env_getarray - make char **envp back from t_env *envp
++ *
++ * @envp: environment linked list
++ * 
++ * Return: envp array of strings.
++ */
++char	**env_getarray(t_env *envp)
++{
++	int		i;
++	int		count;
++	char	**array;
++
++	count = ft_envsize(envp);
++	array = (char **)gc_malloc(sizeof(char *) * (count + 1));
++	i = -1;
++	while (++i < count)
++	{
++		if (!envp->content)
++			array[i] = gc_strdup(envp->var);
++		else
++			array[i] = gc_strjoin_free_s1(gc_strjoin(envp->var, "="),
++					envp->content);
++		envp = envp->next;
++	}
++	array[i] = NULL;
++	return (array);
++}
++
++int	set_env_var(t_env **envp, char *var_name, char *content)
++{
++	t_env	*current;
++	t_env	*new_node;
++
++	current = *envp;
++	while (current)
++	{
++		if (!ft_strcmp(current->var, var_name))
++		{
++			gc_free(current->content);
++			current->content = gc_strdup(content);
++			if (!current->content)
++				return (1);
++			return (0);
++		}
++		current = current->next;
++	}
++	new_node = gc_envnew(var_name, gc_strdup(content));
++	if (!new_node)
++		return (1);
++	ft_envadd_back(envp, new_node);
++	return (0);
++}
++
++char	*get_env_var(char *var_name, t_env *envp)
++{
++	int	len;
++	int	i;
++
++	len = ft_strlen(var_name);
++	i = 0;
++	while (envp)
++	{
++		if (!ft_strcmp(envp->var, var_name))
++			return (envp->content);
++		envp = envp->next;
++	}
++	return (NULL);
++}
++
++/* char	*get_env_var(char *var_name, char **envp)
++{
++	int	len;
++	int	i;
++
++	len = ft_strlen(var_name);
++	i = 0;
++	while (envp[i])
++	{
++		if (ft_strncmp(envp[i], var_name, len) == 0 && envp[i][len] == '=')
++			return (envp[i] + len + 1);		// Return pointer to the start of the value
++		i++;
++	}
++	return (NULL);
++} */
++
++static char	*get_envp_var_name(char *env)
++{
++	int	i;
++
++	i = 0;
++	while (env[i] != '=')
++		i++;
++	return (gc_substr(env, 0, i));
++}
++
++t_env	*pull_env(char **envp)
++{
++	t_env	*env_lst;
++	char	*var;
++	char	*content;
++	char	*equal_sign;
++	int		i;
++
++	env_lst = NULL;
++	i = 0;
++	while (envp[i])
++	{
++		equal_sign = ft_strchr(envp[i], '=');
++		if (equal_sign)
++		{
++			var = gc_substr(envp[i], 0, equal_sign - envp[i]);
++			content = gc_strdup(equal_sign + 1);
++		}
++		else
++		{
++			var = gc_strdup(envp[i]);
++			content = NULL;
++		}
++		ft_envadd_back(&env_lst, gc_envnew(var, content));
++		i++;
++	}
++	return (env_lst);
++}
++
++/* t_env	*pull_env(char **envp)
++{
++	t_env	*env_lst;
++	char	*var;
++	char	*content;
++	int		len;
++	int		i;
++
++	i = 0;
++	while (envp[i])
++	{
++		var = get_envp_var_name(envp[i]);
++		len = ft_strlen(envp[i]) - ft_strlen(var);
++		content = gc_substr(envp[i], ft_strlen(var), len);
++		ft_envadd_back(&env_lst, gc_envnew(var, content));
++		i++;
++	}
++	return (env_lst);
++} */
+diff --git a/src/exec/env_array.c b/src/exec/env_array.c
+deleted file mode 100644
+index 21bc478..0000000
+--- a/src/exec/env_array.c
++++ /dev/null
+@@ -1,68 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   env_array.c                                        :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/03 23:18:30 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 02:23:30 by oligrien         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "../../includes/minishell.h"
+-
+-char	**dup_array(char **array)
+-{
+-	int		i;
+-	int		count;
+-	char	**new;
+-
+-	count = 0;
+-	while (array[count])
+-		count++;
+-	new = (char **)gc_malloc(sizeof(char *) * (count + 1));
+-	i = -1;
+-	while (++i < count)
+-		new[i] = gc_strdup(array[i]);
+-	new[i] = NULL;
+-	return (new);
+-}
+-
+-/**
+- * env_getarray - make char **envp back from t_env *envp
+- *
+- * @envp: environment linked list
+- * 
+- * Return: envp array of strings.
+- */
+-char	**env_getarray(t_env *envp)
+-{
+-	int		i;
+-	int		count;
+-	char	**array;
+-
+-	count = ft_envsize(envp);
+-	array = (char **)gc_malloc(sizeof(char *) * (count + 1));
+-	i = -1;
+-	while (++i < count)
+-	{
+-		if (!envp->content)
+-			array[i] = gc_strdup(envp->var);
+-		else
+-			array[i] = gc_strjoin_free_s1(gc_strjoin(envp->var, "="),
+-					envp->content);
+-		envp = envp->next;
+-	}
+-	array[i] = NULL;
+-	return (array);
+-}
+-
+-int	update_env_array(t_sys *sys)
+-{
+-	gc_free_array((void **)sys->envp);
+-	sys->envp = env_getarray(sys->env_lst);
+-	if (!sys->envp)
+-		return (1);
+-	return (0);
+-}
+diff --git a/src/exec/env_lst.c b/src/exec/env_lst.c
+deleted file mode 100644
+index ee41e50..0000000
+--- a/src/exec/env_lst.c
++++ /dev/null
+@@ -1,68 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   env_lst.c                                          :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/04 00:30:28 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 00:30:42 by oligrien         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "../../includes/minishell.h"
+-
+-void	free_envnode(t_env *env_lst)
+-{
+-	gc_free(env_lst->var);
+-	gc_free(env_lst->content);
+-	gc_free(env_lst);
+-}
+-
+-int	ft_envsize(t_env *envp)
+-{
+-	int	cnt;
+-
+-	cnt = 0;
+-	while (envp)
+-	{
+-		cnt++;
+-		envp = envp->next;
+-	}
+-	return (cnt);
+-}
+-
+-static t_env	*ft_envlast(t_env *envp)
+-{
+-	while (envp && envp->next)
+-		envp = envp->next;
+-	return (envp);
+-}
+-
+-t_env	*gc_envnew(char *var, char *content)
+-{
+-	t_env	*node;
+-
+-	node = (t_env *)gc_malloc(sizeof(t_env));
+-	if (!node)
+-		return (NULL);
+-	node->var = var;
+-	node->content = content;
+-	node->next = NULL;
+-	return (node);
+-}
+-
+-void	ft_envadd_back(t_env **envp, t_env *new)
+-{
+-	t_env	*last;
+-
+-	if (!envp || !new)
+-		return ;
+-	if (*envp == NULL)
+-		*envp = new;
+-	else
+-	{
+-		last = ft_envlast(*envp);
+-		last->next = new;
+-	}
+-}
+diff --git a/src/exec/env_utils.c b/src/exec/env_utils.c
+index a8c4d8c..8223640 100644
+--- a/src/exec/env_utils.c
++++ b/src/exec/env_utils.c
+@@ -6,116 +6,73 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/06/29 02:30:33 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 02:22:52 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/07/02 20:33:50 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+ #include "../../includes/minishell.h"
+ 
+-int	is_valid_identifier(char *arg)
++char	**dup_array(char **array)
+ {
+-	int	i;
++	int		i;
++	int		count;
++	char	**new;
+ 
++	count = 0;
++	while (array[count])
++		count++;
++	new = (char **)gc_malloc(sizeof(char *) * (count + 1));
+ 	i = -1;
+-	while (arg[++i])
+-	{
+-		if (i == 0 && !ft_isalpha(arg[i]) && arg[i] != '_')
+-			return (0);
+-		else if (!ft_isalnum(arg[i]) && arg[i] != '_')
+-			return (0);
+-	}
+-	return (1);
++	while (++i < count)
++		new[i] = gc_strdup(array[i]);
++	new[i] = NULL;
++	return (new);
+ }
+ 
+-int	unset_env_var(t_sys *sys, t_env **env_lst, char *var_name)
++int	ft_envsize(t_env *envp)
+ {
+-	t_env	*cu;
+-	t_env	*pv;
++	int	cnt;
+ 
+-	if (!*env_lst)
+-		return (0);
+-	if (!ft_strcmp((*env_lst)->var, var_name))
+-	{
+-		cu = *env_lst;
+-		*env_lst = (*env_lst)->next;
+-		return (free_envnode(cu), update_env_array(sys));
+-	}
+-	pv = *env_lst;
+-	cu = (*env_lst)->next;
+-	while (cu)
++	cnt = 0;
++	while (envp)
+ 	{
+-		if (!ft_strcmp(cu->var, var_name))
+-		{
+-			pv->next = cu->next;
+-			return (free_envnode(cu), update_env_array(sys));
+-		}
+-		pv = cu;
+-		cu = cu->next;
++		cnt++;
++		envp = envp->next;
+ 	}
+-	return (0);
++	return (cnt);
+ }
+ 
+-int	set_env_var(t_sys *sys, t_env **env_lst, char *var_name, char *content)
++static t_env	*ft_envlast(t_env *envp)
+ {
+-	t_env	*current;
+-	t_env	*new_node;
+-
+-	current = *env_lst;
+-	while (current)
+-	{
+-		if (!ft_strcmp(current->var, var_name))
+-		{
+-			gc_free(current->content);
+-			current->content = gc_strdup(content);
+-			if (!current->content)
+-				return (1);
+-			return (0);
+-		}
+-		current = current->next;
+-	}
+-	new_node = gc_envnew(var_name, gc_strdup(content));
+-	if (!new_node)
+-		return (1);
+-	ft_envadd_back(env_lst, new_node);
+-	return (update_env_array(sys));
++	while (envp && envp->next)
++		envp = envp->next;
++	return (envp);
+ }
+ 
+-char	*get_env_var(char *var_name, t_env *envp)
++t_env	*gc_envnew(char *var, char *content)
+ {
+-	int	i;
++	t_env	*node;
+ 
+-	i = 0;
+-	while (envp)
+-	{
+-		if (!ft_strcmp(envp->var, var_name))
+-			return (envp->content);
+-		envp = envp->next;
+-	}
+-	return (NULL);
++	node = (t_env *)gc_malloc(sizeof(t_env));
++	if (!node)
++		return (NULL);
++	node->var = var;
++	node->content = content;
++	node->next = NULL;
++	return (node);
+ }
+ 
+-/* char	*get_env_var(char *var_name, char **envp)
++void	ft_envadd_back(t_env **envp, t_env *new)
+ {
+-	int	len;
+-	int	i;
++	t_env	*last;
+ 
+-	len = ft_strlen(var_name);
+-	i = 0;
+-	while (envp[i])
++	if (!envp || !new)
++		return ;
++	if (*envp == NULL)
++		*envp = new;
++	else
+ 	{
+-		if (ft_strncmp(envp[i], var_name, len) == 0 && envp[i][len] == '=')
+-			return (envp[i] + len + 1);		// Return pointer to the start of the value
+-		i++;
++		last = ft_envlast(*envp);
++		last->next = new;
+ 	}
+-	return (NULL);
+-} */
+-
+-/* static char	*get_envp_var_name(char *env)
+-{
+-	int	i;
+-
+-	i = 0;
+-	while (env[i] != '=')
+-		i++;
+-	return (gc_substr(env, 0, i));
+-} */
++}
+diff --git a/src/exec/exec.c b/src/exec/exec.c
+index 6e86d34..4dcb53f 100644
+--- a/src/exec/exec.c
++++ b/src/exec/exec.c
+@@ -6,24 +6,23 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/05/28 21:41:49 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 03:53:49 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/07/02 22:07:48 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+ #include "../../includes/minishell.h"
+ 
+-int	execute(t_ast *node, t_sys *sys)
++t_sys	*init_sys(char **envp)
+ {
+-	if (!node)
+-		return (0);
+-	if (node->type == AST_PIPE)
+-		return (handle_pipe(node, sys));
+-	else if (node->type >= AST_REDIR_IN && node->type <= AST_HEREDOC)
+-		return (handle_redirection(node, sys));
+-	else if (node->type == AST_CMD)
+-		return (execute_cmd(node, sys));
+-	// else if AND/OR
+-	return (1);
++	t_sys	*sys;
++
++	sys = (t_sys *)gc_malloc(sizeof(t_sys));
++	sys->env_lst = pull_env(envp);
++	sys->envp = dup_array(envp);
++	sys->token = NULL;
++	sys->ast = NULL;
++	sys->exit = 0;
++	return (sys);
+ }
+ 
+ int	read_line(t_sys *sys)
+@@ -31,45 +30,31 @@ int	read_line(t_sys *sys)
+ 	char	*line;
+ 
+ 	line = NULL;
+-	while (!sys->exit)
++	while (!(sys->exit))
+ 	{
+-		line = readline(PROMPT);
++		line = readline("MiniShell> ");
+ 		if (!line)
+-			return (1);
+-		add_history(line);
+-
+-		// Tokenize
++			return (0);
++		if (ft_strlen(line) > 0)
++		{
++			add_history(line);
+ 
++			// Tokenize
+ 
+-		// Build AST
+-		// ----------- MOCK AST ------------
+-		if (!ft_strcmp(line, "ls -l"))
+-			sys->ast = mock_ls_command();
+-		if (!ft_strcmp(line, "cat < input.txt"))
+-			sys->ast = mock_redir_in_command();
+-		if (!ft_strcmp(line, "ls -l | grep \".c\""))
++			// Build AST
++			// ----------- MOCK AST ------------
++			// sys->ast = mock_ls_command();
++			// sys->ast = mock_redir_command();
+ 			sys->ast = mock_pipe_command();
+-		if (!ft_strcmp(line, "export A=1 B=2 A=new C 1INVALID"))
+-			sys->ast = mock_export_command();
+-		if (!ft_strcmp(line, "export"))
+-			sys->ast = mock_export_no_args_command();
+-		if (!ft_strcmp(line, "unset A C NONEXISTENT"))
+-			sys->ast = mock_unset_command();
+-		if (!ft_strcmp(line, "cd /tmp"))
+-			sys->ast = mock_cd_command();
+-		if (!ft_strcmp(line, "env"))
+-			sys->ast = mock_env_command();
+-		if (!ft_strcmp(line, "exit f42"))
+-			sys->ast = mock_exit_command();
+-		if (!ft_strcmp(line, "echo \"testing redir\" > output.txt"))
+-			sys->ast = mock_redir_out_command();
+-		// ---------------------------------
+-
+-
+-		// Execute AST:
+-		if (sys->ast)
+-			sys->exit_status = execute(sys->ast, sys);
+-		gc_free(sys->ast);
++			// ---------------------------------
++
++			// Execute AST:
++			if (sys->ast)
++				sys->exit_status = execute(sys->ast, sys);
++			gc_free(sys->ast);
++		}
++		else
++			printf("(empty line)\n");
+ 	}
+-	return (0);
++	return (1);
+ }
+diff --git a/src/exec/exec_builtin.c b/src/exec/exec_builtin.c
+new file mode 100644
+index 0000000..71a51a9
+--- /dev/null
++++ b/src/exec/exec_builtin.c
+@@ -0,0 +1,58 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   exec_builtin.c                                     :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2025/07/02 21:51:35 by oligrien          #+#    #+#             */
++/*   Updated: 2025/07/02 21:52:17 by oligrien         ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "../../includes/minishell.h"
++
++
++int	execute_external(t_ast *node, t_sys *sys)
++{
++	char	*cmd_path;
++
++	cmd_path = find_cmd_path(sys, node->args[0]);
++	if (!cmd_path)
++	{
++		ft_putstr_fd("minishell: ", 2);
++		ft_putstr_fd(node->args[0], 2);
++		ft_putstr_fd(": command not found\n", 2);
++		exit(127);			// Standard exit code for command not found
++	}
++	execve(cmd_path, node->args, sys->envp);
++	ft_putstr_fd("minishell: ", 2);	// If we get here, execve failed.
++	perror(node->args[0]);	// Perror will print the system error
++	gc_free(cmd_path);		// Free the path if execve fails
++	exit(126);				// Standard exit code for command not executable
++}
++
++int	execute_builtin(t_ast *node, t_sys *sys)
++{
++	(void)node;
++	(void)sys;
++	// FORKED
++	// NOT FORKED
++	return (1);
++}
++
++/**
++ * is_builtin - check if command if built-in
++ *
++ * Return:	0 = not built-in. 1 = fork built-in. 2 = non fork built-in.
++ */
++int	is_builtin(char *cmd)
++{
++	if (!ft_strncmp(cmd, "unset", 6) || !ft_strncmp(cmd, "echo", 5)
++		|| !ft_strncmp(cmd, "pwd", 4) || !ft_strncmp(cmd, "env", 4))
++		return (1);
++	if (!ft_strncmp(cmd, "cd", 3) || !ft_strncmp(cmd, "export", 7)
++		|| !ft_strncmp(cmd, "exit", 5))
++		return (2);
++	return (0);	
++}
+diff --git a/src/exec/exec_cmd.c b/src/exec/exec_cmd.c
+index d886b11..84e6a40 100644
+--- a/src/exec/exec_cmd.c
++++ b/src/exec/exec_cmd.c
+@@ -6,76 +6,12 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/07/02 21:53:11 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 02:08:54 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/07/02 21:53:22 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+ #include "../../includes/minishell.h"
+ 
+-/**
+- * execute_builtin - execute built-in command
+- *
+- * @node: ast node containing command name
+- * @sys: system structure
+- *
+- * Return:	return value of called built-in function. 1 if call failed.
+- */
+-int	execute_builtin(t_ast *node, t_sys *sys)
+-{
+-	if (!ft_strcmp(node->args[0], "cd"))
+-		return (builtin_cd(node, sys));
+-	if (!ft_strcmp(node->args[0], "echo"))
+-		return (builtin_echo(node));
+-	if (!ft_strcmp(node->args[0], "env"))
+-		return (builtin_env(sys));
+-	if (!ft_strcmp(node->args[0], "exit"))
+-		return (builtin_exit(node, sys));
+-	if (!ft_strcmp(node->args[0], "export"))
+-		return (builtin_export(node, sys));
+-	if (!ft_strcmp(node->args[0], "pwd"))
+-		return (builtin_pwd());
+-	if (!ft_strcmp(node->args[0], "unset"))
+-		return (builtin_unset(node, sys));
+-	(void)node;
+-	(void)sys;
+-	return (1);
+-}
+-
+-/**
+- * is_builtin - check if command if built-in
+- *
+- * Return:	0 = not built-in. 1 = fork built-in. 2 = non fork built-in.
+- */
+-int	is_builtin(char *cmd)
+-{
+-	if (!ft_strcmp(cmd, "echo")
+-		|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "env"))
+-		return (1);		// These can be forked
+-	if (!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "cd")
+-		||!ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "exit"))
+-		return (2);		// These MUST NOT be forked
+-	return (0);
+-}
+-
+-int	execute_external(t_ast *node, t_sys *sys)
+-{
+-	char	*cmd_path;
+-
+-	cmd_path = find_cmd_path(sys, node->args[0]);
+-	if (!cmd_path)
+-	{
+-		ft_putstr_fd("minishell: ", 2);
+-		ft_putstr_fd(node->args[0], 2);
+-		ft_putstr_fd(": command not found\n", 2);
+-		exit(127);			// Standard exit code for command not found
+-	}
+-	execve(cmd_path, node->args, sys->envp);
+-	ft_putstr_fd("minishell: ", 2);	// If we get here, execve failed.
+-	perror(node->args[0]);	// Perror will print the system error
+-	gc_free(cmd_path);		// Free the path if execve fails
+-	exit(126);				// Standard exit code for command not executable
+-}
+-
+ int	execute_forked_cmd(t_ast *node, t_sys *sys)
+ {
+ 	pid_t	pid;
+@@ -103,3 +39,17 @@ int	execute_cmd(t_ast *node, t_sys *sys)
+ 		return (execute_builtin(node, sys));
+ 	return (execute_forked_cmd(node, sys));
+ }
++
++int	execute(t_ast *node, t_sys *sys)
++{
++	if (!node)
++		return (0);
++	if (node->type == AST_PIPE)
++		return (handle_pipe(node, sys));
++	else if (node->type >= AST_REDIR_IN && node->type <= AST_HEREDOC)
++		return (handle_redirection(node, sys));
++	else if (node->type == AST_CMD)
++		return (execute_cmd(node, sys));
++	// else if AND/OR
++	return (1);
++}
+diff --git a/src/exec/init.c b/src/exec/init.c
+deleted file mode 100644
+index 1ff081f..0000000
+--- a/src/exec/init.c
++++ /dev/null
+@@ -1,75 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   init.c                                             :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/07/02 22:59:21 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 01:12:56 by oligrien         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "../includes/minishell.h"
+-
+-t_env	*pull_env(char **envp)
+-{
+-	t_env	*env_lst;
+-	char	*var;
+-	char	*content;
+-	char	*equal_sign;
+-	int		i;
+-
+-	env_lst = NULL;
+-	i = 0;
+-	while (envp[i])
+-	{
+-		equal_sign = ft_strchr(envp[i], '=');
+-		if (equal_sign)
+-		{
+-			var = gc_substr(envp[i], 0, equal_sign - envp[i]);
+-			content = gc_strdup(equal_sign + 1);
+-		}
+-		else
+-		{
+-			var = gc_strdup(envp[i]);
+-			content = NULL;
+-		}
+-		ft_envadd_back(&env_lst, gc_envnew(var, content));
+-		i++;
+-	}
+-	return (env_lst);
+-}
+-
+-/* t_env	*pull_env(char **envp)
+-{
+-	t_env	*env_lst;
+-	char	*var;
+-	char	*content;
+-	int		len;
+-	int		i;
+-
+-	i = 0;
+-	while (envp[i])
+-	{
+-		var = get_envp_var_name(envp[i]);
+-		len = ft_strlen(envp[i]) - ft_strlen(var);
+-		content = gc_substr(envp[i], ft_strlen(var), len);
+-		ft_envadd_back(&env_lst, gc_envnew(var, content));
+-		i++;
+-	}
+-	return (env_lst);
+-} */
+-
+-t_sys	*init_sys(char **envp)
+-{
+-	t_sys	*sys;
+-
+-	sys = (t_sys *)gc_malloc(sizeof(t_sys));
+-	sys->env_lst = pull_env(envp);
+-	sys->envp = dup_array(envp);
+-	sys->token = NULL;
+-	sys->ast = NULL;
+-	sys->exit = 0;
+-	return (sys);
+-}
+diff --git a/src/exec/path.c b/src/exec/path.c
+index 1f5c74e..8db3a59 100644
+--- a/src/exec/path.c
++++ b/src/exec/path.c
+@@ -6,7 +6,7 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/06/26 22:54:16 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/02 23:16:23 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/07/02 21:45:39 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -45,7 +45,7 @@ char	*find_cmd_path(t_sys *sys, char *cmd)
+ 			return (gc_strdup(cmd));
+ 		return (NULL);
+ 	}
+-	tmp = get_env_var("PATH", sys->env_lst);
++	tmp = get_env_var("PATH", sys->envp);
+ 	if (!tmp)
+ 		return (NULL);
+ 	env_paths = gc_split(tmp, ':');
+diff --git a/src/exec/read_line.c b/src/exec/read_line.c
+new file mode 100644
+index 0000000..bd838cb
+--- /dev/null
++++ b/src/exec/read_line.c
+@@ -0,0 +1,49 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   read_line.c                                        :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2025/06/03 20:22:08 by oligrien          #+#    #+#             */
++/*   Updated: 2025/06/10 00:35:58 by oligrien         ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "../includes/minishell.h"
++
++/* static int	check_unmatched_quotes(const char *line)
++{
++	int	i;
++	int	single_quote;
++	int	double_quote;
++
++	i = 0;
++	single_quote = 0;
++	double_quote = 0;
++	while (line[i])
++	{
++		if (line[i] == '\'' && !double_quote)
++			single_quote = !single_quote;
++		else if (line[i] == '"' && !single_quote)
++			double_quote = !double_quote;
++		i++;
++	}
++	return (single_quote || double_quote);
++} */
++
++
++/* char	*read_line(void)
++{
++	char	*line;
++
++	line = NULL;
++	line = readline("MiniShell> ");
++	if (!line)
++		return (NULL);
++	if (ft_strlen(line) > 0)
++		add_history(line);
++	else
++		printf("(empty line)\n");
++	return (line);
++} */
+diff --git a/src/init/init_env.c b/src/init/init_env.c
+new file mode 100644
+index 0000000..627e450
+--- /dev/null
++++ b/src/init/init_env.c
+@@ -0,0 +1,102 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   init_env.c                                         :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
++/*   Updated: 2025/06/29 23:03:39 by ndehmej          ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "minishell.h"
++
++extern char **environ;
++
++static t_env	*create_env_var(char *key, char *value)
++{
++	t_env	*new_var;
++
++	new_var = malloc(sizeof(t_env));
++	if (!new_var)
++		return (NULL);
++	new_var->key = ft_strdup(key);
++	new_var->value = value ? ft_strdup(value) : NULL;
++	new_var->exported = 1;
++	new_var->next = NULL;
++	if (!new_var->key || (value && !new_var->value))
++	{
++		free(new_var->key);
++		free(new_var->value);
++		free(new_var);
++		return (NULL);
++	}
++	return (new_var);
++}
++
++static void	add_env_var(t_shell *shell, char *key, char *value)
++{
++	t_env	*new_var;
++	t_env	*current;
++
++	new_var = create_env_var(key, value);
++	if (!new_var)
++		return ;
++	if (!shell->env)
++	{
++		shell->env = new_var;
++		return ;
++	}
++	current = shell->env;
++	while (current->next)
++		current = current->next;
++	current->next = new_var;
++}
++
++static void	parse_env_line(char *env_line, t_shell *shell)
++{
++	char	*equals;
++	char	*key;
++	char	*value;
++
++	equals = ft_strchr(env_line, '=');
++	if (!equals)
++		return ;
++	*equals = '\0';
++	key = env_line;
++	value = equals + 1;
++	add_env_var(shell, key, value);
++	*equals = '=';
++}
++
++void	init_minimal_env(t_shell *shell)
++{
++	char	*pwd;
++
++	pwd = getcwd(NULL, 0);
++	add_env_var(shell, "PWD", pwd);
++	add_env_var(shell, "PATH", "/usr/bin:/bin");
++	add_env_var(shell, "SHLVL", "1");
++	free(pwd);
++}
++
++void	init_env_from_system(t_shell *shell)
++{
++	int	i;
++
++	shell->env = NULL;
++	if (!environ || !environ[0])
++	{
++		init_minimal_env(shell);
++		return ;
++	}
++	i = 0;
++	while (environ[i])
++	{
++		parse_env_line(environ[i], shell);
++		i++;
++	}
++}
++
++
+diff --git a/src/init/init_shell.c b/src/init/init_shell.c
+new file mode 100644
+index 0000000..b44fa8d
+--- /dev/null
++++ b/src/init/init_shell.c
+@@ -0,0 +1,51 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   init_shell.c                                       :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
++/*   Updated: 2025/06/24 00:55:48 by ndehmej          ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "minishell.h"
++
++static void	set_shell_level(t_shell *shell)
++{
++	char	*shlvl_str;
++	int		shlvl;
++	char	*new_shlvl;
++
++	shlvl_str = get_env_value("SHLVL", shell);
++	if (shlvl_str)
++	{
++		shlvl = ft_atoi(shlvl_str);
++		shlvl++;
++	}
++	else
++		shlvl = 1;
++	new_shlvl = ft_itoa(shlvl);
++	set_env_value("SHLVL", new_shlvl, shell);
++	free(new_shlvl);
++}
++
++static void	set_default_vars(t_shell *shell)
++{
++	char	*pwd;
++
++	pwd = getcwd(NULL, 0);
++	if (!get_env_value("PWD", shell) && pwd)
++		set_env_value("PWD", pwd, shell);
++	if (!get_env_value("OLDPWD", shell))
++		set_env_value("OLDPWD", pwd, shell);
++	free(pwd);
++	set_shell_level(shell);
++}
++
++void	init_shell_environment(t_shell *shell)
++{
++	init_env(shell);
++	set_default_vars(shell);
++}
+\ No newline at end of file
+diff --git a/src/main.c b/src/main.c
+index 13c4739..c183383 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -6,13 +6,60 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/07/02 21:34:42 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/03 01:01:43 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/07/02 22:41:40 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+ #include "../includes/minishell.h"
+ 
+-int	main(int argc, char const **argv, char **envp)
++t_sys	*init_sys(char **envp)
++{
++	t_sys	*sys;
++
++	sys = (t_sys *)gc_malloc(sizeof(t_sys));
++	sys->env_lst = pull_env(envp);
++	sys->envp = dup_array(envp);
++	sys->token = NULL;
++	sys->ast = NULL;
++	sys->exit = 0;
++	return (sys);
++}
++
++int	read_line(t_sys *sys)
++{
++	char	*line;
++
++	line = NULL;
++	while (!(sys->exit))
++	{
++		line = readline("MiniShell> ");
++		if (!line)
++			return (0);
++		if (ft_strlen(line) > 0)
++		{
++			add_history(line);
++
++			// Tokenize
++
++			// Build AST
++			// ----------- MOCK AST ------------
++			// sys->ast = mock_ls_command();
++			// sys->ast = mock_redir_command();
++			sys->ast = mock_pipe_command();
++			// ---------------------------------
++
++			// Execute AST:
++			if (sys->ast)
++				sys->exit_status = execute(sys->ast, sys);
++			gc_free(sys->ast);
++		}
++		else
++			printf("(empty line)\n");
++	}
++	return (1);
++}
++
++int main(int argc, char const **argv, char **envp)
+ {
+ 	t_sys	*sys;
+ 
+@@ -27,3 +74,4 @@ int	main(int argc, char const **argv, char **envp)
+ 	gc_destroy();
+ 	return (0);
+ }
++
+diff --git a/src/signals/signal_handler.c b/src/signals/signal_handler.c
+new file mode 100644
+index 0000000..84425e1
+--- /dev/null
++++ b/src/signals/signal_handler.c
+@@ -0,0 +1,52 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   signal_handler.c                                   :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
++/*   Updated: 2025/06/24 04:33:03 by ndehmej          ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "minishell.h"
++
++// volatile sig_atomic_t	g_signal_status = SIG_NONE;
++
++// void	signal_handler(int sig)
++// {
++// 	if (sig == SIGINT)
++// 	{
++// 		g_signal_status = SIG_INTERRUPT;
++// 		write(1, "\n", 1);
++// 		rl_replace_line("", 0);
++// 		rl_on_new_line();
++// 		rl_redisplay();
++// 	}
++// 	else if (sig == SIGQUIT)
++// 	{
++// 		g_signal_status = SIG_QUIT;
++// 	}
++// }
++
++// void	setup_signals(void)
++// {
++// 	signal(SIGINT, signal_handler);
++// 	signal(SIGQUIT, SIG_IGN);
++// }
++
++// void	setup_child_signals(void)
++// {
++// 	signal(SIGINT, SIG_DFL);
++// 	signal(SIGQUIT, SIG_DFL);
++// }
++
++// int	check_signal_status(void)
++// {
++// 	int	status;
++
++// 	status = g_signal_status;
++// 	g_signal_status = SIG_NONE;
++// 	return (status);
++// }
+diff --git a/src/signals/signal_utils.c b/src/signals/signal_utils.c
+new file mode 100644
+index 0000000..e69de29
+diff --git a/src/tests.c b/src/tests.c
+index 07523a1..20cf38c 100644
+--- a/src/tests.c
++++ b/src/tests.c
+@@ -6,7 +6,7 @@
+ /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/06/27 20:13:22 by oligrien          #+#    #+#             */
+-/*   Updated: 2025/07/04 06:17:46 by oligrien         ###   ########.fr       */
++/*   Updated: 2025/06/27 20:26:35 by oligrien         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -69,7 +69,7 @@ t_ast	*mock_ls_command(void)
+ }
+ 
+ // cat < input.txt
+-t_ast	*mock_redir_in_command(void)
++t_ast	*mock_redir_command(void)
+ {
+ 	t_ast	*cmd_node;
+ 	char	**cat_args;
+@@ -108,97 +108,3 @@ t_ast	*mock_pipe_command(void)
+ 	// The pipe node connects them.
+ 	return (create_op_node(AST_PIPE, ls_node, grep_node));
+ }
+-
+-// export A=1 B=2 A=new C 1INVALID
+-t_ast	*mock_export_command(void)
+-{
+-	char	**args;
+-
+-	args = (char **)gc_malloc(sizeof(char *) * 6);
+-	args[0] = gc_strdup("export");
+-	args[1] = gc_strdup("A=1");
+-	args[2] = gc_strdup("B=2");
+-	args[3] = gc_strdup("A=new");
+-	args[4] = gc_strdup("C");
+-	args[5] = gc_strdup("1INVALID");
+-	args[6] = NULL;
+-	return (create_cmd_node(args));
+-}
+-
+-// Test for `export` with no arguments
+-t_ast	*mock_export_no_args_command(void)
+-{
+-	char	**args;
+-
+-	args = (char **)gc_malloc(sizeof(char *) * 2);
+-	args[0] = gc_strdup("export");
+-	args[1] = NULL;
+-	return (create_cmd_node(args));
+-}
+-
+-// unset A C NONEXISTENT
+-t_ast	*mock_unset_command(void)
+-{
+-	char	**args;
+-
+-	args = (char **)gc_malloc(sizeof(char *) * 4);
+-	args[0] = gc_strdup("unset");
+-	args[1] = gc_strdup("A");
+-	args[2] = gc_strdup("C");
+-	args[3] = gc_strdup("NONEXISTENT");
+-	args[4] = NULL;
+-	return (create_cmd_node(args));
+-}
+-
+-// cd /tmp
+-t_ast	*mock_cd_command(void)
+-{
+-	char	**args;
+-
+-	args = (char **)gc_malloc(sizeof(char *) * 3);
+-	args[0] = gc_strdup("cd");
+-	args[1] = gc_strdup("/tmp"); // Change this to a valid dir on your system
+-	args[2] = NULL;
+-	return (create_cmd_node(args));
+-}
+-
+-// env
+-t_ast	*mock_env_command(void)
+-{
+-	char	**args;
+-
+-	args = (char **)gc_malloc(sizeof(char *) * 2);
+-	args[0] = gc_strdup("env");
+-	args[1] = NULL;
+-	return (create_cmd_node(args));
+-}
+-
+-// exit (overflow)
+-t_ast	*mock_exit_command(void)
+-{
+-	char	**args;
+-
+-	args = (char **)gc_malloc(sizeof(char *) * 3);
+-	args[0] = gc_strdup("exit");
+-	args[1] = gc_strdup("9223372036854775807");
+-	args[2] = /* gc_strdup("43");
+-	args[3] = */ NULL;
+-	return (create_cmd_node(args));
+-}
+-
+-// echo "testing redir" > output.txt
+-t_ast	*mock_redir_out_command(void)
+-{
+-	t_ast	*cmd_node;
+-	char	**echo_args;
+-	
+-	echo_args = (char **)gc_malloc(sizeof(char *) * 3);
+-	echo_args[0] = gc_strdup("echo");
+-	echo_args[1] = gc_strdup("testing redir");
+-	echo_args[2] = NULL;
+-	cmd_node = create_cmd_node(echo_args);
+-	
+-	// The redirection node wraps the command node
+-	return (create_redir_node(AST_REDIR_OUT,
+-			gc_strdup("output.txt"), cmd_node));
+-}

@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 23:01:04 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 03:44:54 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/05 23:19:02 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ static char	*ft_getcwd(char *buf, size_t size)
 	return (cwd);
 }
 
+/**
+ * builtin_cd
+ *
+ * @param node AST linked list
+ * @param sys system struct
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 int	builtin_cd(t_ast *node, t_sys *sys)
 {
 	char	*path;

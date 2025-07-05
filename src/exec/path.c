@@ -6,13 +6,13 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:54:16 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 23:16:23 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/05 23:22:34 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*pull_path(char **env_paths, char *cmd)
+static char	*pull_path(char **env_paths, char *cmd)
 {
 	char	*tmp;
 	char	*cmd_path;
@@ -31,6 +31,14 @@ char	*pull_path(char **env_paths, char *cmd)
 	return (NULL);
 }
 
+/**
+ * find_cmd_path - Find command path
+ * 
+ * @param sys system struct
+ * @param cmd command name
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 char	*find_cmd_path(t_sys *sys, char *cmd)
 {
 	char	**env_paths;

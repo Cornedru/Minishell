@@ -6,12 +6,20 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:41:49 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 03:53:49 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:33:52 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/**
+ * execute - execute parsed ast
+ *
+ * @param node AST linked list
+ * @param sys system struct
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 int	execute(t_ast *node, t_sys *sys)
 {
 	if (!node)
@@ -26,6 +34,13 @@ int	execute(t_ast *node, t_sys *sys)
 	return (1);
 }
 
+/**
+ * read_line - read prompt and launch shell
+ *
+ * @param sys system struct
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 int	read_line(t_sys *sys)
 {
 	char	*line;
@@ -42,7 +57,7 @@ int	read_line(t_sys *sys)
 
 
 		// Build AST
-		// ----------- MOCK AST ------------
+		/* { // ----------- MOCK AST ------------ //
 		if (!ft_strcmp(line, "ls -l"))
 			sys->ast = mock_ls_command();
 		if (!ft_strcmp(line, "cat < input.txt"))
@@ -63,7 +78,9 @@ int	read_line(t_sys *sys)
 			sys->ast = mock_exit_command();
 		if (!ft_strcmp(line, "echo \"testing redir\" > output.txt"))
 			sys->ast = mock_redir_out_command();
-		// ---------------------------------
+		if (!ft_strcmp(line, "wc -l << EOF"))
+			sys->ast = mock_heredoc_command();
+		} */
 
 
 		// Execute AST:

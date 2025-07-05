@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 03:49:50 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:26:56 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ typedef struct s_env
 	char						*var;
 	char						*content;
 	struct s_env				*next;
-	// struct s_env				*prev;
 }								t_env;
 
 typedef struct s_sys
@@ -119,13 +118,15 @@ t_ast	*mock_cd_command(void);
 t_ast	*mock_env_command(void);
 t_ast	*mock_exit_command(void);
 t_ast	*mock_redir_out_command(void);
+t_ast	*mock_heredoc_command(void);
 
 
 
 // init.c -----------------------------
 
-t_sys	*init_sys(char **envp);
 t_env	*pull_env(char **envp);
+int		init_sys(t_sys **sys, char **envp);
+int		init_shell(t_sys **sys, char **envp);
 
 
 
@@ -140,45 +141,42 @@ int		read_line(t_sys *sys);
 
 int		execute_builtin(t_ast *node, t_sys *sys);
 int		is_builtin(char *cmd);
-int		execute_forked_cmd(t_ast *node, t_sys *sys);
 int		execute_external(t_ast *node, t_sys *sys);
+int		execute_forked_cmd(t_ast *node, t_sys *sys);
 int		execute_cmd(t_ast *node, t_sys *sys);
 
 
 
 // pipe.c -----------------------------
 
-void	left_child(t_ast *node, t_sys *sys, int *pipe_fd);
-void	right_child(t_ast *node, t_sys *sys, int *pipe_fd);
 int		handle_pipe(t_ast *node, t_sys *sys);
 
 
 
 // env_lst.c ------------------------------
 
-void	free_envnode(t_env *env_lst);
 int		is_valid_identifier(char *arg);
-char	*get_env_var(char *var_name, t_env *envp);
+int		unset_env_var(t_sys *sys, t_env **env_lst, char *var_name);
 int		set_env_var(t_sys *sys, t_env **envp, char *var_name, char *content);
+char	*get_env_var(char *var_name, t_env *env_lst);
 
 // env_array.c
 
 char	**dup_array(char **array);
-char	**env_getarray(t_env *envp);
+char	**env_getarray(t_env *env_lst);
 int		update_env_array(t_sys *sys);
 
 // 	env_utils.c	-----------------------
 
-int		unset_env_var(t_sys *sys, t_env **env_lst, char *var_name);
-int		ft_envsize(t_env *envp);
+void	free_envnode(t_env *env_lst);
+int		ft_envsize(t_env *env_lst);
 t_env	*gc_envnew(char *var, char *content);
-void	ft_envadd_back(t_env **lst, t_env *new);
+void	ft_envadd_back(t_env **env_lst, t_env *new);
 
 
 
 // path.c -----------------------------
 
-char	*pull_path(char **env_paths, char *cmd);
 char	*find_cmd_path(t_sys *sys, char *cmd);
 
 

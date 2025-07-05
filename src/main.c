@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 21:34:42 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 01:01:43 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/05 23:40:58 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	main(int argc, char const **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	sys = init_sys(envp);
+	// sys = init_sys(envp);
+	if (init_shell(&sys, envp))
+		return (gc_free_array((void **)sys->envp), gc_destroy(), 1);
 
 	read_line(sys);
 

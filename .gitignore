@@ -1,2 +1,5 @@
 .vscode
 minishell_tester
+**/*.a
+**/*.o
+**obj

@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 20:13:22 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 06:17:46 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:32:07 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,4 +201,39 @@ t_ast	*mock_redir_out_command(void)
 	// The redirection node wraps the command node
 	return (create_redir_node(AST_REDIR_OUT,
 			gc_strdup("output.txt"), cmd_node));
+}
+
+/// wc -l << EOF
+/// > This is line one.
+/// > And this is line two.
+/// > EOF
+t_ast	*mock_heredoc_command(void)
+{
+	t_ast	*cmd_node;
+	char	**wc_args;
+	char	*tmp_filename;
+	int		fd;
+
+	// This is the "Stage 1" simulation: creating the temporary file.
+	tmp_filename = "/tmp/minishell_heredoc_test";
+	fd = open(tmp_filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		perror("Failed to create mock heredoc file");
+		return (NULL);
+	}
+	// Write the content that the user would have typed.
+	ft_putstr_fd("This is line one.\n", fd);
+	ft_putstr_fd("And this is line two.\n", fd);
+	close(fd);
+
+	// Now build the AST, pointing to the temporary file we just created.
+	wc_args = (char **)gc_malloc(sizeof(char *) * 3);
+	wc_args[0] = gc_strdup("wc");
+	wc_args[1] = gc_strdup("-l");
+	wc_args[2] = NULL;
+	cmd_node = create_cmd_node(wc_args);
+	
+	// The heredoc node wraps the command node, using the temp file's name.
+	return (create_redir_node(AST_HEREDOC, gc_strdup(tmp_filename), cmd_node));
 }

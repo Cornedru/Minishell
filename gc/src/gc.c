@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:09:10 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/27 00:11:11 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/05 23:26:53 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@
  * gc_malloc - allocate memory on the heap but also
  *    add the allocated memory to a linked list
  *
- * @size: the size of the memory to be allocated
+ * @param size the size of the memory to be allocated
+ * @param head the address of the head of the linked list
  *
- * @head: the address of the head of the linked list
- *
- * Return: Nothing.
+ * @return Nothing.
  */
 void	*gc_malloc(size_t size)
 {
@@ -45,9 +44,9 @@ void	*gc_malloc(size_t size)
  * gc_free - free an allocated memory
  *    and also remove it from the linked list
  *
- * @mem: memory to be freed
+ * @param mem memory to be freed
  *
- * Return: Nothing.
+ * @return Nothing.
  */
 void	gc_free(void *mem)
 {
@@ -74,9 +73,9 @@ void	gc_free(void *mem)
  * gc_free - free an allocated memory
  *    and also remove it from the linked list
  *
- * @mem: memory to be freed
+ * @param mem memory to be freed
  *
- * Return: Nothing.
+ * @return Nothing.
  */
 /* void	gc_free(void *mem)
 {
@@ -106,6 +105,13 @@ void	gc_free(void *mem)
 	}
 } */
 
+/**
+ * gc_free_array - free an allocated array with gc_free
+ *
+ * @param mem memory to be freed
+ *
+ * @return Nothing.
+ */
 void	gc_free_array(void **mem)
 {
 	int	i;
@@ -119,9 +125,9 @@ void	gc_free_array(void **mem)
 }
 
 /**
- * gc_destroy - free all and destroy gc.
+ * gc_destroy - free all gc-allocated memory and destroy gc.
  *
- * Return: Nothing.
+ * @return Nothing.
  */
 void	gc_destroy(void)
 {

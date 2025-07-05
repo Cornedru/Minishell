@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 20:47:09 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 23:56:59 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/05 23:19:25 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ static int	handle_arg(t_sys *sys, char *arg)
 	return (error);
 }
 
+/**
+ * builtin_unset
+ *
+ * @param node AST linked list
+ * @param sys system struct
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 int builtin_unset(t_ast *node, t_sys *sys)
 {
 	int	i;

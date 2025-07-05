@@ -6,19 +6,20 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 21:53:11 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 02:08:54 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/05 23:20:14 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /**
- * execute_builtin - execute built-in command
+ * execute_builtin - Execute built-in command
  *
- * @node: ast node containing command name
- * @sys: system structure
+ * @param node ast node containing command name
+ * @param sys system structure
  *
- * Return:	return value of called built-in function. 1 if call failed.
+ * @return Return value of called built-in function (exit code). 1 if call
+ * failed.
  */
 int	execute_builtin(t_ast *node, t_sys *sys)
 {
@@ -42,9 +43,9 @@ int	execute_builtin(t_ast *node, t_sys *sys)
 }
 
 /**
- * is_builtin - check if command if built-in
+ * is_builtin - Check if command if built-in
  *
- * Return:	0 = not built-in. 1 = fork built-in. 2 = non fork built-in.
+ * @return 0 = not built-in. 1 = fork built-in. 2 = non fork built-in.
  */
 int	is_builtin(char *cmd)
 {
@@ -57,6 +58,14 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
+/**
+ * execute_external - Execute external (non built-in) command
+ *
+ * @param node AST linked list
+ * @param sys system struct
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 int	execute_external(t_ast *node, t_sys *sys)
 {
 	char	*cmd_path;
@@ -76,6 +85,14 @@ int	execute_external(t_ast *node, t_sys *sys)
 	exit(126);				// Standard exit code for command not executable
 }
 
+/**
+ * execute_forked_cmd - Execute command in child process
+ *
+ * @param node AST linked list
+ * @param sys system struct
+ * 
+ * @return Exit code from child process.
+ */
 int	execute_forked_cmd(t_ast *node, t_sys *sys)
 {
 	pid_t	pid;
@@ -97,6 +114,14 @@ int	execute_forked_cmd(t_ast *node, t_sys *sys)
     return (WEXITSTATUS(status));	// return the exit code from the child
 }
 
+/**
+ * execute_cmd - Execute command
+ *
+ * @param node AST linked list
+ * @param sys system struct
+ * 
+ * @return Exit code from command.
+ */
 int	execute_cmd(t_ast *node, t_sys *sys)
 {
 	if (is_builtin(node->args[0]) == 2)

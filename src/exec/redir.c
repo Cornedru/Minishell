@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 20:03:37 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/27 20:05:06 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/05 23:31:26 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ static int	open_redirect_file(char *filename, t_ast_type type)
 	return (fd);
 }
 
+/**
+ * handle_redirection - Fd management for redirections
+ *
+ * @param node ast node containing command name
+ * @param sys system structure
+ *
+ * @return Exit code from recursive execute call.
+ */
 int	handle_redirection(t_ast *node, t_sys *sys)
 {
 	int	file_fd;

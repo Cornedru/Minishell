@@ -6,7 +6,7 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 00:47:06 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/29 02:31:07 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/05 23:13:21 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ static int	is_n_option(char *arg)
 	return (1);
 }
 
+/**
+ * builtin_echo
+ *
+ * @param node AST linked list
+ * 
+ * @return 0 = no error.
+ */
 int	builtin_echo(t_ast *node)
 {
 	int	n;

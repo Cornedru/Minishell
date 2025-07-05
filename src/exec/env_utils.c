@@ -6,12 +6,19 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 02:30:33 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/04 02:22:52 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/06 00:13:26 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/**
+ * is_valid_identifier - Check if argument is a valid environment variable.
+ * 
+ * @param arg string to check
+ * 
+ * @return 1 = yes. 0 = no.
+ */
 int	is_valid_identifier(char *arg)
 {
 	int	i;
@@ -27,6 +34,15 @@ int	is_valid_identifier(char *arg)
 	return (1);
 }
 
+/**
+ * unset_env_var - Remove environment variable to value.
+ * 
+ * @param sys system struct
+ * @param env_lst environment linked list
+ * @param var_name variable name
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 int	unset_env_var(t_sys *sys, t_env **env_lst, char *var_name)
 {
 	t_env	*cu;
@@ -55,6 +71,14 @@ int	unset_env_var(t_sys *sys, t_env **env_lst, char *var_name)
 	return (0);
 }
 
+/**
+ * set_env_var - Set environment variable to value. Create variable if needed.
+ *
+ * @param node: ast linked list
+ * @param sys: system struct
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 int	set_env_var(t_sys *sys, t_env **env_lst, char *var_name, char *content)
 {
 	t_env	*current;
@@ -80,42 +104,24 @@ int	set_env_var(t_sys *sys, t_env **env_lst, char *var_name, char *content)
 	return (update_env_array(sys));
 }
 
-char	*get_env_var(char *var_name, t_env *envp)
+/**
+ * get_env_var - Get environment variable value
+ *
+ * @param var_name: variable name
+ * @param env_lst: environment linked list
+ *
+ * @return Pointer to value of var_name.
+ */
+char	*get_env_var(char *var_name, t_env *env_lst)
 {
 	int	i;
 
 	i = 0;
-	while (envp)
+	while (env_lst)
 	{
-		if (!ft_strcmp(envp->var, var_name))
-			return (envp->content);
-		envp = envp->next;
+		if (!ft_strcmp(env_lst->var, var_name))
+			return (env_lst->content);
+		env_lst = env_lst->next;
 	}
 	return (NULL);
 }
-
-/* char	*get_env_var(char *var_name, char **envp)
-{
-	int	len;
-	int	i;
-
-	len = ft_strlen(var_name);
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], var_name, len) == 0 && envp[i][len] == '=')
-			return (envp[i] + len + 1);		// Return pointer to the start of the value
-		i++;
-	}
-	return (NULL);
-} */
-
-/* static char	*get_envp_var_name(char *env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i] != '=')
-		i++;
-	return (gc_substr(env, 0, i));
-} */
