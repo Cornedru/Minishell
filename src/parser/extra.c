@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/06 07:03:05 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/06 07:27:09 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,17 @@ t_ast	*parse_command(t_token **tokens)
 	t_ast	*redir;
 	t_ast	*post_redir;
 	t_ast	*temp;
-	// t_token	*tokens_before;
+
+	
+	
 	if (!*tokens)
 		return (NULL);
-	// tokens_before = *tokens;
+
+	t_token *start_token = *tokens;
 	redir = parse_redirections(tokens);
-	// if (!redir && tokens_before == *tokens)
-	// 	return (NULL);
+	if (redir == NULL && start_token && is_redirection_token(start_token->type))
+        return (NULL);
+	
 	cmd = parse_simple_command(tokens);
 	if (!cmd && !redir)
 		return (NULL);

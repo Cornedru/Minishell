@@ -81,10 +81,15 @@ t_ast	*parse_single_redirection(t_token **tokens)
 	else
 		return (NULL);
 	advance_token(tokens);
+
+	node = new_ast_node(redir_type);
+	if (!node)
+		return (NULL);
 	if (!*tokens || (*tokens)->type != TOKEN_WORD)
 	{
 		ft_putstr_fd("minishell: syntax error: expected filename after redirection\n",
 			2);
+		free_ast(node);
 		return (NULL);
 	}
 	filename_token = *tokens;
@@ -97,6 +102,54 @@ t_ast	*parse_single_redirection(t_token **tokens)
 		node->filename = gc_strdup(filename_token->value);
 	return (node);
 }
+
+// t_ast *parse_single_redirection(t_token **tokens)
+// {
+//     t_ast_type redir_type;
+//     t_token *filename_token;
+//     t_ast *node;
+
+//     if (!is_redirection_token((*tokens)->type))
+//         return (NULL);
+
+//     if ((*tokens)->type == TOKEN_REDIR_IN)
+//         redir_type = AST_REDIR_IN;
+//     else if ((*tokens)->type == TOKEN_REDIR_OUT)
+//         redir_type = AST_REDIR_OUT;
+//     else if ((*tokens)->type == TOKEN_REDIR_APPEND)
+//         redir_type = AST_REDIR_APPEND;
+//     else if ((*tokens)->type == TOKEN_HEREDOC)
+//         redir_type = AST_HEREDOC;
+//     else
+//         return (NULL);
+
+//     // Ne pas avancer ici, on vérifie d'abord le token suivant
+//     t_token *next_token = (*tokens)->next; // ou selon ta structure, récupérer le token suivant
+
+//     if (!next_token || next_token->type != TOKEN_WORD)
+//     {
+//         ft_putstr_fd("minishell: syntax error: expected filename after redirection\n", 2);
+//         return (NULL);
+//     }
+
+//     // Maintenant on peut avancer le token d'origine et le filename
+//     advance_token(tokens); // avance sur la redirection
+//     advance_token(tokens); // avance sur le filename
+
+//     filename_token = next_token;
+
+//     node = new_ast_node(redir_type);
+//     if (!node)
+//         return (NULL);
+
+//     node->filename = remove_quotes(filename_token->value);
+//     if (!node->filename)
+//         node->filename = gc_strdup(filename_token->value);
+
+//     return (node);
+// }
+
+
 
 int	is_redirection_token(t_token_type type)
 {
