@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:00:00 by vous              #+#    #+#             */
-/*   Updated: 2025/07/06 06:30:37 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/06 06:47:49 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1347,48 +1347,277 @@ void	cleanup(t_sys *sys)
 	gc_destroy();
 }
 
-/**
- * main - Point d'entrée principal
- */
-int	main(int argc, char **argv, char **envp)
+// /**
+//  * main - Point d'entrée principal
+//  */
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_sys	*sys;
+// 	int		exit_status;
+
+// 	// Mode test si --test est passé
+// 	if (argc > 1 && ft_strcmp(argv[1], "--test") == 0)
+// 	{
+// 		run_parsing_tests();
+// 		return (0);
+// 	}
+
+// 	// Mode debug AST si --debug-ast est passé
+// 	if (argc > 1 && ft_strcmp(argv[1], "--debug-ast") == 0)
+// 		setenv("DEBUG_AST", "1", 1);
+
+// 	// Initialiser le système
+// 	sys = init_sys(envp);
+// 	if (!sys)
+// 	{
+// 		ft_putstr_fd("minishell: failed to initialize\n", 2);
+// 		return (1);
+// 	}
+
+// 	// Configurer les signaux
+// 	setup_signals();
+
+// 	// Message de bienvenue (optionnel)
+// 	if (isatty(STDIN_FILENO))
+// 	{
+// 		ft_putstr_fd("minishell v1.0\n", 1);
+// 		ft_putstr_fd("Type 'exit' to quit\n", 1);
+// 	}
+
+// 	// Boucle principale
+// 	exit_status = read_line(sys);
+
+// 	// Nettoyer
+// 	cleanup(sys);
+
+// 	return (exit_status);
+// }
+
+
+// #include "../includes/minishell.h"
+
+// void test_parse_line(t_sys *sys, const char *line)
+// {
+//     printf("Parsing line: %s\n", line);
+
+//     t_ast *ast = parse_line((char *)line, sys);
+//     if (!ast)
+//     {
+//         printf("Parsing failed or returned NULL\n");
+//         return;
+//     }
+
+//     print_ast(ast, 0);
+//     free_ast(ast);
+// }
+
+// int main(int argc, char **argv, char **envp)
+// {
+//     t_sys *sys;
+// 	(void)argc;
+// 	(void)argv;
+//     // int exit_status;
+
+//     // Initialisation du système (environnement, etc.)
+//     sys = init_sys(envp);
+//     if (!sys)
+//     {
+//         ft_putstr_fd("minishell: failed to initialize\n", 2);
+//         return (1);
+//     }
+
+//     // Configuration des signaux (ici on ignore Ctrl+C et Ctrl+\ pour test)
+//     setup_signals();
+
+//     // Message d’accueil si l’entrée est un terminal
+//     if (isatty(STDIN_FILENO))
+//     {
+//         ft_putstr_fd("minishell v1.0 - Test Parser\n", 1);
+//     }
+
+//     // Tests simples du parser AST avec plusieurs commandes
+//     test_parse_line(sys, "ls -l");
+//     test_parse_line(sys, "cat < input.txt");
+//     test_parse_line(sys, "ls -l | grep \".c\"");
+//     test_parse_line(sys, "echo 'hello world'");
+
+//     // Nettoyage
+//     cleanup(sys);
+
+//     // Fin du programme
+//     return 0;
+// }
+
+#include "../includes/minishell.h"
+
+// Affiche le type sous forme lisible au lieu du numéro
+const char *ast_type_to_str(t_ast_type type)
 {
-	t_sys	*sys;
-	int		exit_status;
-
-	// Mode test si --test est passé
-	if (argc > 1 && ft_strcmp(argv[1], "--test") == 0)
-	{
-		run_parsing_tests();
-		return (0);
-	}
-
-	// Mode debug AST si --debug-ast est passé
-	if (argc > 1 && ft_strcmp(argv[1], "--debug-ast") == 0)
-		setenv("DEBUG_AST", "1", 1);
-
-	// Initialiser le système
-	sys = init_sys(envp);
-	if (!sys)
-	{
-		ft_putstr_fd("minishell: failed to initialize\n", 2);
-		return (1);
-	}
-
-	// Configurer les signaux
-	setup_signals();
-
-	// Message de bienvenue (optionnel)
-	if (isatty(STDIN_FILENO))
-	{
-		ft_putstr_fd("minishell v1.0\n", 1);
-		ft_putstr_fd("Type 'exit' to quit\n", 1);
-	}
-
-	// Boucle principale
-	exit_status = read_line(sys);
-
-	// Nettoyer
-	cleanup(sys);
-
-	return (exit_status);
+    switch (type)
+    {
+        case AST_CMD: return "CMD";
+        case AST_PIPE: return "PIPE";
+        case AST_REDIR_IN: return "REDIR_IN";
+        case AST_REDIR_OUT: return "REDIR_OUT";
+        case AST_AND: return "AND";
+        case AST_OR: return "OR";
+        default: return "UNKNOWN";
+    }
 }
+
+void print_ast_verbose(t_ast *node, int level)
+{
+    if (!node)
+        return;
+
+    for (int i = 0; i < level; i++)
+        printf("  ");
+    printf("Node type: %s\n", ast_type_to_str(node->type));
+
+    if (node->args)
+    {
+        for (int i = 0; node->args[i]; i++)
+        {
+            for (int j = 0; j < level + 1; j++)
+                printf("  ");
+            printf("Arg: %s\n", node->args[i]);
+        }
+    }
+
+    if (node->filename)
+    {
+        for (int i = 0; i < level + 1; i++)
+            printf("  ");
+        printf("File: %s\n", node->filename);
+    }
+
+    print_ast_verbose(node->left, level + 1);
+    print_ast_verbose(node->right, level + 1);
+}
+
+// Vérifie que les liens left/right existent correctement sur un pipe (exemple)
+int verify_pipe_structure(t_ast *node)
+{
+    if (!node || node->type != AST_PIPE)
+        return 0;
+
+    if (!node->left || !node->right)
+    {
+        fprintf(stderr, "Pipe node missing left or right child\n");
+        return 0;
+    }
+
+    // Left et right doivent être des commandes ou d'autres pipes (récursif)
+    if (node->left->type != AST_CMD && node->left->type != AST_PIPE)
+    {
+        fprintf(stderr, "Left child of pipe is not CMD or PIPE\n");
+        return 0;
+    }
+
+    if (node->right->type != AST_CMD && node->right->type != AST_PIPE)
+    {
+        fprintf(stderr, "Right child of pipe is not CMD or PIPE\n");
+        return 0;
+    }
+
+    return 1;
+}
+
+// Fonction générale de test d’une ligne de commande
+int test_parse_line(t_sys *sys, const char *line, int expect_error)
+{
+    printf("\nTest parsing: %s\n", line);
+
+    t_ast *ast = parse_line((char *)line, sys);
+
+    if (expect_error)
+    {
+        if (ast)
+        {
+            printf("❌ Erreur attendue mais AST non NULL\n");
+            free_ast(ast);
+            return 0;
+        }
+        else
+        {
+            printf("✔️ Erreur détectée comme attendu\n");
+            return 1;
+        }
+    }
+    else
+    {
+        if (!ast)
+        {
+            printf("❌ Parsing a échoué\n");
+            return 0;
+        }
+
+        print_ast_verbose(ast, 0);
+
+        // Exemple de vérification structure pipe si on détecte un pipe en racine
+        if (ast->type == AST_PIPE)
+        {
+            if (!verify_pipe_structure(ast))
+            {
+                printf("❌ Structure du pipe invalide\n");
+                free_ast(ast);
+                return 0;
+            }
+        }
+
+        free_ast(ast);
+        return 1;
+    }
+}
+
+int main(int argc, char **argv, char **envp)
+{
+
+	(void)argc;
+	(void)argv;
+    t_sys *sys = init_sys(envp);
+    if (!sys)
+    {
+        fprintf(stderr, "Failed to init sys\n");
+        return 1;
+    }
+
+    setup_signals();
+
+    int total = 0, passed = 0;
+
+    // Tests valides
+    passed += test_parse_line(sys, "ls -l", 0);
+    total++;
+    passed += test_parse_line(sys, "cat < input.txt", 0);
+    total++;
+    passed += test_parse_line(sys, "ls -l | grep \".c\"", 0);
+    total++;
+    passed += test_parse_line(sys, "echo 'hello world'", 0);
+    total++;
+    passed += test_parse_line(sys, "grep error file.txt > out.log", 0);
+    total++;
+    passed += test_parse_line(sys, "cmd1 && cmd2 || cmd3", 0);
+    total++;
+    passed += test_parse_line(sys, "cmd1 | cmd2 | cmd3", 0);
+    total++;
+    passed += test_parse_line(sys, "cmd < input > output", 0);
+    total++;
+
+    // Tests erreurs de syntaxe
+    passed += test_parse_line(sys, "| ls", 1);
+    total++;
+    passed += test_parse_line(sys, "ls ||| grep", 1);
+    total++;
+    passed += test_parse_line(sys, "cat < ", 1);
+    total++;
+    passed += test_parse_line(sys, "echo 'unclosed quote", 1);
+    total++;
+
+    printf("\nTests réussis: %d / %d\n", passed, total);
+
+    cleanup(sys);
+
+    return (passed == total) ? 0 : 1;
+}
+

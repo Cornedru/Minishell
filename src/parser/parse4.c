@@ -25,6 +25,43 @@ t_ast	*parse_redirections(t_token **tokens)
 	return (first_redir);
 }
 
+// t_ast *parse_redirections(t_token **tokens)
+// {
+//     t_ast *redir_node;
+//     char *filename;
+
+//     if (!*tokens)
+//         return NULL;
+
+//     if ((*tokens)->type == TOKEN_REDIR_IN || (*tokens)->type == TOKEN_REDIR_OUT)
+//     {
+//         int redir_type = (*tokens)->type;
+//         advance_token(tokens);  // avancer après le token de redirection
+
+//         if (!*tokens || (*tokens)->type != TOKEN_WORD)
+//         {
+//             if (redir_type == TOKEN_REDIR_IN)
+//                 ft_putstr_fd("minishell: syntax error: expected filename after redirection\n", 2);
+//             else if (redir_type == TOKEN_REDIR_OUT)
+//                 ft_putstr_fd("minishell: syntax error: expected filename after redirection\n", 2);
+//             return NULL;
+//         }
+
+//         filename = remove_quotes((*tokens)->value);
+//         advance_token(tokens);
+
+//         redir_node = new_ast_node(redir_type == TOKEN_REDIR_IN ? AST_REDIR_IN : AST_REDIR_OUT);
+//         if (!redir_node)
+//             return NULL;
+//         redir_node->filename = filename;
+//         // Le fils gauche sera la commande ou redirection suivante
+//         redir_node->left = parse_redirections(tokens);  // récursif pour plusieurs redirs
+//         return redir_node;
+//     }
+//     return NULL;
+// }
+
+
 t_ast	*parse_single_redirection(t_token **tokens)
 {
 	t_ast_type	redir_type;
