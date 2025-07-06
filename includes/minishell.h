@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 07:53:25 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/06 06:14:07 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,9 @@ int		init_command_node(t_ast **node);
 int		skip_valid_redirections(t_token **tokens);
 int		is_invalid_pipe(t_token **tokens);
 t_ast	*handle_pipeline_right(t_ast *left, t_token **tokens);
+t_ast	*parse_single_redirection(t_token **tokens);
+int		is_redirection_token(t_token_type type);
+t_ast	*parse_redirections(t_token **tokens);
 
 
 

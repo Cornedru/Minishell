@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:00:00 by vous              #+#    #+#             */
-/*   Updated: 2025/07/03 08:13:41 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/06 06:06:09 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -733,180 +733,295 @@
 // }
 
 
+// #include "../includes/minishell.h"
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <unistd.h>
+// #include <sys/wait.h>
+
+// volatile sig_atomic_t g_signal = 0;
+
+
+
+// t_sys *init_sys(char **envp)
+// {
+//     t_sys *sys;
+
+//     sys = (t_sys *)gc_malloc(sizeof(t_sys));
+//     sys->env_lst = pull_env(envp);
+//     sys->envp = dup_array(envp);
+//     sys->token = NULL;
+//     sys->ast = NULL;
+//     sys->exit = 0;
+//     return (sys);
+// }
+
+// void print_ast_line(t_ast *node)
+// {
+//     if (!node)
+//         return;
+//     printf("Type:%d Args:", node->type);
+//     if (node->args)
+//     {
+//         for (int i = 0; node->args[i]; i++)
+//             printf("%s,", node->args[i]);
+//     }
+//     printf("\n");
+//     if (node->left)
+//         print_ast_line(node->left);
+//     if (node->right)
+//         print_ast_line(node->right);
+// }
+
+// int check_bash_syntax(const char *cmd)
+// {
+//     int status;
+//     pid_t pid = fork();
+
+//     if (pid == 0)
+//     {
+//         // Fils : exécute bash -n (check syntax)
+//         execlp("bash", "bash", "-n", "-c", cmd, NULL);
+//         _exit(127); // erreur execlp
+//     }
+//     else if (pid > 0)
+//     {
+//         waitpid(pid, &status, 0);
+//         if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+//             return 1; // syntax OK
+//         else
+//             return 0; // syntax error detected by bash
+//     }
+//     return 0; // fork error
+// }
+
+// void test_and_compare(char *input, t_sys *sys)
+// {
+//     printf("=== TEST INPUT ===\nInput: %s\n", input);
+//     int bash_detected_syntax_ok = check_bash_syntax(input);
+//     int bash_detected_syntax_error = !bash_detected_syntax_ok;
+
+//     t_token *tokens = NULL;
+//     t_ast *ast = NULL;
+
+//     tokens = lexer(input);
+//     if (!tokens)
+//     {
+//         printf("Lexer a échoué.\n");
+//     }
+//     else
+//     {
+//         expand_tokens(tokens, sys);
+//         ast = parse(&tokens);
+//     }
+
+//     if (!ast)
+//     {
+//         if (bash_detected_syntax_error)
+//             printf("Test OK: erreur syntaxe détectée par bash et minishell.\n");
+//         else
+//             printf("Parser a échoué mais bash n’a pas détecté d’erreur.\n");
+//     }
+//     else
+//     {
+//         if (!bash_detected_syntax_error)
+//         {
+//             printf("AST généré:\n");
+//             print_ast_line(ast);
+//             printf("Test OK: syntaxe valide et AST généré.\n");
+//         }
+//         else
+//         {
+//             printf("Discrepance détectée ! Bash détecte une erreur, mais minishell a généré un AST.\n");
+//             printf("AST généré (potentiellement incorrect):\n");
+//             print_ast_line(ast);
+//         }
+//         free_ast(ast);
+//     }
+
+//     if (tokens)
+//         free_tokens(tokens);
+
+//     printf("=====================\n\n");
+// }
+
+
+// // Dans utils.c
+// #include "gc.h" // pour gc_free_array
+// #include <stdlib.h>
+
+// void free_env_list(t_env *env_lst)
+// {
+//     t_env *tmp;
+
+//     while (env_lst)
+//     {
+//         tmp = env_lst->next;
+//         free(env_lst->var);
+//         free(env_lst->content);
+//         free(env_lst);
+//         env_lst = tmp;
+//     }
+// }
+
+// void free_sys(t_sys *sys)
+// {
+//     if (!sys)
+//         return;
+
+//     free_env_list(sys->env_lst);
+
+//     if (sys->envp)
+//         gc_free_array((void **)sys->envp);  // Ton tableau de char*
+
+//     // Pour token et ast, on les libère ailleurs, donc ici on ne les libère pas
+
+//     free(sys);
+// }
+
+
+// int main(int argc, char **argv, char **envp)
+// {
+//     t_sys *sys = init_sys(envp);
+//     (void)argc;
+//     (void)argv;
+
+//     char *tests[] = {
+//         "ls -la /tmp",
+//         "echo Hello World",
+//         "cat < input.txt",
+//         "echo 'hello' > file.txt",
+//         "grep test < input.txt > output.txt",
+//         "ls -la | grep .c",
+//         "cat file | sort | uniq",
+//         "echo $HOME",
+//         "echo 'unmatched quote",
+//         "echo | | ls",
+//         NULL};
+
+//     for (int i = 0; tests[i]; i++)
+//     {
+//         test_and_compare(tests[i], sys);
+//     }
+
+//     free_sys(sys);
+
+//     return 0;
+// }
+
+
 #include "../includes/minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/wait.h>
 
 volatile sig_atomic_t g_signal = 0;
 
-
-
 t_sys *init_sys(char **envp)
 {
-    t_sys *sys;
-
-    sys = (t_sys *)gc_malloc(sizeof(t_sys));
-    sys->env_lst = pull_env(envp);
-    sys->envp = dup_array(envp);
-    sys->token = NULL;
-    sys->ast = NULL;
-    sys->exit = 0;
-    return (sys);
+	t_sys *sys = (t_sys *)gc_malloc(sizeof(t_sys));
+	sys->env_lst = pull_env(envp);
+	sys->envp = dup_array(envp);
+	sys->token = NULL;
+	sys->ast = NULL;
+	sys->exit = 0;
+	return sys;
 }
 
-void print_ast_line(t_ast *node)
+// Fonction récursive pour afficher l'AST avec indentation
+void print_ast(t_ast *node, int depth)
 {
-    if (!node)
-        return;
-    printf("Type:%d Args:", node->type);
-    if (node->args)
-    {
-        for (int i = 0; node->args[i]; i++)
-            printf("%s,", node->args[i]);
-    }
-    printf("\n");
-    if (node->left)
-        print_ast_line(node->left);
-    if (node->right)
-        print_ast_line(node->right);
+	if (!node)
+		return;
+
+	for (int i = 0; i < depth; i++)
+		printf("  ");
+
+	printf("Node Type: %d\n", node->type);
+
+	if (node->args)
+	{
+		for (int i = 0; node->args[i]; i++)
+		{
+			for (int j = 0; j < depth + 1; j++)
+				printf("  ");
+			printf("Arg[%d]: %s\n", i, node->args[i]);
+		}
+	}
+
+	if (node->filename)
+	{
+		for (int j = 0; j < depth + 1; j++)
+			printf("  ");
+		printf("File: %s\n", node->filename);
+	}
+
+	if (node->left)
+	{
+		for (int i = 0; i < depth; i++)
+			printf("  ");
+		printf("Left:\n");
+		print_ast(node->left, depth + 1);
+	}
+
+	if (node->right)
+	{
+		for (int i = 0; i < depth; i++)
+			printf("  ");
+		printf("Right:\n");
+		print_ast(node->right, depth + 1);
+	}
 }
-
-int check_bash_syntax(const char *cmd)
-{
-    int status;
-    pid_t pid = fork();
-
-    if (pid == 0)
-    {
-        // Fils : exécute bash -n (check syntax)
-        execlp("bash", "bash", "-n", "-c", cmd, NULL);
-        _exit(127); // erreur execlp
-    }
-    else if (pid > 0)
-    {
-        waitpid(pid, &status, 0);
-        if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
-            return 1; // syntax OK
-        else
-            return 0; // syntax error detected by bash
-    }
-    return 0; // fork error
-}
-
-void test_and_compare(char *input, t_sys *sys)
-{
-    printf("=== TEST INPUT ===\nInput: %s\n", input);
-    int bash_detected_syntax_ok = check_bash_syntax(input);
-    int bash_detected_syntax_error = !bash_detected_syntax_ok;
-
-    t_token *tokens = NULL;
-    t_ast *ast = NULL;
-
-    tokens = lexer(input);
-    if (!tokens)
-    {
-        printf("Lexer a échoué.\n");
-    }
-    else
-    {
-        expand_tokens(tokens, sys);
-        ast = parse(&tokens);
-    }
-
-    if (!ast)
-    {
-        if (bash_detected_syntax_error)
-            printf("Test OK: erreur syntaxe détectée par bash et minishell.\n");
-        else
-            printf("Parser a échoué mais bash n’a pas détecté d’erreur.\n");
-    }
-    else
-    {
-        if (!bash_detected_syntax_error)
-        {
-            printf("AST généré:\n");
-            print_ast_line(ast);
-            printf("Test OK: syntaxe valide et AST généré.\n");
-        }
-        else
-        {
-            printf("Discrepance détectée ! Bash détecte une erreur, mais minishell a généré un AST.\n");
-            printf("AST généré (potentiellement incorrect):\n");
-            print_ast_line(ast);
-        }
-        free_ast(ast);
-    }
-
-    if (tokens)
-        free_tokens(tokens);
-
-    printf("=====================\n\n");
-}
-
-
-// Dans utils.c
-#include "gc.h" // pour gc_free_array
-#include <stdlib.h>
-
-void free_env_list(t_env *env_lst)
-{
-    t_env *tmp;
-
-    while (env_lst)
-    {
-        tmp = env_lst->next;
-        free(env_lst->var);
-        free(env_lst->content);
-        free(env_lst);
-        env_lst = tmp;
-    }
-}
-
-void free_sys(t_sys *sys)
-{
-    if (!sys)
-        return;
-
-    free_env_list(sys->env_lst);
-
-    if (sys->envp)
-        gc_free_array((void **)sys->envp);  // Ton tableau de char*
-
-    // Pour token et ast, on les libère ailleurs, donc ici on ne les libère pas
-
-    free(sys);
-}
-
 
 int main(int argc, char **argv, char **envp)
 {
-    t_sys *sys = init_sys(envp);
-    (void)argc;
-    (void)argv;
+	(void)argc;
+	(void)argv;
 
-    char *tests[] = {
-        "ls -la /tmp",
-        "echo Hello World",
-        "cat < input.txt",
-        "echo 'hello' > file.txt",
-        "grep test < input.txt > output.txt",
-        "ls -la | grep .c",
-        "cat file | sort | uniq",
-        "echo $HOME",
-        "echo 'unmatched quote",
-        "echo | | ls",
-        NULL};
+	t_sys *sys = init_sys(envp);
 
-    for (int i = 0; tests[i]; i++)
-    {
-        test_and_compare(tests[i], sys);
-    }
+	char *inputs[] = {
+		"ls -la",
+		"echo Hello World",
+		"cat < infile",
+		"echo test > outfile",
+		"ls | grep .c",
+		"cat file | sort | uniq",
+		"false && echo fail",
+		"true || echo fallback",
+		"echo start && ls | wc -l > result.txt",
+		NULL
+	};
 
-    free_sys(sys);
+	for (int i = 0; inputs[i]; i++)
+	{
+		printf("\n========== TEST %d ==========\n", i + 1);
+		printf("Input: %s\n", inputs[i]);
 
-    return 0;
+		t_token *tokens = lexer(inputs[i]);
+		if (!tokens)
+		{
+			printf("Lexer failed.\n");
+			continue;
+		}
+
+		expand_tokens(tokens, sys);
+
+		t_ast *ast = parse(&tokens);
+		if (!ast)
+		{
+			printf("Parser failed.\n");
+		}
+		else
+		{
+			printf("AST:\n");
+			print_ast(ast, 0);
+		}
+
+		free_tokens(tokens);
+		free_ast(ast);
+	}
+
+	return 0;
 }
-
 

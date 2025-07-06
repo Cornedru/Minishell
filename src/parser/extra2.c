@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 07:50:50 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/06 06:15:32 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,19 @@ int	are_quotes_closed(const char *str)
 	if (single % 2 == 0 && doubleq % 2 == 0)
 		return (1);
 	return (0);
+}
+
+char	*expand_variable(char *str, int *i, t_sys *sys)
+{
+	char	*res;
+	int		start;
+
+	res = expand_special_var(str, i, sys);
+	if (res)
+		return (res);
+	res = handle_invalid_or_numeric_var(str, i);
+	if (res)
+		return (res);
+	start = *i + 1;
+	return (extract_env_value(str, i, start, sys));
 }
