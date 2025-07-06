@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/06 06:14:07 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/06 06:29:55 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,6 +272,7 @@ t_ast	*handle_pipeline_right(t_ast *left, t_token **tokens);
 t_ast	*parse_single_redirection(t_token **tokens);
 int		is_redirection_token(t_token_type type);
 t_ast	*parse_redirections(t_token **tokens);
+t_ast	*parse_line(char *line, t_sys *sys);
 
 
 
