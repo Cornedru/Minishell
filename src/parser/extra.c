@@ -6,30 +6,11 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/06 06:16:27 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/06 06:18:40 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// t_ast	*parse_simple_command(t_token **tokens)
-// {
-// 	t_ast	*node;
-// 	t_token	*start;
-
-// 	if (!init_command_node(&node))
-// 		return (NULL);
-// 	start = *tokens;
-// 	if (!skip_valid_redirections(tokens))
-// 		return (free_ast(node), NULL);
-// 	*tokens = start;
-// 	node->args = gather_all_words(tokens);
-// 	if (!node->args)
-// 		node->args = create_empty_argv();
-// 	if (!node->args)
-// 		return (free_ast(node), NULL);
-// 	return (node);
-// }
 
 t_ast	*parse_simple_command(t_token **tokens)
 {
@@ -71,13 +52,6 @@ t_ast	*parse_simple_command(t_token **tokens)
 	return (node);
 }
 
-// t_ast	*parse_command(t_token **tokens)
-// {
-// 	if (!*tokens)
-// 		return (NULL);
-// 	return (parse_simple_command(tokens));
-// }
-
 t_ast	*parse_command(t_token **tokens)
 {
 	t_ast	*cmd;
@@ -116,27 +90,6 @@ t_ast	*parse_command(t_token **tokens)
 	else
 		return (cmd);
 }
-
-// t_ast	*parse_pipeline(t_token **tokens)
-// {
-// 	t_ast	*left;
-
-// 	if (!tokens || is_invalid_pipe(tokens))
-// 		return (NULL);
-// 	left = parse_command(tokens);
-// 	if (!left)
-// 		return (NULL);
-// 	while (*tokens && (*tokens)->type == TOKEN_PIPE)
-// 	{
-// 		advance_token(tokens);
-// 		if (is_invalid_pipe(tokens))
-// 			return (free_ast(left), NULL);
-// 		left = handle_pipeline_right(left, tokens);
-// 		if (!left)
-// 			return (NULL);
-// 	}
-// 	return (left);
-// }
 
 t_ast	*parse_pipeline(t_token **tokens)
 {
