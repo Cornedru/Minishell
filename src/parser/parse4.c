@@ -67,9 +67,13 @@ t_ast	*parse_single_redirection(t_token **tokens)
 	t_ast_type	redir_type;
 	t_token		*filename_token;
 	t_ast		*node;
+	// t_token		*word_file;
+
 
 	if (!is_redirection_token((*tokens)->type))
 		return (NULL);
+	if ((*tokens)->type == TOKEN_WORD)
+		redir_type = AST_WORD;
 	if ((*tokens)->type == TOKEN_REDIR_IN)
 		redir_type = AST_REDIR_IN;
 	else if ((*tokens)->type == TOKEN_REDIR_OUT)
@@ -85,15 +89,17 @@ t_ast	*parse_single_redirection(t_token **tokens)
 	node = new_ast_node(redir_type);
 	if (!node)
 		return (NULL);
-	if (!*tokens || (*tokens)->type != TOKEN_WORD)
+	if (!*tokens || (*tokens)->type != TOKEN_WORD /*|| (*tokens)->type != AST_WORD*/)
 	{
 		ft_putstr_fd("minishell: syntax error: expected filename after redirection\n",
 			2);
 		free_ast(node);
 		return (NULL);
 	}
+	// return (node);
+// }
 	filename_token = *tokens;
-	advance_token(tokens);
+	// advance_token(tokens);
 	node = new_ast_node(redir_type);
 	if (!node)
 		return (NULL);
@@ -101,6 +107,14 @@ t_ast	*parse_single_redirection(t_token **tokens)
 	if (!node->filename)
 		node->filename = gc_strdup(filename_token->value);
 	return (node);
+	
+	// advance_token(tokens);
+	// word_file = *tokens;
+	// node->word = remove_quotes(word_file->value);
+	// if (node->word)
+	// 	node->word = gc_strdup(word_file->value);
+	// return (node);
+	
 }
 
 // t_ast *parse_single_redirection(t_token **tokens)

@@ -6,13 +6,13 @@
 /*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 21:50:11 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/02 21:50:24 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/05 23:29:49 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	left_child(t_ast *node, t_sys *sys, int *pipe_fd)
+static void	left_child(t_ast *node, t_sys *sys, int *pipe_fd)
 {
 	close(pipe_fd[0]);
 	dup2(pipe_fd[1], STDOUT_FILENO);
@@ -20,7 +20,7 @@ void	left_child(t_ast *node, t_sys *sys, int *pipe_fd)
 	exit(execute(node->left, sys));
 }
 
-void	right_child(t_ast *node, t_sys *sys, int *pipe_fd)
+static void	right_child(t_ast *node, t_sys *sys, int *pipe_fd)
 {
 	close(pipe_fd[1]);
 	dup2(pipe_fd[0], STDIN_FILENO);
@@ -28,6 +28,14 @@ void	right_child(t_ast *node, t_sys *sys, int *pipe_fd)
 	exit(execute(node->right, sys));
 }
 
+/**
+ * handle_pipe - Forks for piped commands
+ *
+ * @param node ast node containing command name
+ * @param sys system structure
+ *
+ * @return Exit code from right child process.
+ */
 int	handle_pipe(t_ast *node, t_sys *sys)
 {
 	pid_t	pid_l;

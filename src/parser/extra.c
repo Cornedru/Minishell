@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/06 07:27:09 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/06 07:46:23 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,54 @@ char	*process_segment(char *str, int *i, int seg_start, t_sys *sys)
 	return (result);
 }
 
+int is_operator_token(int token_type)
+{
+    return (token_type == TOKEN_PIPE
+         || token_type == TOKEN_AND
+         || token_type == TOKEN_OR);
+}
+
+int validate_syntax(t_token *tokens)
+{
+    t_token *prev = NULL;
+    t_token *curr = tokens;
+
+    while (curr)
+    {
+        // 1) Vérifie redirection suivie d'un TOKEN_WORD
+        if (is_redirection_token(curr->type))
+        {
+            if (!curr->next || curr->next->type != TOKEN_WORD)
+            {
+                ft_putstr_fd("minishell: syntax error: expected filename after redirection\n", 2);
+                return 1;
+            }
+        }
+
+        // 2) Vérifie opérateurs consécutifs invalides
+        if (is_operator_token(curr->type))
+        {
+            if (prev && is_operator_token(prev->type))
+            {
+                ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
+                return 1;
+            }
+            if (!curr->next) // opérateur en fin de ligne
+            {
+                ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+                return 1;
+            }
+        }
+
+        // 3) Détection d'autres cas spéciaux ici (ex: quotes non fermées si tokens les signalent)
+
+        prev = curr;
+        curr = curr->next;
+    }
+    return 0;
+}
+
+
 t_ast	*parse_line(char *line, t_sys *sys)
 {
 	t_token	*tokens;
@@ -187,6 +235,8 @@ t_ast	*parse_line(char *line, t_sys *sys)
 	if (!tokens)
 		return (NULL);
 	expand_tokens(tokens, sys);
+	// if (!validate_syntax(tokens))
+    // 	return NULL;
 	ast = parse(&tokens);
 	free_tokens(tokens);
 	return (ast);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:54:16 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 06:22:59 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/05 23:22:34 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*pull_path(char **env_paths, char *cmd)
+static char	*pull_path(char **env_paths, char *cmd)
 {
 	char	*tmp;
 	char	*cmd_path;
@@ -31,31 +31,33 @@ char	*pull_path(char **env_paths, char *cmd)
 	return (NULL);
 }
 
+/**
+ * find_cmd_path - Find command path
+ * 
+ * @param sys system struct
+ * @param cmd command name
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 char	*find_cmd_path(t_sys *sys, char *cmd)
 {
 	char	**env_paths;
-	char	*path_var;
 	char	*cmd_path;
+	char	*tmp;
 
-	// Handle absolute or relative paths directly
-	if (cmd && (cmd[0] == '/' || cmd[0] == '.'))
+	if (!cmd || !cmd[0])
+		return (NULL);
+	if (ft_strchr(cmd, '/'))	// if cmd is already a path
 	{
 		if (access(cmd, X_OK) == 0)
 			return (gc_strdup(cmd));
 		return (NULL);
 	}
-
-	// Get PATH from environment
-	path_var = get_env_var("PATH", sys->env_lst);
-	if (!path_var)
+	tmp = get_env_var("PATH", sys->env_lst);
+	if (!tmp)
 		return (NULL);
-
-	env_paths = gc_split(path_var, ':');
-	if (!env_paths)
-		return (NULL);
-
+	env_paths = gc_split(tmp, ':');
 	cmd_path = pull_path(env_paths, cmd);
 	gc_free_array((void **)env_paths);
-
 	return (cmd_path);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 23:01:04 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/03 06:21:27 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/05 23:19:02 by oligrien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,14 @@ static char	*ft_getcwd(char *buf, size_t size)
 	return (cwd);
 }
 
-int	set_dir(t_sys *sys, char *cwd, char *path)
-{
-	if (set_env_var(&sys->env_lst, "OLDPWD", cwd))
-		return (free(cwd), gc_free(path), 1);
-	free(cwd);
-	cwd = ft_getcwd(NULL, 0);
-	if (!cwd)
-		return (perror("minishell: cd"), gc_free(path), 1);
-	if (set_env_var(&sys->env_lst, "PWD", cwd))
-		return (free(cwd), gc_free(path), 1);
-	return (free(cwd), gc_free(path), 0);
-}
-
+/**
+ * builtin_cd
+ *
+ * @param node AST linked list
+ * @param sys system struct
+ * 
+ * @return 1 = error. 0 = no error.
+ */
 int	builtin_cd(t_ast *node, t_sys *sys)
 {
 	char	*path;
@@ -78,16 +73,15 @@ int	builtin_cd(t_ast *node, t_sys *sys)
     	return (free(cwd), 1);
 	if (!chdir(path))	// SUCCESS
 	{
-		return (set_dir(sys, cwd,path));
-		// if (set_env_var(&sys->envp, "OLDPWD", cwd))
-		// 	return (free(cwd), gc_free(path), 1);
-		// free(cwd);
-		// cwd = ft_getcwd(NULL, 0);
-		// if (!cwd)
-		// 	return (perror("minishell: cd"), gc_free(path), 1);
-		// if (set_env_var(&sys->envp, "PWD", cwd))
-		// 	return (free(cwd), gc_free(path), 1);
-		// return (free(cwd), gc_free(path), 0);
+		if (set_env_var(sys, &sys->env_lst, "OLDPWD", cwd))
+			return (free(cwd), gc_free(path), 1);
+		free(cwd);
+		cwd = ft_getcwd(NULL, 0);
+		if (!cwd)
+			return (perror("minishell: cd"), gc_free(path), 1);
+		if (set_env_var(sys, &sys->env_lst, "PWD", cwd))
+			return (free(cwd), gc_free(path), 1);
+		return (free(cwd), gc_free(path), 0);
 	}
 	else				// FAILURE
 		return (ft_putstr_fd("minishell: cd: ", 2), perror(path), free(cwd),

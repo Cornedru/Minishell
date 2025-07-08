@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:45:56 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/06 06:29:55 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/08 19:58:04 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_token
 typedef enum e_ast_type
 {
 	AST_CMD,
+	AST_WORD,
 	AST_PIPE,			// |
 	AST_REDIR_IN,		// <
 	AST_REDIR_OUT,		// >
@@ -77,6 +78,7 @@ typedef enum e_ast_type
 typedef struct s_ast
 {
 	t_ast_type					type;
+	char						*word;
 	char						**args;			// Arguments for commands
 	char						*filename;		// Filename for redirections
 	struct s_ast				*left;
@@ -127,48 +129,82 @@ extern volatile sig_atomic_t	g_signal;
 
 // System initialization
 t_sys	*init_sys(char **envp);
+// int		read_line(t_sys *sys);
+
+// init.c -----------------------------
+
+t_env	*pull_env(char **envp);
+int		init_syse(t_sys **sys, char **envp);
+int		init_shell(t_sys **sys, char **envp);
+
+
+
+// exec.c -----------------------------
+
+int		execute(t_ast *node, t_sys *sys);
 int		read_line(t_sys *sys);
 
-// Execution
-int		execute(t_ast *node, t_sys *sys);
 
-// Pipe handling
-void	left_child(t_ast *node, t_sys *sys, int *pipe_fd);
-void	right_child(t_ast *node, t_sys *sys, int *pipe_fd);
-int		handle_pipe(t_ast *node, t_sys *sys);
 
-// Builtin execution
-int		execute_external(t_ast *node, t_sys *sys);
+// exec_cmd.c -------------------------
+
 int		execute_builtin(t_ast *node, t_sys *sys);
 int		is_builtin(char *cmd);
-
-// Command execution
+int		execute_external(t_ast *node, t_sys *sys);
 int		execute_forked_cmd(t_ast *node, t_sys *sys);
 int		execute_cmd(t_ast *node, t_sys *sys);
 
-// Environment handling
-char	**env_getarray(t_env *envp);
-char	*get_env_var(char *var_name, t_env *envp);
-int		set_env_var(t_env **envp, char *var_name, char *content);
-t_env	*pull_env(char **envp);
 
-// Path handling
-char	*pull_path(char **env_paths, char *cmd);
+
+// pipe.c -----------------------------
+
+int		handle_pipe(t_ast *node, t_sys *sys);
+
+
+
+// env_lst.c ------------------------------
+
+int		is_valid_identifier(char *arg);
+int		unset_env_var(t_sys *sys, t_env **env_lst, char *var_name);
+int		set_env_var(t_sys *sys, t_env **envp, char *var_name, char *content);
+char	*get_env_var(char *var_name, t_env *env_lst);
+
+// env_array.c
+
+char	**dup_array(char **array);
+char	**env_getarray(t_env *env_lst);
+int		update_env_array(t_sys *sys);
+
+// 	env_utils.c	-----------------------
+
+void	free_envnode(t_env *env_lst);
+int		ft_envsize(t_env *env_lst);
+t_env	*gc_envnew(char *var, char *content);
+void	ft_envadd_back(t_env **env_lst, t_env *new);
+
+
+
+// path.c -----------------------------
+
 char	*find_cmd_path(t_sys *sys, char *cmd);
 
-// Redirection handling
+
+
+// redir.c ----------------------------
+
 int		handle_redirection(t_ast *node, t_sys *sys);
 
-// Built-ins
-int		builtin_echo(t_ast *node);
-int		builtin_pwd(void);
-int		builtin_cd(t_ast *node, t_sys *sys);
 
-// Environment utilities
-char	**dup_array(char **array);
-int		ft_envsize(t_env *envp);
-t_env	*gc_envnew(char *var, char *content);
-void	ft_envadd_back(t_env **lst, t_env *new);
+
+// built-ins --------------------------
+
+int		builtin_cd(t_ast *node, t_sys *sys);
+int		builtin_echo(t_ast *node);
+int		builtin_env(t_sys *sys);
+int		builtin_exit(t_ast *node, t_sys *sys);
+int		builtin_export(t_ast *node, t_sys *sys);
+int		builtin_pwd(void);
+int		builtin_unset(t_ast *node, t_sys *sys);
 
 // Parser functions
 t_token	*lexer(char *input);
@@ -248,7 +284,7 @@ int		count_word_tokens(t_token *start);
 int		handle_heredoc(char *delimiter);
 
 // Redirections (if t_redir is used)
-t_redir	*parse_redir(t_token **tokens);
+t_redir	*redir(t_token **tokens);
 void	add_redir(t_redir **redirs, t_redir *new_redir);
 
 // Mock functions for testing (remove in production)
@@ -273,7 +309,11 @@ t_ast	*parse_single_redirection(t_token **tokens);
 int		is_redirection_token(t_token_type type);
 t_ast	*parse_redirections(t_token **tokens);
 t_ast	*parse_line(char *line, t_sys *sys);
-
-
-
+// int		execute_builtin(t_ast *node, t_sys *sys);
+// int		builtin_env(t_sys *sys);
+// int		builtin_exit(t_ast *node, t_sys *sys);
+// int		builtin_export(t_ast *node, t_sys *sys);
+// int 	builtin_unset(t_ast *node, t_sys *sys);
+// char	**dup_array(char **array);
+long long int	ft_atoll(const char *nptr, int *fail);
 #endif
