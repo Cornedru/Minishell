@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 21:50:11 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/05 23:29:49 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/15 01:20:01 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	left_child(t_ast *node, t_sys *sys, int *pipe_fd)
+ void	left_child(t_ast *node, t_sys *sys, int *pipe_fd)
 {
 	close(pipe_fd[0]);
 	dup2(pipe_fd[1], STDOUT_FILENO);
@@ -20,7 +20,7 @@ static void	left_child(t_ast *node, t_sys *sys, int *pipe_fd)
 	exit(execute(node->left, sys));
 }
 
-static void	right_child(t_ast *node, t_sys *sys, int *pipe_fd)
+ void	right_child(t_ast *node, t_sys *sys, int *pipe_fd)
 {
 	close(pipe_fd[1]);
 	dup2(pipe_fd[0], STDIN_FILENO);

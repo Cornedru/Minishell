@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:54:16 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/05 23:22:34 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/15 01:20:11 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*pull_path(char **env_paths, char *cmd)
+ char	*pull_path(char **env_paths, char *cmd)
 {
 	char	*tmp;
 	char	*cmd_path;

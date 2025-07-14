@@ -12,18 +12,18 @@
 
 #include "../../includes/minishell.h"
 
-char	**create_empty_argv(void)
-{
-	char	**argv;
+// char	**create_empty_argv(void)
+// {
+// 	char	**argv;
 
-	argv = gc_malloc(sizeof(char *) * 2);
-	if (argv)
-	{
-		argv[0] = gc_strdup("");
-		argv[1] = NULL;
-	}
-	return (argv);
-}
+// 	argv = gc_malloc(sizeof(char *) * 2);
+// 	if (argv)
+// 	{
+// 		argv[0] = gc_strdup("");
+// 		argv[1] = NULL;
+// 	}
+// 	return (argv);
+// }
 
 int	init_command_node(t_ast **node)
 {
