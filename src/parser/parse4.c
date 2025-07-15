@@ -1,151 +1,111 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse4.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
+/*   Updated: 2025/07/15 02:44:39 by ndehmej          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-t_ast	*parse_redirections(t_token **tokens)
+t_token_type	get_operator_type(char *input, int i)
 {
-	t_ast	*first_redir;
-	t_ast	*last_redir;
-	t_ast	*new_redir;
-
-	first_redir = NULL;
-	last_redir = NULL;
-	while (*tokens && is_redirection_token((*tokens)->type))
+	if (input[i] == '|')
 	{
-		new_redir = parse_single_redirection(tokens);
-		if (!new_redir)
+		if (input[i + 1] == '|')
+			return (TOKEN_OR);
+		return (TOKEN_PIPE);
+	}
+	else if (input[i] == '<')
+	{
+		if (input[i + 1] == '<')
+			return (TOKEN_HEREDOC);
+		return (TOKEN_REDIR_IN);
+	}
+	else if (input[i] == '>')
+	{
+		if (input[i + 1] == '>')
+			return (TOKEN_REDIR_APPEND);
+		return (TOKEN_REDIR_OUT);
+	}
+	else if (input[i] == '&')
+	{
+		if (input[i + 1] == '&')
+			return (TOKEN_AND);
+		return (TOKEN_INVALID);
+	}
+	return (TOKEN_WORD);
+}
+
+int	are_quotes_closed(const char *str)
+{
+	int	i;
+	int	single;
+	int	doubleq;
+
+	i = 0;
+	single = 0;
+	doubleq = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' && doubleq % 2 == 0)
+			single++;
+		else if (str[i] == '"' && single % 2 == 0)
+			doubleq++;
+		i++;
+	}
+	if (single % 2 == 0 && doubleq % 2 == 0)
+		return (1);
+	return (0);
+}
+
+char	*expand_variable(char *str, int *i, t_sys *sys)
+{
+	char	*res;
+	int		start;
+
+	res = expand_special_var(str, i, sys);
+	if (res)
+		return (res);
+	res = handle_invalid_or_numeric_var(str, i);
+	if (res)
+		return (res);
+	start = *i + 1;
+	return (extract_env_value(str, i, start, sys));
+}
+
+int	is_operator_token(t_token_type type)
+{
+	return (type == TOKEN_PIPE || type == TOKEN_AND || type == TOKEN_OR);
+}
+
+int	validate_syntax(t_token *tokens)
+{
+	t_token	*prev;
+	t_token	*curr;
+
+	prev = NULL;
+	curr = tokens;
+	if (curr && is_operator_token(curr->type))
+		return (check_operator_syntax(curr, prev));
+	while (curr)
+	{
+		if (is_redirection_token(curr->type))
 		{
-			free_ast(first_redir);
-			return (NULL);
+			if (!check_redirection_syntax(curr))
+				return (0);
 		}
-		if (!first_redir)
-			first_redir = new_redir;
-		else
-			last_redir->left = new_redir;
-		last_redir = new_redir;
+		else if (is_operator_token(curr->type))
+		{
+			if (!check_operator_syntax(curr, prev))
+				return (0);
+		}
+		prev = curr;
+		curr = curr->next;
 	}
-	return (first_redir);
-}
-
-// t_ast *parse_redirections(t_token **tokens)
-// {
-//     t_ast *redir_node;
-//     char *filename;
-
-//     if (!*tokens)
-//         return NULL;
-
-//     if ((*tokens)->type == TOKEN_REDIR_IN || (*tokens)->type == TOKEN_REDIR_OUT)
-//     {
-//         int redir_type = (*tokens)->type;
-//         advance_token(tokens);  // avancer après le token de redirection
-
-//         if (!*tokens || (*tokens)->type != TOKEN_WORD)
-//         {
-//             if (redir_type == TOKEN_REDIR_IN)
-//                 ft_putstr_fd("minishell: syntax error: expected filename after redirection\n", 2);
-//             else if (redir_type == TOKEN_REDIR_OUT)
-//                 ft_putstr_fd("minishell: syntax error: expected filename after redirection\n", 2);
-//             return NULL;
-//         }
-
-//         filename = remove_quotes((*tokens)->value);
-//         advance_token(tokens);
-
-//         redir_node = new_ast_node(redir_type == TOKEN_REDIR_IN ? AST_REDIR_IN : AST_REDIR_OUT);
-//         if (!redir_node)
-//             return NULL;
-//         redir_node->filename = filename;
-//         // Le fils gauche sera la commande ou redirection suivante
-//         redir_node->left = parse_redirections(tokens);  // récursif pour plusieurs redirs
-//         return redir_node;
-//     }
-//     return NULL;
-// }
-
-t_ast	*parse_single_redirection(t_token **tokens)
-{
-	t_ast_type	redir_type;
-	t_token		*filename_token;
-	t_ast		*node;
-
-	if (!is_redirection_token((*tokens)->type))
-		return (NULL);
-	if ((*tokens)->type == TOKEN_REDIR_IN)
-		redir_type = AST_REDIR_IN;
-	else if ((*tokens)->type == TOKEN_REDIR_OUT)
-		redir_type = AST_REDIR_OUT;
-	else if ((*tokens)->type == TOKEN_REDIR_APPEND)
-		redir_type = AST_REDIR_APPEND;
-	else if ((*tokens)->type == TOKEN_HEREDOC)
-		redir_type = AST_HEREDOC;
-	else
-		return (NULL);
-	advance_token(tokens);
-	if (!*tokens || (*tokens)->type != TOKEN_WORD)
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-		return (NULL);
-	}
-	filename_token = *tokens;
-	advance_token(tokens);
-	node = new_ast_node(redir_type);
-	if (!node)
-		return (NULL);
-	node->filename = remove_quotes(filename_token->value);
-	if (!node->filename)
-		node->filename = gc_strdup(filename_token->value);
-	return (node);
-}
-
-// t_ast *parse_single_redirection(t_token **tokens)
-// {
-//     t_ast_type redir_type;
-//     t_token *filename_token;
-//     t_ast *node;
-
-//     if (!is_redirection_token((*tokens)->type))
-//         return (NULL);
-
-//     if ((*tokens)->type == TOKEN_REDIR_IN)
-//         redir_type = AST_REDIR_IN;
-//     else if ((*tokens)->type == TOKEN_REDIR_OUT)
-//         redir_type = AST_REDIR_OUT;
-//     else if ((*tokens)->type == TOKEN_REDIR_APPEND)
-//         redir_type = AST_REDIR_APPEND;
-//     else if ((*tokens)->type == TOKEN_HEREDOC)
-//         redir_type = AST_HEREDOC;
-//     else
-//         return (NULL);
-
-//     // Ne pas avancer ici, on vérifie d'abord le token suivant
-//     t_token *next_token = (*tokens)->next; // ou selon ta structure, récupérer le token suivant
-
-//     if (!next_token || next_token->type != TOKEN_WORD)
-//     {
-//         ft_putstr_fd("minishell: syntax error: expected filename after redirection\n", 2);
-//         return (NULL);
-//     }
-
-//     // Maintenant on peut avancer le token d'origine et le filename
-//     advance_token(tokens); // avance sur la redirection
-//     advance_token(tokens); // avance sur le filename
-
-//     filename_token = next_token;
-
-//     node = new_ast_node(redir_type);
-//     if (!node)
-//         return (NULL);
-
-//     node->filename = remove_quotes(filename_token->value);
-//     if (!node->filename)
-//         node->filename = gc_strdup(filename_token->value);
-
-//     return (node);
-// }
-
-
-
-int	is_redirection_token(t_token_type type)
-{
-	return (type == TOKEN_REDIR_IN || type == TOKEN_REDIR_OUT
-		|| type == TOKEN_REDIR_APPEND || type == TOKEN_HEREDOC);
+	return (1);
 }
