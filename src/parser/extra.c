@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/15 02:49:39 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/15 02:57:18 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ t_ast	*parse_simple_command(t_token **tokens)
 	return (node);
 }
 
-static t_ast	*collect_redirections_and_args(t_token **tokens, t_ast **cmd)
+t_ast	*collect_redirections_and_args(t_token **tokens, t_ast **cmd)
 {
 	t_ast	*redirs;
 	t_ast	*last_redir;
 	t_ast	*new_redir;
 	char	**additional_args;
 
-	**additional_args = gather_all_words(tokens);
+	additional_args = NULL;
 	redirs = NULL;
 	last_redir = NULL;
 	*cmd = NULL;
@@ -101,6 +101,7 @@ static t_ast	*collect_redirections_and_args(t_token **tokens, t_ast **cmd)
 			}
 			else
 			{
+				additional_args = gather_all_words(tokens);
 				if (additional_args && additional_args[0])
 				{
 					(*cmd)->args = merge_args((*cmd)->args, additional_args);

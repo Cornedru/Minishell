@@ -626,5 +626,6 @@ int	is_operator_token(t_token_type type);
 int	check_operator_syntax(t_token *curr, t_token *prev);
  int	check_redirection_syntax(t_token *curr);
 char	**merge_args(char **old_args, char **new_args);
+t_ast	*collect_redirections_and_args(t_token **tokens, t_ast **cmd);
 
 #endif
