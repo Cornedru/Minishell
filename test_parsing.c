@@ -410,6 +410,36 @@ t_sys	*init_sys(char **envp)
 
 /* Exemple de fonction read_line intégrant le parsing */
 
+// int	read_line(t_sys *sys)
+// {
+// 	char	*line;
+
+// 	line = NULL;
+// 	while (!sys->exit)
+// 	{
+// 		line = readline(PROMPT);
+// 		if (!line)
+// 		{
+// 			ft_putstr_fd("exit\n", 1);
+// 			return (0);
+// 		}
+// 		if (ft_strlen(line) > 0)
+// 		{
+// 			add_history(line);
+// 			sys->ast = parse_line(line, sys);
+// 			if (sys->ast)
+// 			{
+// 				sys->exit_status = execute(sys->ast, sys);
+// 				free_ast(sys->ast);
+// 				sys->ast = NULL;
+// 			}
+// 		}
+// 		// gc_free(line);
+// 	}
+// 	return (0);
+// }
+
+
 int	read_line(t_sys *sys)
 {
 	char	*line;
@@ -419,22 +449,43 @@ int	read_line(t_sys *sys)
 	{
 		line = readline(PROMPT);
 		if (!line)
-		{
-			ft_putstr_fd("exit\n", 1);
-			return (0);
-		}
-		if (ft_strlen(line) > 0)
-		{
-			add_history(line);
-			sys->ast = parse_line(line, sys);
-			if (sys->ast)
-			{
-				sys->exit_status = execute(sys->ast, sys);
-				free_ast(sys->ast);
-				sys->ast = NULL;
-			}
-		}
-		free(line);
+			return (1);
+		add_history(line);
+
+		// Tokenize
+
+
+		// Build AST
+		//  { // ----------- MOCK AST ------------ //
+		// if (!ft_strcmp(line, "ls -l"))
+		// 	sys->ast = mock_ls_command();
+		// if (!ft_strcmp(line, "cat < input.txt"))
+		// 	sys->ast = mock_redir_in_command();
+		// if (!ft_strcmp(line, "ls -l | grep \".c\""))
+		// 	sys->ast = mock_pipe_command();
+		// if (!ft_strcmp(line, "export A=1 B=2 A=new C 1INVALID"))
+		// 	sys->ast = mock_export_command();
+		// if (!ft_strcmp(line, "export"))
+		// 	sys->ast = mock_export_no_args_command();
+		// if (!ft_strcmp(line, "unset A C NONEXISTENT"))
+		// 	sys->ast = mock_unset_command();
+		// if (!ft_strcmp(line, "cd /tmp"))
+		// 	sys->ast = mock_cd_command();
+		// if (!ft_strcmp(line, "env"))
+		// 	sys->ast = mock_env_command();
+		// if (!ft_strcmp(line, "exit f42"))
+		// 	sys->ast = mock_exit_command();
+		// if (!ft_strcmp(line, "echo \"testing redir\" > output.txt"))
+		// 	sys->ast = mock_redir_out_command();
+		// if (!ft_strcmp(line, "wc -l << EOF"))
+		// 	sys->ast = mock_heredoc_command();
+		// }
+
+
+		// Execute AST:
+		if (sys->ast)
+			sys->exit_status = execute(sys->ast, sys);
+		gc_free(sys->ast);
 	}
 	return (0);
 }
@@ -447,7 +498,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	if (argc > 1 && !ft_strcmp(argv[1], "--test"))
 	{
-		// run_parsing_tests();
+		//  run_parsing_tests();
 		return (0);
 	}
 	if (init_shell(&sys, envp))
@@ -460,3 +511,164 @@ int	main(int argc, char **argv, char **envp)
 	gc_destroy();
 	return (sys->exit_status);
 }
+
+
+
+// int main(int argc, char **argv, char **envp)
+// {
+//     (void)argc;
+//     (void)argv;
+//     t_sys *sys = init_sys(envp);
+//     if (!sys)
+//     {
+//         fprintf(stderr, "Failed to init sys\n");
+//         return 1;
+//     }
+//     setup_signals();
+//     int total = 0, passed = 0;
+
+//     printf("=== TESTS MINISHELL ===\n\n");
+
+//     // === COMMANDES SIMPLES ===
+//     printf("--- Commandes simples ---\n");
+//     passed += test_parse_line(sys, "ls", 0); total++;
+//     passed += test_parse_line(sys, "pwd", 0); total++;
+//     passed += test_parse_line(sys, "echo hello", 0); total++;
+//     passed += test_parse_line(sys, "echo hello world", 0); total++;
+//     passed += test_parse_line(sys, "/bin/ls", 0); total++;
+//     passed += test_parse_line(sys, "./minishell", 0); total++;
+
+//     // === QUOTES ===
+//     printf("\n--- Quotes ---\n");
+//     passed += test_parse_line(sys, "echo 'hello world'", 0); total++;
+//     passed += test_parse_line(sys, "echo \"hello world\"", 0); total++;
+//     passed += test_parse_line(sys, "echo 'hello \"world\"'", 0); total++;
+//     passed += test_parse_line(sys, "echo \"hello 'world'\"", 0); total++;
+//     passed += test_parse_line(sys, "echo \"hello $USER\"", 0); total++;
+//     passed += test_parse_line(sys, "echo 'hello $USER'", 0); total++;
+//     passed += test_parse_line(sys, "echo \"'quoted'\"", 0); total++;
+//     passed += test_parse_line(sys, "echo '\"double\"'", 0); total++;
+
+//     // === REDIRECTIONS SIMPLES ===
+//     printf("\n--- Redirections simples ---\n");
+//     passed += test_parse_line(sys, "echo hello > file", 0); total++;
+//     passed += test_parse_line(sys, "cat < file", 0); total++;
+//     passed += test_parse_line(sys, "echo world >> file", 0); total++;
+//     passed += test_parse_line(sys, "cat << EOF", 0); total++;
+//     passed += test_parse_line(sys, "> file echo hello", 0); total++;
+//     passed += test_parse_line(sys, "< input cat", 0); total++;
+//     passed += test_parse_line(sys, ">> file echo append", 0); total++;
+
+//     // === REDIRECTIONS MULTIPLES ===
+//     printf("\n--- Redirections multiples ---\n");
+//     passed += test_parse_line(sys, "cmd < input > output", 0); total++;
+//     passed += test_parse_line(sys, "cmd > out1 > out2", 0); total++;
+//     passed += test_parse_line(sys, "cmd < in1 < in2", 0); total++;
+//     passed += test_parse_line(sys, "> out < in cmd", 0); total++;
+//     passed += test_parse_line(sys, "cmd arg1 > file arg2", 0); total++;
+//     passed += test_parse_line(sys, "> file1 cmd arg > file2", 0); total++;
+
+//     // === PIPES ===
+//     printf("\n--- Pipes ---\n");
+//     passed += test_parse_line(sys, "ls | grep test", 0); total++;
+//     passed += test_parse_line(sys, "cat file | wc -l", 0); total++;
+//     passed += test_parse_line(sys, "echo hello | cat", 0); total++;
+//     passed += test_parse_line(sys, "ls -la | grep .c | wc -l", 0); total++;
+//     passed += test_parse_line(sys, "cmd1 | cmd2 | cmd3 | cmd4", 0); total++;
+
+//     // === OPÉRATEURS LOGIQUES ===
+//     printf("\n--- Opérateurs logiques ---\n");
+//     passed += test_parse_line(sys, "cmd1 && cmd2", 0); total++;
+//     passed += test_parse_line(sys, "cmd1 || cmd2", 0); total++;
+//     passed += test_parse_line(sys, "cmd1 && cmd2 || cmd3", 0); total++;
+//     passed += test_parse_line(sys, "cmd1 || cmd2 && cmd3", 0); total++;
+//     passed += test_parse_line(sys, "true && echo success", 0); total++;
+//     passed += test_parse_line(sys, "false || echo failed", 0); total++;
+
+//     // === COMBINAISONS COMPLEXES ===
+//     printf("\n--- Combinaisons complexes ---\n");
+//     passed += test_parse_line(sys, "echo test > file && cat < file", 0); total++;
+//     passed += test_parse_line(sys, "ls | grep .c > files.txt", 0); total++;
+//     passed += test_parse_line(sys, "cat < input | grep pattern > output", 0); total++;
+//     passed += test_parse_line(sys, "cmd1 && cmd2 | cmd3", 0); total++;
+//     passed += test_parse_line(sys, "cmd1 | cmd2 && cmd3", 0); total++;
+//     passed += test_parse_line(sys, "echo 'test' | cat > file || echo error", 0); total++;
+
+//     // === EXPANSION DE VARIABLES ===
+//     printf("\n--- Expansion de variables ---\n");
+//     passed += test_parse_line(sys, "echo $USER", 0); total++;
+//     passed += test_parse_line(sys, "echo $HOME/Documents", 0); total++;
+//     passed += test_parse_line(sys, "echo ${USER}", 0); total++;
+//     passed += test_parse_line(sys, "echo $?", 0); total++;
+//     passed += test_parse_line(sys, "echo $$", 0); total++;
+//     passed += test_parse_line(sys, "echo $NONEXISTENT", 0); total++;
+
+//     // === ERREURS DE SYNTAXE ===
+//     printf("\n--- Erreurs de syntaxe ---\n");
+//     passed += test_parse_line(sys, "|", 1); total++;
+//     passed += test_parse_line(sys, "| cmd", 1); total++;
+//     passed += test_parse_line(sys, "cmd |", 1); total++;
+//     passed += test_parse_line(sys, "cmd | | cmd", 1); total++;
+//     passed += test_parse_line(sys, "&&", 1); total++;
+//     passed += test_parse_line(sys, "||", 1); total++;
+//     passed += test_parse_line(sys, "cmd &&", 1); total++;
+//     passed += test_parse_line(sys, "|| cmd", 1); total++;
+//     passed += test_parse_line(sys, ">", 1); total++;
+//     passed += test_parse_line(sys, "<", 1); total++;
+//     passed += test_parse_line(sys, "cmd >", 1); total++;
+//     passed += test_parse_line(sys, "< cmd", 1); total++;
+//     passed += test_parse_line(sys, "cmd > >", 1); total++;
+//     passed += test_parse_line(sys, "cmd < <", 1); total++;
+
+//     // === QUOTES NON FERMÉES ===
+//     printf("\n--- Quotes non fermées ---\n");
+//     passed += test_parse_line(sys, "echo 'hello", 1); total++;
+//     passed += test_parse_line(sys, "echo \"world", 1); total++;
+//     passed += test_parse_line(sys, "echo 'hello \"world'\"", 1); total++;
+//     passed += test_parse_line(sys, "echo \"hello 'world\"'", 1); total++;
+
+//     // === CAS LIMITES ===
+//     printf("\n--- Cas limites ---\n");
+//     passed += test_parse_line(sys, "", 1); total++;
+//     passed += test_parse_line(sys, "   ", 1); total++;
+//     passed += test_parse_line(sys, "\t\t", 1); total++;
+//     passed += test_parse_line(sys, "cmd arg1 arg2 arg3 arg4 arg5 arg6 arg7 arg8 arg9 arg10", 0); total++;
+//     passed += test_parse_line(sys, "echo \"\"", 0); total++;
+//     passed += test_parse_line(sys, "echo ''", 0); total++;
+//     passed += test_parse_line(sys, "echo \"\" ''", 0); total++;
+
+//     // === CARACTÈRES SPÉCIAUX ===
+//     printf("\n--- Caractères spéciaux ---\n");
+//     passed += test_parse_line(sys, "echo \\$USER", 0); total++;
+//     passed += test_parse_line(sys, "echo 'a;b'", 0); total++;
+//     passed += test_parse_line(sys, "echo \"a;b\"", 0); total++;
+//     passed += test_parse_line(sys, "echo test\\ with\\ spaces", 0); total++;
+    
+//     // === REDIRECTIONS AVEC ARGUMENTS ===
+//     printf("\n--- Redirections avec arguments ---\n");
+//     passed += test_parse_line(sys, "echo one > file two three", 0); total++;
+//     passed += test_parse_line(sys, "> file echo one two three", 0); total++;
+//     passed += test_parse_line(sys, "echo one two > file three four", 0); total++;
+//     passed += test_parse_line(sys, "cat file1 file2 > output", 0); total++;
+//     passed += test_parse_line(sys, "< input grep pattern file", 0); total++;
+
+//     // === PIPES AVEC REDIRECTIONS ===
+//     printf("\n--- Pipes avec redirections ---\n");
+//     passed += test_parse_line(sys, "cat < file | grep test", 0); total++;
+//     passed += test_parse_line(sys, "ls | grep .c > output", 0); total++;
+//     passed += test_parse_line(sys, "< input cmd1 | cmd2 > output", 0); total++;
+//     passed += test_parse_line(sys, "cmd1 > tmp | cmd2", 0); total++;
+
+//     // === OPÉRATEURS MIXTES ===
+//     printf("\n--- Opérateurs mixtes ---\n");
+//     passed += test_parse_line(sys, "cmd1 && cmd2 | cmd3 || cmd4", 0); total++;
+//     passed += test_parse_line(sys, "(cmd1 || cmd2) && cmd3", 0); total++;
+//     passed += test_parse_line(sys, "test -f file && echo exists || echo not found", 0); total++;
+
+//     printf("\n=== RÉSULTATS FINAUX ===\n");
+//     printf("Tests réussis: %d / %d\n", passed, total);
+//     printf("Taux de réussite: %.2f%%\n", (float)passed / total * 100);
+
+//     cleanup(sys);
+//     return (passed == total) ? 0 : 1;
+// }
