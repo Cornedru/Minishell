@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:43:03 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/29 02:26:26 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/27 00:30:34 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*gc_substr(char const *s, unsigned int start, size_t len)
 	str_len = ft_strlen(s);
 	sub = NULL;
 	if (start >= str_len)
-		return (ft_free((void *)&sub), gc_strdup(""));
+		return (gc_strdup(""));
 	if (len > str_len - start)
 		len = str_len - start;
 	sub = (char *)gc_malloc(sizeof(char) * (len + 1));

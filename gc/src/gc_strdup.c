@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gc_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:09:10 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/09 23:02:00 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/27 00:36:02 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+# include <stdio.h>
 
 #include "../includes/gc.h"
 
@@ -31,3 +34,6 @@ char	*gc_strdup(const char *s)
 	dup[i] = '\0';
 	return (dup);
 }
+
+
+

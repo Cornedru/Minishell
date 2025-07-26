@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:31:47 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/26 23:34:44 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/27 00:31:15 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ static size_t	wordlen(char const *s, char c)
 	return (len);
 }
 
+void	gc_free_strarr(void ***arr)
+{
+	int i = -1;
+	if (!arr || !*arr)
+		return ;
+	while ((*arr)[++i])
+		gc_free((*arr)[i]);
+	gc_free(*arr);
+	*arr = NULL;
+}
+
+
 char	**gc_split(char const *s, char c)
 {
 	char	**split;
@@ -66,7 +78,7 @@ char	**gc_split(char const *s, char c)
 		{
 			split[i] = ft_substr(s, 0, wordlen(s, c));
 			if (!split[i])
-				return (ft_free_strarr((void ***)&split), NULL);
+				gc_free_strarr((void ***)&split);
 			s += wordlen(s, c) + 1;
 		}
 	}

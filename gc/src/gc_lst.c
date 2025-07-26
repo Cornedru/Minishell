@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc_lst.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 02:26:42 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/29 02:27:46 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/27 00:30:04 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	gc_lstclear(t_list **lst, void (*del)(void *))
 		gc_lstdelone(*lst, del);
 		*lst = tmp;
 	}
-	lst = NULL;
+	*lst = NULL;
 }

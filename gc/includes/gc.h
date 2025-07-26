@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 01:16:39 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/29 02:29:18 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/27 00:37:48 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ char	*gc_substr(char const *s, unsigned int start, size_t len);
 void	gc_lstdelone(t_list *lst, void (*del)(void *));
 void	gc_lstclear(t_list **lst, void (*del)(void *));
 // void	gc_bzero(void *s, size_t n);
+void	*gc_track(void *ptr);
+void	gc_print_leaks(void);
 
 #endif

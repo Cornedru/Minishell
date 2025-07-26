@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oligrien <oligrien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:09:10 by oligrien          #+#    #+#             */
-/*   Updated: 2025/06/27 00:11:11 by oligrien         ###   ########.fr       */
+/*   Updated: 2025/07/27 00:24:26 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,27 @@ void	*gc_malloc(size_t size)
 
 	if (!size)
 		return (NULL);
+
 	head = gc_get_head();
 	node = (t_mem *)malloc(sizeof(t_mem));
 	if (!node)
 		return (NULL);
 	ft_bzero(node, sizeof(t_mem));
+
 	node->mem = malloc(size);
+	if (!node->mem)
+	{
+		free(node);
+		return (NULL);
+	}
 	ft_bzero(node->mem, size);
+
 	node->next = *head;
 	*head = node;
+
 	return (node->mem);
 }
+
 
 /**
  * gc_free - free an allocated memory

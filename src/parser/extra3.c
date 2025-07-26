@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/15 02:50:12 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/27 01:00:30 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,6 @@ t_ast	*parse_line(char *line, t_sys *sys)
 	}
 	ast = parse(&tokens);
 	free_tokens(tokens);
+	// gc_free(line);
 	return (ast);
 }

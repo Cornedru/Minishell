@@ -377,6 +377,17 @@ typedef enum e_ast_type
 	AST_OR				// ||
 }								t_ast_type;
 
+typedef struct s_gc_node {
+	void				*ptr;
+	struct s_gc_node	*next;
+}	t_gc_node;
+
+typedef struct s_gc {
+	t_gc_node	*permanent;
+	t_gc_node	*temporary;
+}	t_gc;
+
+
 typedef struct s_ast
 {
 	t_ast_type					type;
@@ -414,6 +425,7 @@ typedef struct s_sys
 	char						**envp;
 	int							exit_status;
 	int							exit;
+	t_gc						*gc;
 }								t_sys;
 
 typedef struct s_expand_params

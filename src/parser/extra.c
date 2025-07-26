@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:00:00 by ndehmej           #+#    #+#             */
-/*   Updated: 2025/07/15 02:57:18 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/26 23:52:34 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_ast	*parse_simple_command(t_token **tokens)
 	i = 0;
 	while (*tokens && (*tokens)->type == TOKEN_WORD && i < count)
 	{
-		args[i] = remove_quotes((*tokens)->value);
+		// args[i] = remove_quotes((*tokens)->value);
 		if (!args[i])
 			args[i] = gc_strdup((*tokens)->value);
 		advance_token(tokens);
