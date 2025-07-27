@@ -6,7 +6,7 @@
 /*   By: ndehmej <ndehmej@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 22:59:21 by oligrien          #+#    #+#             */
-/*   Updated: 2025/07/27 00:18:18 by ndehmej          ###   ########.fr       */
+/*   Updated: 2025/07/27 02:51:04 by ndehmej          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 static void	set_shlvl(t_sys *sys)
 {
 	char	*tmp;
+	char	*new_shlvl_str;
 	int		shlvl;
 
 	tmp = gc_strdup(get_env_var("SHLVL", sys->env_lst));
 	shlvl = ft_atoi(tmp) + 1;
 	if (tmp)
 		shlvl++;
-	set_env_var(sys, &sys->env_lst, "SHLVL", ft_itoa(shlvl));
-	gc_free(tmp);
+	new_shlvl_str = ft_itoa(shlvl);
+	set_env_var(sys, &sys->env_lst, "SHLVL", new_shlvl_str);
+	free(new_shlvl_str);
 }
+
+
 
 /**
  * pull_env -  copy envp array into linked list

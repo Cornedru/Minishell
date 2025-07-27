@@ -387,6 +387,12 @@ typedef struct s_gc {
 	t_gc_node	*temporary;
 }	t_gc;
 
+// typedef struct  s_env {
+//     char *name;   
+//     char *content; 
+//     struct s_env *next;
+// } 	t_env;
+
 
 typedef struct s_ast
 {

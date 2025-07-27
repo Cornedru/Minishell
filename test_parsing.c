@@ -91,6 +91,9 @@ void gc_clear_all(t_gc *gc)
     t_gc_node *node;
     t_gc_node *tmp;
 
+	node = NULL;
+	if (!node)
+		return;
     // Libérer la liste permanente
     node = gc->permanent;
     while (node)
@@ -114,23 +117,81 @@ void gc_clear_all(t_gc *gc)
     gc->temporary = NULL;
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_sys	*sys;
-	int		exit_status;
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_sys	*sys;
+// 	int		exit_status;
 
-	(void)argc;
-	(void)argv;
-	setup_signals();
-	if (init_shell(&sys, envp))
-		return (1);
-	exit_status = shell_loop(sys);
+// 	(void)argc;
+// 	(void)argv;
+// 	setup_signals();
+// 	if (init_shell(&sys, envp))
+// 		return (1);
+// 	exit_status = shell_loop(sys);
 
-	// Affiche les fuites mémoire avant de détruire le GC
-	gc_print_leaks();    // 🔍 DEBUG
+// 	// Affiche les fuites mémoire avant de détruire le GC
+// 	gc_print_leaks();    // 🔍 DEBUG
 	
-	// gc_clear_all(sys->gc);
-	gc_destroy();
-	rl_clear_history();
-	return (exit_status);
+// 	// gc_clear_all(sys->gc);
+// 	gc_destroy();
+// 	rl_clear_history();
+// 	return (exit_status);
+// }
+
+int main(int argc, char **argv, char **envp)
+{
+    t_sys *sys;
+    int exit_status;
+
+    (void)argc;
+    (void)argv;
+    setup_signals();
+    if (init_shell(&sys, envp))
+        return (1);
+    exit_status = shell_loop(sys);
+
+    // Affiche les fuites pour debug
+    gc_clear_all(sys->gc);      
+    gc_destroy();               
+    rl_clear_history();
+    return (exit_status);
 }
+// Exemple pour libérer sys->env_lst si c'est une liste chaînée
+// void free_env_lst(t_env *env_lst)
+// {
+//     t_env *tmp;
+//     while (env_lst)
+//     {
+//         tmp = env_lst->next;
+//         free(env_lst->name);     
+//         free(env_lst->content);  
+//         free(env_lst);
+//         env_lst = tmp;
+//     }
+// }
+
+
+
+// int main(int argc, char **argv, char **envp)
+// {
+//     t_sys *sys;
+//     int exit_status;
+
+//     (void)argc;
+//     (void)argv;
+//     setup_signals();
+//     if (init_shell(&sys, envp))
+//         return (1);
+//     exit_status = shell_loop(sys);
+
+//     rl_clear_history();
+
+//     gc_clear_all(sys->gc);
+//     gc_destroy();
+
+//     free_env_lst(sys->env_lst);  
+//     free(sys->gc);              
+//     free(sys);
+
+//     return (exit_status);
+// }
